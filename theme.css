@@ -86,7 +86,8 @@ body:not(.is-mobile) {
 /* ==========================================================================
    DARK THEME: doom-one (Default)
    ========================================================================== */
-.theme-dark {
+.theme-dark,
+body.theme-dark.doom-palette-one {
   /* Official doom-one palette */
   --doom-bg: #282c34;
   --doom-bg-alt: #21242b;
@@ -300,7 +301,8 @@ body.theme-dark.doom-palette-gruvbox {
 /* ==========================================================================
    LIGHT THEME: doom-one-light (Default)
    ========================================================================== */
-.theme-light {
+.theme-light,
+body.theme-light.doom-palette-one-light {
   /* Official doom-one-light palette */
   --doom-bg: #fafafa;
   --doom-bg-alt: #f0f0f0;
