@@ -1,0 +1,2715 @@
+/* ==========================================================================
+   DoomEsque Theme for Obsidian
+   Inspired by hlissner's emacs-doom-themes (doom-one & doom-one-light)
+   Features:
+   - Authentic doom-one (dark) & doom-one-light (light) color palettes
+   - Full RGB & semantic harmony across all 5 palettes (doom-one, doom-vibrant,
+     doom-dracula, doom-tokyo-night, doom-gruvbox)
+   - Org-mode inspired rainbow headings & org-superstar bullets
+   - Doom-modeline styled bottom status bar with DOOM mode badge & flat tab chrome
+   - Treemacs / Dired styled file explorer & settings navigation
+   - Vertico / Ivy / Which-key styled command palette, menus, & modals
+   - Authentic syntax highlighting (PrismJS & CodeMirror 6 font-lock faces)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Base Theme Palette & Geometry Definitions
+   -------------------------------------------------------------------------- */
+body {
+  /* Typography (includes ui-monospace & SF Mono so iOS/iPadOS/macOS never fall back to Courier) */
+  --font-monospace-doom: "JetBrains Mono", "Iosevka", "Fira Code", "Source Code Pro", "Cascadia Code", ui-monospace, "SF Mono", "Menlo", "Monaco", monospace;
+  --font-sans-doom: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Geometry & Chrome (Doom Emacs flat aesthetic) */
+  --radius-s: 2px;
+  --radius-m: 4px;
+  --radius-l: 6px;
+  --radius-xl: 8px;
+  --input-radius: 4px;
+  --tab-radius: 0px;
+  --tab-radius-active: 0px;
+  --toggle-radius: 12px;
+  --toggle-thumb-radius: 50%;
+  --border-width: 1px;
+
+  /* Settings & UI Card Geometry */
+  --setting-items-background: var(--doom-bg-alt);
+  --setting-items-border-color: var(--doom-base3);
+  --setting-items-border-width: 1px;
+  --setting-items-divider-color: var(--doom-base2);
+  --setting-items-divider-width: 1px;
+  --setting-items-radius: 6px;
+  --setting-items-padding-x: 18px;
+  --setting-items-padding-y: 13px;
+
+  /* Line Spacing, Paragraph & List Rhythm */
+  --line-height-normal: 1.65;
+  --line-height-tight: 1.35;
+  --p-spacing: 1.15rem;
+  --heading-spacing: 1.85rem;
+  --list-spacing: 0.22em;
+  --list-indent: 1.75em;
+  --file-line-width: 46rem;
+  --popover-width: 550px;
+  --popover-height: 420px;
+
+  /* Org-mode Heading Scale */
+  --h1-size: 1.48em;
+  --h2-size: 1.30em;
+  --h3-size: 1.16em;
+  --h4-size: 1.06em;
+  --h5-size: 1.00em;
+  --h6-size: 0.94em;
+
+  --h1-line-height: 1.3;
+  --h2-line-height: 1.32;
+  --h3-line-height: 1.35;
+  --h4-line-height: 1.38;
+  --h5-line-height: 1.4;
+  --h6-line-height: 1.4;
+
+  --h1-weight: 700;
+  --h2-weight: 700;
+  --h3-weight: 600;
+  --h4-weight: 600;
+  --h5-weight: 600;
+  --h6-weight: 600;
+}
+
+body:not(.is-mobile) {
+  --header-height: 36px;
+  --status-bar-position: fixed;
+  --input-height: 30px;
+  --file-margins: 28px 36px;
+}
+
+/* ==========================================================================
+   DARK THEME: doom-one (Default)
+   ========================================================================== */
+.theme-dark {
+  /* Official doom-one palette */
+  --doom-bg: #282c34;
+  --doom-bg-alt: #21242b;
+  --doom-base0: #1b2229;
+  --doom-base1: #1c1f24;
+  --doom-base2: #202328;
+  --doom-base3: #23272e;
+  --doom-base4: #3f444a;
+  --doom-base5: #5b6268;
+  --doom-base6: #73797e;
+  --doom-base7: #9ca0a4;
+  --doom-base8: #dfdfdf;
+  --doom-fg: #bbc2cf;
+  --doom-fg-alt: #5b6268;
+
+  --doom-red: #ff6c6b;
+  --doom-orange: #da8548;
+  --doom-green: #98be65;
+  --doom-teal: #4db5bd;
+  --doom-yellow: #ecbe7b;
+  --doom-blue: #51afef;
+  --doom-dark-blue: #2257a0;
+  --doom-magenta: #c678dd;
+  --doom-violet: #a9a1e1;
+  --doom-cyan: #46d9ff;
+  --doom-dark-cyan: #5699af;
+
+  /* RGB helpers for alpha transparencies */
+  --doom-blue-rgb: 81, 175, 239;
+  --doom-magenta-rgb: 198, 120, 221;
+  --doom-green-rgb: 152, 190, 101;
+  --doom-yellow-rgb: 236, 190, 123;
+  --doom-red-rgb: 255, 108, 107;
+  --doom-orange-rgb: 218, 133, 72;
+  --doom-cyan-rgb: 70, 217, 255;
+  --doom-violet-rgb: 169, 161, 225;
+  --doom-teal-rgb: 77, 181, 189;
+
+  /* Modeline colors */
+  --doom-modeline-bg: #1d2026;
+  --doom-modeline-fg: #bbc2cf;
+  --doom-modeline-bar: var(--doom-blue);
+  --doom-modeline-badge-bg: var(--doom-blue);
+  --doom-modeline-badge-fg: #1b2229;
+}
+
+/* Optional Dark Variant: doom-vibrant */
+body.theme-dark.doom-palette-vibrant {
+  --doom-bg: #242730;
+  --doom-bg-alt: #1c1f24;
+  --doom-base0: #1c1f24;
+  --doom-base1: #1c1f24;
+  --doom-base2: #21272d;
+  --doom-base3: #23272e;
+  --doom-base4: #484854;
+  --doom-base5: #62686e;
+  --doom-base6: #757b80;
+  --doom-base7: #9ca0a4;
+  --doom-base8: #dfdfdf;
+  --doom-fg: #bbc2cf;
+  --doom-fg-alt: #5d656b;
+
+  --doom-red: #ff665c;
+  --doom-orange: #e69055;
+  --doom-green: #7bc275;
+  --doom-teal: #4db5bd;
+  --doom-yellow: #fccb7e;
+  --doom-blue: #51afef;
+  --doom-dark-blue: #1f5582;
+  --doom-magenta: #c57bdb;
+  --doom-violet: #a991f1;
+  --doom-cyan: #5cefff;
+
+  --doom-blue-rgb: 81, 175, 239;
+  --doom-magenta-rgb: 197, 123, 219;
+  --doom-green-rgb: 123, 194, 117;
+  --doom-yellow-rgb: 252, 203, 126;
+  --doom-red-rgb: 255, 102, 92;
+  --doom-orange-rgb: 230, 144, 85;
+  --doom-cyan-rgb: 92, 239, 255;
+  --doom-violet-rgb: 169, 145, 241;
+  --doom-teal-rgb: 77, 181, 189;
+
+  --doom-modeline-bg: #181a20;
+  --doom-modeline-badge-fg: #181a20;
+}
+
+/* Optional Dark Variant: doom-dracula */
+body.theme-dark.doom-palette-dracula {
+  --doom-bg: #282a36;
+  --doom-bg-alt: #1e2029;
+  --doom-base0: #1e2029;
+  --doom-base1: #282a36;
+  --doom-base2: #373844;
+  --doom-base3: #44475a;
+  --doom-base4: #565761;
+  --doom-base5: #6272a4;
+  --doom-base6: #b6b6b2;
+  --doom-base7: #ccccc7;
+  --doom-base8: #f8f8f2;
+  --doom-fg: #f8f8f2;
+  --doom-fg-alt: #6272a4;
+
+  --doom-red: #ff5555;
+  --doom-orange: #ffb86c;
+  --doom-green: #50fa7b;
+  --doom-teal: #0189cc;
+  --doom-yellow: #f1fa8c;
+  --doom-blue: #bd93f9;
+  --doom-dark-blue: #6272a4;
+  --doom-magenta: #ff79c6;
+  --doom-violet: #bd93f9;
+  --doom-cyan: #8be9fd;
+
+  --doom-blue-rgb: 189, 147, 249;
+  --doom-magenta-rgb: 255, 121, 198;
+  --doom-green-rgb: 80, 250, 123;
+  --doom-yellow-rgb: 241, 250, 140;
+  --doom-red-rgb: 255, 85, 85;
+  --doom-orange-rgb: 255, 184, 108;
+  --doom-cyan-rgb: 139, 233, 253;
+  --doom-violet-rgb: 189, 147, 249;
+  --doom-teal-rgb: 1, 137, 204;
+
+  --doom-modeline-bg: #191a22;
+  --doom-modeline-badge-fg: #191a22;
+}
+
+/* Optional Dark Variant: doom-tokyo-night */
+body.theme-dark.doom-palette-tokyo-night {
+  --doom-bg: #1a1b26;
+  --doom-bg-alt: #16161e;
+  --doom-base0: #13141c;
+  --doom-base1: #16161e;
+  --doom-base2: #1f2335;
+  --doom-base3: #24283b;
+  --doom-base4: #414868;
+  --doom-base5: #565f89;
+  --doom-base6: #737aa2;
+  --doom-base7: #9aa5ce;
+  --doom-base8: #c0caf5;
+  --doom-fg: #a9b1d6;
+  --doom-fg-alt: #565f89;
+
+  --doom-red: #f7768e;
+  --doom-orange: #ff9e64;
+  --doom-green: #9ece6a;
+  --doom-teal: #73daca;
+  --doom-yellow: #e0af68;
+  --doom-blue: #7aa2f7;
+  --doom-dark-blue: #3d59a1;
+  --doom-magenta: #bb9af7;
+  --doom-violet: #9d7cd8;
+  --doom-cyan: #7dcfff;
+
+  --doom-blue-rgb: 122, 162, 247;
+  --doom-magenta-rgb: 187, 154, 247;
+  --doom-green-rgb: 158, 206, 106;
+  --doom-yellow-rgb: 224, 175, 104;
+  --doom-red-rgb: 247, 118, 142;
+  --doom-orange-rgb: 255, 158, 100;
+  --doom-cyan-rgb: 125, 207, 255;
+  --doom-violet-rgb: 157, 124, 216;
+  --doom-teal-rgb: 115, 218, 202;
+
+  --doom-modeline-bg: #13141c;
+  --doom-modeline-badge-fg: #13141c;
+}
+
+/* Optional Dark Variant: doom-gruvbox */
+body.theme-dark.doom-palette-gruvbox {
+  --doom-bg: #282828;
+  --doom-bg-alt: #1d2021;
+  --doom-base0: #0d1011;
+  --doom-base1: #1d2021;
+  --doom-base2: #282828;
+  --doom-base3: #3c3836;
+  --doom-base4: #504945;
+  --doom-base5: #665c54;
+  --doom-base6: #7c6f64;
+  --doom-base7: #a89984;
+  --doom-base8: #ebdbb2;
+  --doom-fg: #ebdbb2;
+  --doom-fg-alt: #928374;
+
+  --doom-red: #fb4934;
+  --doom-orange: #fe8019;
+  --doom-green: #b8bb26;
+  --doom-teal: #8ec07c;
+  --doom-yellow: #fabd2f;
+  --doom-blue: #83a598;
+  --doom-dark-blue: #458588;
+  --doom-magenta: #d3869b;
+  --doom-violet: #b16286;
+  --doom-cyan: #8ec07c;
+
+  --doom-blue-rgb: 131, 165, 152;
+  --doom-magenta-rgb: 211, 134, 155;
+  --doom-green-rgb: 184, 187, 38;
+  --doom-yellow-rgb: 250, 189, 47;
+  --doom-red-rgb: 251, 73, 52;
+  --doom-orange-rgb: 254, 128, 25;
+  --doom-cyan-rgb: 142, 192, 124;
+  --doom-violet-rgb: 177, 98, 134;
+  --doom-teal-rgb: 142, 192, 124;
+
+  --doom-modeline-bg: #1d2021;
+  --doom-modeline-badge-fg: #1d2021;
+}
+
+/* ==========================================================================
+   LIGHT THEME: doom-one-light (Default)
+   ========================================================================== */
+.theme-light {
+  /* Official doom-one-light palette */
+  --doom-bg: #fafafa;
+  --doom-bg-alt: #f0f0f0;
+  --doom-base0: #f0f0f0;
+  --doom-base1: #e7e7e7;
+  --doom-base2: #dfdfdf;
+  --doom-base3: #c6c7c7;
+  --doom-base4: #9ca0a4;
+  --doom-base5: #383a42;
+  --doom-base6: #202328;
+  --doom-base7: #1c1f24;
+  --doom-base8: #1b2229;
+  --doom-fg: #383a42;
+  --doom-fg-alt: #a0a1a7;
+
+  --doom-red: #e45649;
+  --doom-orange: #da8548;
+  --doom-green: #50a14f;
+  --doom-teal: #4db5bd;
+  --doom-yellow: #986801;
+  --doom-blue: #4078f2;
+  --doom-dark-blue: #a0bcf8;
+  --doom-magenta: #a626a4;
+  --doom-violet: #b751b6;
+  --doom-cyan: #0184bc;
+  --doom-dark-cyan: #005478;
+
+  /* RGB helpers */
+  --doom-blue-rgb: 64, 120, 242;
+  --doom-magenta-rgb: 166, 38, 164;
+  --doom-green-rgb: 80, 161, 79;
+  --doom-yellow-rgb: 152, 104, 1;
+  --doom-red-rgb: 228, 86, 73;
+  --doom-orange-rgb: 218, 133, 72;
+  --doom-cyan-rgb: 1, 132, 188;
+  --doom-violet-rgb: 183, 81, 182;
+  --doom-teal-rgb: 77, 181, 189;
+
+  /* Modeline colors */
+  --doom-modeline-bg: #e7e7e7;
+  --doom-modeline-fg: #383a42;
+  --doom-modeline-bar: var(--doom-blue);
+  --doom-modeline-badge-bg: var(--doom-blue);
+  --doom-modeline-badge-fg: #fafafa;
+}
+
+/* --------------------------------------------------------------------------
+   2. Obsidian Core Variable Mapping (Both Dark & Light)
+   -------------------------------------------------------------------------- */
+.theme-dark,
+.theme-light {
+  /* Backgrounds */
+  --background-primary: var(--doom-bg);
+  --background-primary-alt: var(--doom-bg-alt);
+  --background-secondary: var(--doom-bg-alt);
+  --background-secondary-alt: var(--doom-base0);
+
+  --background-modifier-hover: rgba(var(--doom-blue-rgb), 0.12);
+  --background-modifier-active-hover: rgba(var(--doom-blue-rgb), 0.18);
+  --background-modifier-border: var(--doom-base3);
+  --background-modifier-border-hover: var(--doom-base4);
+  --background-modifier-border-focus: var(--doom-blue);
+  --background-modifier-error: var(--doom-red);
+  --background-modifier-error-rgb: var(--doom-red-rgb);
+  --background-modifier-error-hover: var(--doom-red);
+  --background-modifier-success: var(--doom-green);
+  --background-modifier-success-rgb: var(--doom-green-rgb);
+  --background-modifier-message: var(--doom-base2);
+  --background-modifier-form-field: var(--doom-base0);
+
+  /* Text */
+  --text-normal: var(--doom-fg);
+  --text-muted: var(--doom-base6);
+  --text-faint: var(--doom-base5);
+  --text-on-accent: var(--doom-base0);
+  --text-error: var(--doom-red);
+  --text-warning: var(--doom-orange);
+  --text-success: var(--doom-green);
+  --text-selection: rgba(var(--doom-blue-rgb), 0.25);
+  --text-highlight-bg: rgba(var(--doom-yellow-rgb), 0.26);
+  --text-accent: var(--doom-blue);
+  --text-accent-hover: var(--doom-cyan);
+
+  /* Interactive & Accents */
+  --interactive-normal: var(--doom-base2);
+  --interactive-hover: var(--doom-base3);
+  --interactive-accent: var(--doom-blue);
+  --interactive-accent-rgb: var(--doom-blue-rgb);
+  --interactive-accent-hover: var(--doom-cyan);
+
+  /* Named Colors for Callouts, Canvas, Graph */
+  --color-red: var(--doom-red);
+  --color-red-rgb: var(--doom-red-rgb);
+  --color-orange: var(--doom-orange);
+  --color-orange-rgb: var(--doom-orange-rgb);
+  --color-yellow: var(--doom-yellow);
+  --color-yellow-rgb: var(--doom-yellow-rgb);
+  --color-green: var(--doom-green);
+  --color-green-rgb: var(--doom-green-rgb);
+  --color-cyan: var(--doom-cyan);
+  --color-cyan-rgb: var(--doom-cyan-rgb);
+  --color-blue: var(--doom-blue);
+  --color-blue-rgb: var(--doom-blue-rgb);
+  --color-purple: var(--doom-violet);
+  --color-purple-rgb: var(--doom-violet-rgb);
+  --color-pink: var(--doom-magenta);
+  --color-pink-rgb: var(--doom-magenta-rgb);
+
+  /* Org-mode Rainbow Headings (doom-one standard org-level-1..6 faces) */
+  --h1-color: var(--doom-blue);
+  --h2-color: var(--doom-magenta);
+  --h3-color: var(--doom-violet);
+  --h4-color: var(--doom-orange);
+  --h5-color: var(--doom-green);
+  --h6-color: var(--doom-teal);
+
+  /* Markdown Elements */
+  --bold-color: var(--doom-orange);
+  --italic-color: var(--doom-green);
+  --blockquote-border-color: var(--doom-magenta);
+  --blockquote-border-thickness: 3px;
+  --blockquote-background-color: rgba(var(--doom-magenta-rgb), 0.05);
+  --blockquote-color: var(--doom-base7);
+
+  /* Links (Org-link style: bright blue, subtle underline) */
+  --link-color: var(--doom-blue);
+  --link-color-hover: var(--doom-cyan);
+  --link-unresolved-color: var(--doom-orange);
+  --link-unresolved-opacity: 0.88;
+  --link-external-color: var(--doom-teal);
+  --link-external-color-hover: var(--doom-cyan);
+
+  /* Tags (Org-tag style: `:tag:` look) */
+  --tag-color: var(--doom-yellow);
+  --tag-color-hover: var(--doom-orange);
+  --tag-background: rgba(var(--doom-yellow-rgb), 0.12);
+  --tag-background-hover: rgba(var(--doom-yellow-rgb), 0.22);
+  --tag-border-color: rgba(var(--doom-yellow-rgb), 0.3);
+  --tag-border-width: 1px;
+  --tag-radius: 3px;
+  --tag-padding-x: 0.5em;
+  --tag-padding-y: 0.15em;
+
+  /* Code & Syntax Highlighting (Doom Emacs font-lock faces) */
+  --code-background: var(--doom-base1);
+  --code-normal: var(--doom-fg);
+  --code-comment: var(--doom-base5);
+  --code-function: var(--doom-magenta);
+  --code-important: var(--doom-red);
+  --code-keyword: var(--doom-blue);
+  --code-operator: var(--doom-cyan);
+  --code-property: var(--doom-violet);
+  --code-punctuation: var(--doom-base7);
+  --code-string: var(--doom-green);
+  --code-tag: var(--doom-red);
+  --code-value: var(--doom-orange);
+
+  /* Tabs & Workspace Chrome */
+  --tab-background-active: var(--doom-bg);
+  --tab-text-color: var(--doom-base5);
+  --tab-text-color-active: var(--doom-fg);
+  --tab-text-color-focused: var(--doom-fg);
+  --tab-text-color-focused-active: var(--doom-blue);
+  --tab-text-color-focused-active-current: var(--doom-blue);
+  --tab-container-background: var(--doom-base0);
+  --tab-divider-color: var(--doom-base2);
+  --tab-outline-color: var(--doom-base3);
+
+  /* Titlebar / Ribbon / Divider */
+  --titlebar-background: var(--doom-base0);
+  --titlebar-background-focused: var(--doom-base0);
+  --titlebar-text-color: var(--doom-base6);
+  --titlebar-text-color-focused: var(--doom-fg);
+  --ribbon-background: var(--doom-base0);
+  --ribbon-background-collapsed: var(--doom-base0);
+  --divider-color: var(--doom-base2);
+  --divider-color-hover: var(--doom-blue);
+  --divider-width: 1px;
+
+  /* Checkboxes (Org-mode TODO / DONE style) */
+  --checkbox-radius: 2px;
+  --checkbox-color: var(--doom-green);
+  --checkbox-color-hover: var(--doom-teal);
+  --checkbox-border-color: var(--doom-orange);
+  --checkbox-border-color-hover: var(--doom-yellow);
+  --checklist-done-color: var(--doom-base5);
+  --checklist-done-decoration: line-through;
+
+  /* Lists & Indentation Guides (highlight-indent-guides) */
+  --list-marker-color: var(--doom-blue);
+  --list-marker-color-hover: var(--doom-cyan);
+  --list-marker-color-collapsed: var(--doom-magenta);
+  --indentation-guide-color: var(--doom-base3);
+  --indentation-guide-color-active: var(--doom-blue);
+
+  /* Tables (Org-table style) */
+  --table-border-color: var(--doom-base4);
+  --table-header-background: var(--doom-base1);
+  --table-header-background-hover: var(--doom-base2);
+  --table-header-color: var(--doom-blue);
+  --table-header-weight: 700;
+  --table-row-alt-background: rgba(var(--doom-blue-rgb), 0.03);
+  --table-row-background-hover: rgba(var(--doom-blue-rgb), 0.08);
+
+  /* Properties / Metadata Drawer (Org :PROPERTIES: drawer) */
+  --metadata-background: var(--doom-bg-alt);
+  --metadata-border-color: var(--doom-base3);
+  --metadata-border-radius: 3px;
+  --metadata-border-width: 1px;
+  --metadata-divider-color: transparent;
+  --metadata-divider-color-hover: transparent;
+  --metadata-divider-color-focus: transparent;
+  --metadata-divider-width: 0px;
+  --metadata-gap: 6px;
+  --metadata-padding: 10px 12px;
+  --metadata-property-padding: 0px;
+  --metadata-property-radius: 3px;
+  --metadata-property-radius-hover: 3px;
+  --metadata-property-radius-focus: 3px;
+  --metadata-property-background: transparent;
+  --metadata-property-background-hover: transparent;
+  --metadata-property-background-active: transparent;
+  --metadata-input-background: var(--doom-base0);
+  --metadata-input-background-hover: var(--doom-base0);
+  --metadata-input-background-active: var(--doom-base0);
+  --metadata-label-background: var(--doom-base0);
+  --metadata-label-background-hover: var(--doom-base2);
+  --metadata-label-background-active: var(--doom-base2);
+  --metadata-label-text-color: var(--doom-cyan);
+  --metadata-input-text-color: var(--doom-fg);
+
+  /* Graph View */
+  --graph-line: var(--doom-base4);
+  --graph-node: var(--doom-blue);
+  --graph-node-unresolved: var(--doom-orange);
+  --graph-node-focused: var(--doom-magenta);
+  --graph-node-tag: var(--doom-green);
+  --graph-node-attachment: var(--doom-yellow);
+
+  /* Scrollbars */
+  --scrollbar-bg: transparent;
+  --scrollbar-thumb-bg: var(--doom-base3);
+  --scrollbar-active-thumb-bg: var(--doom-blue);
+}
+
+/* Light theme fine-tuning for contrast */
+.theme-light {
+  --code-comment: var(--doom-base4);
+  --blockquote-color: var(--doom-base5);
+  --tab-text-color: var(--doom-base4);
+  --checklist-done-color: var(--doom-base4);
+  --text-on-accent: #fafafa;
+}
+
+/* --------------------------------------------------------------------------
+   3. Typography & Monospace-First Aesthetic
+   -------------------------------------------------------------------------- */
+body:not(.doom-disable-monospace-ui) {
+  --font-interface-override: var(--font-monospace-doom);
+  --font-monospace-override: var(--font-monospace-doom);
+}
+
+body.doom-monospace-editor {
+  --font-text-override: var(--font-monospace-doom);
+}
+
+/* Refined Link Underlines (Org-link harmony) */
+.markdown-rendered a.internal-link,
+.markdown-rendered a.external-link,
+.cm-s-obsidian span.cm-hmd-internal-link,
+.cm-s-obsidian span.cm-link,
+.cm-s-obsidian span.cm-url {
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+/* --------------------------------------------------------------------------
+   4. Org-Mode Inspired Headings & org-superstar Bullets
+   -------------------------------------------------------------------------- */
+.HyperMD-header,
+.markdown-rendered h1,
+.markdown-rendered h2,
+.markdown-rendered h3,
+.markdown-rendered h4,
+.markdown-rendered h5,
+.markdown-rendered h6 {
+  font-family: var(--font-monospace-doom);
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+}
+
+/* Consistent top & bottom breathing room for headings in Reading & Live Preview */
+.markdown-rendered h1,
+.markdown-rendered h2,
+.markdown-rendered h3,
+.markdown-rendered h4,
+.markdown-rendered h5,
+.markdown-rendered h6 {
+  margin-top: calc(var(--heading-spacing, 1.85rem) * 0.78);
+  margin-bottom: calc(var(--heading-spacing, 1.85rem) * 0.24);
+}
+
+.cm-s-obsidian .HyperMD-header {
+  padding-top: calc(var(--heading-spacing, 1.85rem) * 0.35) !important;
+  padding-bottom: 0.2em !important;
+}
+
+/* Level 1 Heading has a subtle bottom border like Doom's org-level-1 */
+.markdown-rendered h1,
+.HyperMD-header-1 {
+  border-bottom: 1px solid var(--doom-base3);
+  padding-bottom: 0.22em !important;
+  margin-bottom: 0.5em;
+}
+
+body.doom-no-h1-border .markdown-rendered h1,
+body.doom-no-h1-border .HyperMD-header-1 {
+  border-bottom: none !important;
+}
+
+body.doom-monochrome-headings {
+  --h1-color: var(--doom-blue) !important;
+  --h2-color: var(--doom-blue) !important;
+  --h3-color: var(--doom-blue) !important;
+  --h4-color: var(--doom-blue) !important;
+  --h5-color: var(--doom-blue) !important;
+  --h6-color: var(--doom-blue) !important;
+}
+
+/* Color the `#` characters in Source mode / active line to match heading level */
+.cm-formatting-header-1 { color: var(--h1-color) !important; opacity: 0.75; }
+.cm-formatting-header-2 { color: var(--h2-color) !important; opacity: 0.75; }
+.cm-formatting-header-3 { color: var(--h3-color) !important; opacity: 0.75; }
+.cm-formatting-header-4 { color: var(--h4-color) !important; opacity: 0.75; }
+.cm-formatting-header-5 { color: var(--h5-color) !important; opacity: 0.75; }
+.cm-formatting-header-6 { color: var(--h6-color) !important; opacity: 0.75; }
+
+/* --------------------------------------------------------------------------
+   5. Doom Modeline Status Bar (Desktop)
+   -------------------------------------------------------------------------- */
+body:not(.is-mobile) .status-bar {
+  background-color: var(--doom-modeline-bg) !important;
+  color: var(--doom-modeline-fg) !important;
+  border-top: 1px solid var(--doom-base3) !important;
+  border-left: 1px solid var(--doom-base3) !important;
+  border-radius: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  padding: 0 8px 0 0 !important;
+  height: 26px !important;
+  min-height: 26px !important;
+  font-family: var(--font-monospace-doom) !important;
+  font-size: 11.5px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  box-shadow: none !important;
+}
+
+/* Signature Doom Modeline left vertical bar */
+body:not(.is-mobile) .status-bar::before {
+  content: "";
+  width: 3px;
+  height: 100%;
+  background-color: var(--doom-modeline-bar);
+  margin-right: 6px;
+}
+
+.status-bar-item {
+  padding: 0 8px !important;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  border-left: 1px solid var(--doom-base2);
+  color: var(--doom-fg);
+  transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+.status-bar-item:hover {
+  background-color: var(--doom-base2) !important;
+  color: var(--doom-blue) !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. Tabs & Window Chrome (Centaur-tabs / Doom Tab-bar look)
+   -------------------------------------------------------------------------- */
+.workspace-tab-header-container {
+  background-color: var(--doom-base0) !important;
+  border-bottom: 1px solid var(--doom-base2) !important;
+  box-sizing: border-box;
+}
+
+body:not(.is-mobile) .workspace-tab-header-container {
+  height: var(--header-height) !important;
+  min-height: var(--header-height) !important;
+  max-height: var(--header-height) !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Reset Obsidian's default `margin: 6px -5px 0; padding: 1px 5px 5px` which squishes 36px tab bars */
+body:not(.is-mobile) .workspace-tab-header-container-inner {
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100% !important;
+  display: flex;
+  align-items: center;
+}
+
+.workspace-tab-header {
+  background-color: var(--doom-base0);
+  border-right: 1px solid var(--doom-base2);
+  font-family: var(--font-monospace-doom);
+  font-size: 12.5px;
+  transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+body:not(.is-mobile) .mod-root .workspace-tab-header {
+  height: 100% !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 6px !important;
+}
+
+.workspace-tab-header::before,
+.workspace-tab-header::after {
+  display: none !important; /* Remove curved tab flares */
+}
+
+.workspace-tab-header:hover {
+  background-color: var(--doom-base2);
+}
+
+/* Active tab gets the signature Doom top bar indicator */
+.workspace-tab-header.is-active {
+  background-color: var(--doom-bg) !important;
+  color: var(--doom-fg) !important;
+  box-shadow: inset 0 2px 0 0 var(--doom-blue) !important;
+}
+
+.workspace-leaf.mod-active .workspace-tab-header.is-active {
+  box-shadow: inset 0 2px 0 0 var(--doom-magenta) !important;
+  color: var(--doom-blue) !important;
+}
+
+body:not(.is-mobile) .mod-root .workspace-tab-header-inner {
+  height: 100% !important;
+  padding: 0 8px !important;
+  border-radius: 0 !important;
+}
+
+/* Sidebar icon tabs above the file tree and at the top of the right sidebar */
+/* Ensure space for macOS traffic lights when the ribbon is hidden or sidebar is flush left */
+body.mod-macos.is-hidden-frameless:not(.is-fullscreen) .workspace-ribbon.mod-left.is-collapsed ~ .mod-left-split .workspace-tab-header-container,
+body.mod-macos.is-hidden-frameless:not(.is-fullscreen) .mod-left-split .workspace-tabs.mod-top-left-space .workspace-tab-header-container {
+  padding-left: calc(var(--frame-left-space, 76px) + 6px) !important;
+}
+
+body:not(.is-mobile) .mod-left-split .workspace-tab-header-container-inner,
+body:not(.is-mobile) .mod-right-split .workspace-tab-header-container-inner {
+  margin: 0 !important;
+  padding: 0 6px !important;
+  height: 100% !important;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+body:not(.is-mobile) .mod-left-split .workspace-tab-header,
+body:not(.is-mobile) .mod-right-split .workspace-tab-header {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px !important;
+  min-width: 28px;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: var(--doom-base0) !important;
+  border-right: none !important;
+  border-radius: 3px !important;
+}
+
+body:not(.is-mobile) .mod-left-split .workspace-tab-header:hover,
+body:not(.is-mobile) .mod-right-split .workspace-tab-header:hover {
+  background-color: var(--doom-base2) !important;
+  color: var(--doom-fg) !important;
+}
+
+body:not(.is-mobile) .mod-left-split .workspace-tab-header.is-active,
+body:not(.is-mobile) .mod-right-split .workspace-tab-header.is-active {
+  background-color: var(--doom-bg) !important;
+  color: var(--doom-blue) !important;
+  box-shadow: inset 0 2px 0 0 var(--doom-blue) !important;
+}
+
+body:not(.is-mobile) .mod-left-split .workspace-tab-header-inner,
+body:not(.is-mobile) .mod-right-split .workspace-tab-header-inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 8px !important;
+  border-radius: 3px !important;
+  background-color: transparent !important;
+}
+
+/* Action buttons bar directly above the file tree & sidebar panels (New note, New folder, Sort, Collapse) */
+.nav-header {
+  background-color: var(--doom-base0) !important;
+  padding: 6px 10px !important;
+  margin: 0 !important;
+  border-bottom: 1px solid var(--doom-base2) !important;
+  box-sizing: border-box !important;
+}
+
+body:not(.is-mobile) .nav-header {
+  min-height: var(--header-height) !important;
+  padding: 0 6px !important;
+  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box !important;
+}
+
+/* Note: Obsidian's File Explorer always injects a hidden `.search-input-container[style*="display: none"]` inside `.nav-header` */
+body:not(.is-mobile) .nav-header:not(:has(.search-input-container:not([style*="display: none"]))) {
+  height: var(--header-height) !important;
+  min-height: var(--header-height) !important;
+  max-height: var(--header-height) !important;
+  padding: 0 6px !important;
+}
+
+body:not(.is-mobile) .nav-header:has(.search-input-container:not([style*="display: none"])) {
+  height: auto !important;
+  padding: 4px 8px 6px 8px !important;
+}
+
+body:not(.is-mobile) .nav-header .search-input-container:not([style*="display: none"]) {
+  margin: 4px 2px 0 2px !important;
+}
+
+.nav-buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  box-sizing: border-box !important;
+}
+
+body:not(.is-mobile) .nav-buttons-container:not(.has-separator) {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.clickable-icon.nav-action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px !important;
+  min-width: 28px !important;
+  margin: 0 !important;
+  padding: 0 8px !important;
+  border-radius: 3px !important;
+  background-color: var(--doom-base0);
+  border: none !important;
+  color: var(--doom-base6);
+  box-sizing: border-box !important;
+  transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+.clickable-icon.nav-action-button:hover {
+  color: var(--doom-fg) !important;
+  background-color: var(--doom-base2) !important;
+}
+
+.clickable-icon.nav-action-button.is-active {
+  color: var(--doom-blue) !important;
+  background-color: var(--doom-bg) !important;
+  box-shadow: inset 0 2px 0 0 var(--doom-blue) !important;
+}
+
+/* View Header (Buffer header-line style) */
+.view-header {
+  background-color: var(--doom-bg-alt) !important;
+  border-bottom: 1px solid var(--doom-base2) !important;
+  font-family: var(--font-monospace-doom);
+  align-items: center;
+  margin: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  box-sizing: border-box !important;
+}
+
+body:not(.is-mobile) .view-header {
+  height: var(--header-height) !important;
+  min-height: var(--header-height) !important;
+  max-height: var(--header-height) !important;
+}
+
+.workspace-leaf.mod-active .view-header {
+  background-color: var(--doom-bg) !important;
+  border-bottom: 1px solid var(--doom-base2) !important;
+}
+
+.view-header-title,
+.view-header-breadcrumb {
+  font-family: var(--font-monospace-doom);
+  font-size: 12.5px;
+}
+
+.workspace-leaf.mod-active .view-header-title {
+  color: var(--doom-blue);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   7. File Explorer, Search & Sidebars (Treemacs / Dired Aesthetic)
+   -------------------------------------------------------------------------- */
+.workspace-sidedock-vault-profile {
+  background-color: var(--doom-base0) !important;
+  border-top: 1px solid var(--doom-base2) !important;
+  font-family: var(--font-monospace-doom);
+  padding: 8px 12px !important;
+}
+
+.nav-files-container,
+.view-content > .outline,
+.view-content > .tag-container,
+.view-content > .bookmarks-container {
+  font-family: var(--font-monospace-doom);
+  font-size: 13px;
+  line-height: 1.45;
+  padding: 8px 8px 16px 8px;
+}
+
+.tree-item-self {
+  border-radius: 3px;
+  padding: 4px 8px;
+  margin-bottom: 2px;
+  line-height: 1.4;
+  align-items: center;
+  border-left: 2px solid transparent;
+  transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+.tree-item-children {
+  margin-left: var(--doom-tree-indent, 14px);
+  padding-left: 6px;
+  border-left: 1px solid var(--doom-base2);
+}
+
+body.doom-sidebar-compact .tree-item-self {
+  padding-top: 1px !important;
+  padding-bottom: 1px !important;
+  font-size: 12px !important;
+}
+
+body.doom-sidebar-comfortable .tree-item-self {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+  font-size: 14px !important;
+}
+
+.tree-item-self.is-active,
+.nav-file-title.is-active,
+.nav-folder-title.is-active {
+  background-color: rgba(var(--doom-blue-rgb), 0.16) !important;
+  color: var(--doom-blue) !important;
+  border-left: 2px solid var(--doom-blue);
+  font-weight: 600;
+}
+
+/* Root vault title in Treemacs style (no extra bottom border to avoid dual lines under .nav-header) */
+.nav-folder.mod-root > .nav-folder-title {
+  color: var(--doom-magenta);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 11.5px;
+  border-bottom: none !important;
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+}
+
+.nav-folder-title {
+  color: var(--doom-blue);
+  font-weight: 500;
+}
+
+.nav-file-title {
+  color: var(--doom-fg);
+}
+
+/* File extension & search count badges in Dired / Treemacs muted style */
+.nav-file-tag,
+.tree-item-flair {
+  background-color: var(--doom-base2);
+  color: var(--doom-yellow);
+  border: 1px solid var(--doom-base3);
+  border-radius: 2px;
+  font-family: var(--font-monospace-doom);
+  font-size: 10px;
+  padding: 1px 5px;
+}
+
+/* Search inputs across sidebars, settings, and global search */
+.search-input-container input {
+  background-color: var(--doom-base0) !important;
+  border: 1px solid var(--doom-base3) !important;
+  border-radius: var(--input-radius) !important;
+  color: var(--doom-fg) !important;
+  font-family: var(--font-monospace-doom) !important;
+  box-shadow: none !important;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.search-input-container input:hover {
+  border-color: var(--doom-base4) !important;
+}
+
+.search-input-container input:focus {
+  border-color: var(--doom-blue) !important;
+  box-shadow: 0 0 0 2px rgba(var(--doom-blue-rgb), 0.2) !important;
+}
+
+/* Search results, Backlinks & Outgoing Links panels (Deadgrep / Ripgrep buffer style) */
+.search-results-info {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--doom-base2);
+  font-family: var(--font-monospace-doom);
+  font-size: 11.5px;
+  color: var(--doom-base6);
+  align-items: center;
+}
+
+.backlink-pane,
+.outgoing-link-pane {
+  font-family: var(--font-monospace-doom);
+  padding: 6px 8px 16px 8px;
+}
+
+.backlink-pane > .tree-item-self,
+.outgoing-link-pane > .tree-item-self {
+  color: var(--doom-violet);
+  font-weight: 700;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 6px 8px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--doom-base2);
+  border-radius: 0;
+}
+
+.search-result-container {
+  padding: 6px 8px 16px 8px;
+}
+
+.search-result-file-title {
+  font-family: var(--font-monospace-doom);
+  color: var(--doom-magenta);
+  font-weight: 600;
+}
+
+.search-result-file-matches {
+  font-family: var(--font-monospace-doom);
+  font-size: 12px;
+  background-color: var(--doom-base0);
+  border: 1px solid var(--doom-base3);
+  border-left: 2px solid var(--doom-blue);
+  border-radius: 3px;
+  margin: 4px 0 8px 8px;
+  padding: 2px 0;
+}
+
+.search-result-file-match {
+  padding: 5px 10px;
+  line-height: 1.45;
+  border-bottom: 1px solid var(--doom-base2);
+}
+
+.search-result-file-match:last-child {
+  border-bottom: none;
+}
+
+.search-result-file-matched-text {
+  background-color: rgba(var(--doom-yellow-rgb), 0.28);
+  color: var(--doom-yellow);
+  font-weight: 700;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+/* Left Ribbon (Doom fringe style) */
+.workspace-ribbon.mod-left {
+  background-color: var(--doom-base0);
+  border-right: 1px solid var(--doom-base2);
+}
+
+.side-dock-ribbon-action:hover {
+  color: var(--doom-blue);
+  background-color: var(--doom-base2);
+}
+
+/* --------------------------------------------------------------------------
+   8. Editor Buffer, Live Preview & Syntax Highlighting (Font-Lock Faces)
+   -------------------------------------------------------------------------- */
+/* Buffer Line Spacing & Rhythm */
+.markdown-source-view.mod-cm6 .cm-scroller,
+.markdown-preview-view {
+  line-height: var(--line-height-normal);
+}
+
+.markdown-source-view.mod-cm6 .cm-line {
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+/* Lists & Task Item Vertical Rhythm */
+.markdown-rendered ul > li,
+.markdown-rendered ol > li {
+  margin-top: var(--list-spacing, 0.22em);
+  margin-bottom: var(--list-spacing, 0.22em);
+  line-height: 1.6;
+}
+
+.cm-s-obsidian .HyperMD-list-line {
+  padding-top: calc(var(--list-spacing, 0.22em) * 0.65) !important;
+  padding-bottom: calc(var(--list-spacing, 0.22em) * 0.65) !important;
+}
+
+/* Active line highlight (`hl-line-mode`) */
+.cm-s-obsidian .cm-active.cm-line {
+  background-color: rgba(var(--doom-blue-rgb), 0.06);
+}
+
+body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
+  background-color: transparent !important;
+}
+
+/* Cursor (`evil-normal-state-cursor` / bar cursor) */
+.cm-s-obsidian .cm-cursor,
+.cm-s-obsidian .cm-dropCursor {
+  border-left-color: var(--doom-blue) !important;
+  border-left-width: 2px !important;
+}
+
+/* Vim Mode Normal/Visual Block Cursor */
+.cm-fat-cursor .cm-cursor,
+.cm-animate-fat-cursor {
+  background-color: rgba(var(--doom-blue-rgb), 0.75) !important;
+  color: var(--doom-base0) !important;
+}
+
+/* Line Numbers (`display-line-numbers-mode`) */
+.cm-s-obsidian .cm-gutters {
+  background-color: transparent !important;
+  border-right: 1px solid var(--doom-base2) !important;
+  color: var(--doom-base4) !important;
+  font-family: var(--font-monospace-doom) !important;
+  padding-right: 6px;
+}
+
+.cm-s-obsidian .cm-activeLineGutter {
+  color: var(--doom-blue) !important;
+  font-weight: 700;
+  background-color: transparent !important;
+}
+
+/* Matching Bracket Highlight (`show-paren-mode`) */
+.cm-s-obsidian .cm-matchingBracket {
+  background-color: rgba(var(--doom-magenta-rgb), 0.25) !important;
+  color: var(--doom-magenta) !important;
+  font-weight: 700;
+  border-bottom: 1px solid var(--doom-magenta);
+}
+
+/* Inline Title (Org `#+TITLE:` feel) */
+.inline-title {
+  font-family: var(--font-monospace-doom);
+  color: var(--doom-blue);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  border-bottom: 2px solid var(--doom-base3);
+  padding-bottom: 0.25em;
+  margin-bottom: 0.6em;
+}
+
+/* YAML Frontmatter / Properties Drawer (`:PROPERTIES:` drawer style) */
+.metadata-container {
+  background-color: var(--doom-bg-alt);
+  border: 1px solid var(--doom-base3);
+  border-left: 3px solid var(--doom-violet);
+  border-radius: 3px;
+  padding: 10px 12px;
+  margin-bottom: 1.2em;
+  font-family: var(--font-monospace-doom);
+  font-size: 0.9em;
+}
+
+.metadata-properties-heading {
+  color: var(--doom-violet);
+  font-family: var(--font-monospace-doom);
+  font-size: 0.85em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  padding: 2px 4px;
+}
+
+.metadata-properties {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.metadata-property {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.metadata-property:after {
+  display: none !important;
+}
+
+.metadata-property-key {
+  background-color: var(--doom-base0) !important;
+  border: 1px solid var(--doom-base3) !important;
+  border-radius: 3px !important;
+  padding: 2px 6px !important;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  color: var(--doom-cyan);
+  font-family: var(--font-monospace-doom);
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.metadata-property-key:hover {
+  border-color: var(--doom-base4) !important;
+}
+
+.metadata-property-key:focus-within {
+  border-color: var(--doom-blue) !important;
+  box-shadow: 0 0 0 2px rgba(var(--doom-blue-rgb), 0.2) !important;
+}
+
+.metadata-property-key .metadata-property-key-input {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--doom-cyan) !important;
+  font-family: var(--font-monospace-doom) !important;
+  padding: 2px 4px !important;
+}
+
+.metadata-property-value {
+  background-color: var(--doom-base0) !important;
+  border: 1px solid var(--doom-base3) !important;
+  border-radius: 3px !important;
+  padding: 2px 8px !important;
+  min-height: 30px;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.metadata-property-value:hover {
+  border-color: var(--doom-base4) !important;
+}
+
+.metadata-property-value:focus-within {
+  border-color: var(--doom-blue) !important;
+  box-shadow: 0 0 0 2px rgba(var(--doom-blue-rgb), 0.2) !important;
+}
+
+.metadata-property-value .metadata-input-longtext,
+.metadata-property-value .multi-select-container,
+.metadata-property-value input:not([type="checkbox"]) {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--doom-fg) !important;
+  font-family: var(--font-monospace-doom) !important;
+  width: 100%;
+  padding: 2px 4px;
+}
+
+.metadata-container .multi-select-pill {
+  background-color: rgba(var(--doom-blue-rgb), 0.14);
+  border: 1px solid rgba(var(--doom-blue-rgb), 0.35);
+  border-radius: 2px;
+  color: var(--doom-blue);
+  font-family: var(--font-monospace-doom);
+  font-size: 0.85em;
+  padding: 1px 6px;
+  margin: 2px 4px 2px 0;
+}
+
+.metadata-container .metadata-property[data-property-key="tags"] .multi-select-pill {
+  background-color: rgba(var(--doom-yellow-rgb), 0.14);
+  border-color: rgba(var(--doom-yellow-rgb), 0.35);
+  color: var(--doom-yellow);
+}
+
+.metadata-add-button {
+  margin-top: 8px;
+  padding: 4px 10px !important;
+  min-height: 28px;
+  background-color: var(--doom-base0) !important;
+  border: 1px dashed var(--doom-base4) !important;
+  border-radius: 3px !important;
+  color: var(--doom-base7) !important;
+  font-family: var(--font-monospace-doom);
+  font-size: 0.85em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+
+.metadata-add-button:hover {
+  background-color: var(--doom-base2) !important;
+  border-color: var(--doom-blue) !important;
+  border-style: solid !important;
+  color: var(--doom-blue) !important;
+}
+
+/* Code Blocks (`#+BEGIN_SRC ... #+END_SRC` Org block style) */
+.markdown-rendered pre,
+.cm-s-obsidian div.HyperMD-codeblock-bg {
+  background-color: var(--doom-base1) !important;
+  border-left: 3px solid var(--doom-blue);
+}
+
+.markdown-rendered pre {
+  border: 1px solid var(--doom-base3);
+  border-left: 3px solid var(--doom-blue);
+  border-radius: 3px;
+  padding: 14px 16px;
+  margin: 1.1em 0;
+  line-height: 1.5;
+  position: relative;
+}
+
+.cm-s-obsidian .HyperMD-codeblock {
+  line-height: 1.5 !important;
+  padding-left: 12px !important;
+}
+
+.cm-s-obsidian div.HyperMD-codeblock-begin-bg {
+  border-top: 1px solid var(--doom-base3);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.cm-s-obsidian div.HyperMD-codeblock-end-bg {
+  border-bottom: 1px solid var(--doom-base3);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.cm-s-obsidian .HyperMD-codeblock-begin,
+.cm-s-obsidian .HyperMD-codeblock-end {
+  color: var(--doom-base5) !important;
+  font-style: italic;
+}
+
+/* Doom Emacs Font-Lock Syntax Highlighting (PrismJS & CodeMirror 6) */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata,
+.cm-s-obsidian span.cm-comment {
+  color: var(--code-comment) !important;
+  font-style: italic;
+}
+
+.token.keyword,
+.token.atrule,
+.token.Important,
+.cm-s-obsidian span.cm-keyword {
+  color: var(--doom-blue) !important;
+  font-weight: 600;
+}
+
+.token.function,
+.token.method,
+.cm-s-obsidian span.cm-def,
+.cm-s-obsidian span.cm-variable-2 {
+  color: var(--doom-magenta) !important;
+}
+
+.token.class-name,
+.token.maybe-class-name,
+.token.namespace,
+.cm-s-obsidian span.cm-type,
+.cm-s-obsidian span.cm-variable-3 {
+  color: var(--doom-yellow) !important;
+}
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex,
+.cm-s-obsidian span.cm-string,
+.cm-s-obsidian span.cm-string-2 {
+  color: var(--doom-green) !important;
+}
+
+.token.number,
+.token.boolean,
+.token.constant,
+.token.symbol,
+.cm-s-obsidian span.cm-number,
+.cm-s-obsidian span.cm-atom {
+  color: var(--doom-orange) !important;
+}
+
+.token.operator,
+.token.entity,
+.token.builtin,
+.cm-s-obsidian span.cm-operator,
+.cm-s-obsidian span.cm-builtin {
+  color: var(--doom-cyan) !important;
+}
+
+.token.property,
+.token.attr-name,
+.token.variable,
+.cm-s-obsidian span.cm-property,
+.cm-s-obsidian span.cm-variable {
+  color: var(--doom-violet) !important;
+}
+
+.token.tag,
+.token.deleted,
+.cm-s-obsidian span.cm-tag {
+  color: var(--doom-red) !important;
+}
+
+/* Inline Code (`~code~` or `=verbatim=` in Org-mode) */
+.markdown-rendered :not(pre) > code,
+.cm-s-obsidian span.cm-inline-code {
+  background-color: var(--doom-base1);
+  color: var(--doom-orange);
+  border: 1px solid var(--doom-base3);
+  border-radius: 3px;
+  padding: 0.1em 0.35em;
+  font-family: var(--font-monospace-doom);
+  font-size: 0.9em;
+}
+
+/* Copy code button */
+.markdown-rendered button.copy-code-button {
+  background-color: var(--doom-base2);
+  color: var(--doom-base7);
+  border: 1px solid var(--doom-base3);
+  font-family: var(--font-monospace-doom);
+  font-size: 11px;
+  border-radius: 2px;
+}
+
+.markdown-rendered button.copy-code-button:hover {
+  background-color: var(--doom-blue);
+  color: var(--doom-base0);
+  border-color: var(--doom-blue);
+}
+
+/* Blockquotes (`#+BEGIN_QUOTE`) */
+.markdown-rendered blockquote,
+.cm-s-obsidian .HyperMD-quote {
+  border-left: 3px solid var(--doom-magenta) !important;
+  background-color: rgba(var(--doom-magenta-rgb), 0.05);
+  color: var(--doom-base7);
+  font-style: italic;
+  padding: 8px 16px;
+  margin: 1em 0;
+  line-height: 1.6;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Note Embeds & Transclusions (Org-transclusion block style) */
+.internal-embed.markdown-embed,
+.file-embed {
+  background-color: var(--doom-bg-alt);
+  border: 1px solid var(--doom-base3);
+  border-left: 3px solid var(--doom-cyan);
+  border-radius: 3px;
+  padding: 10px 16px;
+  margin: 0.85em 0;
+}
+
+.markdown-embed-title {
+  font-family: var(--font-monospace-doom);
+  color: var(--doom-cyan);
+  font-weight: 700;
+  font-size: 0.9em;
+}
+
+/* Hover Preview Popover (Posframe popup feel) */
+.hover-popover {
+  background-color: var(--doom-bg-alt) !important;
+  border: 1px solid var(--doom-blue) !important;
+  border-radius: 3px !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Ensure content fills 100% width and height of resized hover popovers */
+.popover.hover-popover > * {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.popover.hover-popover > .markdown-embed,
+.popover.hover-popover .markdown-embed,
+.popover.hover-popover .popover-content {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  max-height: none !important;
+  flex: 1 1 auto !important;
+  overflow: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+.popover.hover-popover .markdown-embed-content {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  max-height: none !important;
+  flex: 1 1 auto !important;
+  overflow: auto !important;
+}
+
+.popover.hover-popover .markdown-preview-view,
+.popover.hover-popover .markdown-source-view.mod-cm6,
+.popover.hover-popover .cm-editor,
+.popover.hover-popover .cm-scroller {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  max-height: none !important;
+  flex: 1 1 auto !important;
+  box-sizing: border-box !important;
+}
+
+.popover.hover-popover .markdown-preview-sizer {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 100% !important;
+  margin: 0 !important;
+  padding: 16px 20px !important;
+  box-sizing: border-box !important;
+}
+
+.popover.hover-popover .markdown-preview-section {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.popover.hover-popover .cm-content {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 14px 20px !important;
+}
+
+.popover.hover-popover .cm-line {
+  max-width: 100% !important;
+}
+
+/* Tables (Org-table grid borders & cell padding) */
+.markdown-rendered table,
+.cm-s-obsidian .cm-embed-block table {
+  margin: 1.1em 0;
+  border-collapse: collapse;
+  border: 1px solid var(--table-border-color);
+}
+
+.markdown-rendered th,
+.markdown-rendered td,
+.cm-s-obsidian .cm-embed-block table th,
+.cm-s-obsidian .cm-embed-block table td {
+  padding: 7px 12px;
+  line-height: 1.45;
+  border: 1px solid var(--table-border-color);
+}
+
+.markdown-rendered thead tr > th,
+.cm-s-obsidian .cm-embed-block table thead tr > th {
+  background-color: var(--table-header-background);
+  color: var(--table-header-color);
+  font-family: var(--font-monospace-doom);
+  font-weight: 700;
+  border-bottom: 2px solid var(--doom-blue);
+}
+
+/* In-Document Find & Replace Bar (Isearch / Swiper feel) */
+.document-search-container {
+  background-color: var(--doom-bg-alt) !important;
+  border-top: 1px solid var(--doom-base3) !important;
+  border-bottom: 1px solid var(--doom-base3) !important;
+  padding: 6px 12px !important;
+  gap: 6px;
+}
+
+.document-search-input,
+.document-replace-input {
+  background-color: var(--doom-base0) !important;
+  border: 1px solid var(--doom-base3) !important;
+  border-radius: var(--input-radius) !important;
+  color: var(--doom-fg) !important;
+  font-family: var(--font-monospace-doom) !important;
+}
+
+.document-search-input:focus,
+.document-replace-input:focus {
+  border-color: var(--doom-blue) !important;
+  box-shadow: 0 0 0 2px rgba(var(--doom-blue-rgb), 0.2) !important;
+}
+
+/* Tags (`:tag:` Org style) */
+a.tag,
+.cm-s-obsidian span.cm-hashtag {
+  font-family: var(--font-monospace-doom);
+  font-size: 0.88em;
+  color: var(--doom-yellow) !important;
+  background-color: rgba(var(--doom-yellow-rgb), 0.12);
+  border-color: rgba(var(--doom-yellow-rgb), 0.3);
+}
+
+/* Horizontal Rule */
+.markdown-rendered hr,
+.cm-s-obsidian .hr {
+  border-color: var(--doom-base3);
+  border-width: 1px;
+}
+
+/* --------------------------------------------------------------------------
+   9. Checkboxes & Task Lists (Org-mode TODO / DONE style)
+   -------------------------------------------------------------------------- */
+input[type="checkbox"].task-list-item-checkbox {
+  border-radius: 2px;
+  border: 1.5px solid var(--doom-orange);
+  background-color: var(--doom-base0);
+  transition: background-color 0.1s ease, border-color 0.1s ease;
+}
+
+input[type="checkbox"].task-list-item-checkbox:checked {
+  background-color: var(--doom-green);
+  border-color: var(--doom-green);
+}
+
+/* Optional Org-mode `TODO` / `DONE` badge prefixes on task items */
+body:not(.doom-no-org-todo) .markdown-rendered .task-list-item:not(.is-checked) > p::before,
+body:not(.doom-no-org-todo) .markdown-rendered .task-list-item:not(.is-checked)::before,
+body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task=" "] .cm-list-1::after {
+  content: "TODO ";
+  color: var(--doom-orange);
+  font-family: var(--font-monospace-doom);
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 0.03em;
+}
+
+body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task="x"] .cm-list-1::after,
+body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task="X"] .cm-list-1::after {
+  content: "DONE ";
+  color: var(--doom-green);
+  font-family: var(--font-monospace-doom);
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 0.03em;
+}
+
+/* Prevent double TODO pseudo-elements on nested paragraphs in Reading View */
+body:not(.doom-no-org-todo) .markdown-rendered .task-list-item:not(.is-checked):has(> p)::before {
+  content: none;
+}
+
+body:not(.doom-no-org-todo) .markdown-rendered .task-list-item.is-checked > p::before,
+body:not(.doom-no-org-todo) .markdown-rendered .task-list-item.is-checked:not(:has(> p))::before {
+  content: "DONE ";
+  color: var(--doom-green);
+  font-family: var(--font-monospace-doom);
+  font-weight: 700;
+  font-size: 0.85em;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  display: inline-block;
+  margin-right: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   9b. Indentation Guides & Nesting Styles (highlight-indent-guides / indent-bars)
+   -------------------------------------------------------------------------- */
+body.doom-indent-style-none .cm-indent,
+body.doom-indent-style-none .markdown-rendered ul ul,
+body.doom-indent-style-none .markdown-rendered ol ol,
+body.doom-indent-style-none .mod-indent-guide {
+  border-right: none !important;
+  border-left: none !important;
+  box-shadow: none !important;
+  opacity: 0 !important;
+}
+
+body.doom-indent-style-dashed .cm-indent {
+  border-right-style: dashed !important;
+}
+
+body.doom-indent-style-dashed .markdown-rendered ul ul,
+body.doom-indent-style-dashed .markdown-rendered ol ol {
+  border-left-style: dashed !important;
+}
+
+body.doom-indent-style-dotted .cm-indent {
+  border-right-style: dotted !important;
+}
+
+body.doom-indent-style-dotted .markdown-rendered ul ul,
+body.doom-indent-style-dotted .markdown-rendered ol ol {
+  border-left-style: dotted !important;
+}
+
+body.doom-indent-style-double .cm-indent {
+  border-right-style: double !important;
+}
+
+body.doom-indent-style-double .markdown-rendered ul ul,
+body.doom-indent-style-double .markdown-rendered ol ol {
+  border-left-style: double !important;
+}
+
+body.doom-indent-style-solid .cm-indent {
+  border-right-style: solid !important;
+}
+
+body.doom-indent-style-solid .markdown-rendered ul ul,
+body.doom-indent-style-solid .markdown-rendered ol ol {
+  border-left-style: solid !important;
+}
+
+/* Rainbow Indentation Guides (highlight-indent-guides rainbow level colors) */
+body.doom-rainbow-indent-guides .cm-indent:nth-of-type(6n + 1) {
+  border-right-color: var(--doom-blue) !important;
+}
+
+body.doom-rainbow-indent-guides .cm-indent:nth-of-type(6n + 2) {
+  border-right-color: var(--doom-magenta) !important;
+}
+
+body.doom-rainbow-indent-guides .cm-indent:nth-of-type(6n + 3) {
+  border-right-color: var(--doom-violet) !important;
+}
+
+body.doom-rainbow-indent-guides .cm-indent:nth-of-type(6n + 4) {
+  border-right-color: var(--doom-orange) !important;
+}
+
+body.doom-rainbow-indent-guides .cm-indent:nth-of-type(6n + 5) {
+  border-right-color: var(--doom-green) !important;
+}
+
+body.doom-rainbow-indent-guides .cm-indent:nth-of-type(6n + 6) {
+  border-right-color: var(--doom-cyan) !important;
+}
+
+body.doom-rainbow-indent-guides .markdown-rendered ul,
+body.doom-rainbow-indent-guides .markdown-rendered ol {
+  border-left-color: var(--doom-blue);
+}
+
+body.doom-rainbow-indent-guides .markdown-rendered ul ul,
+body.doom-rainbow-indent-guides .markdown-rendered ol ol {
+  border-left-color: var(--doom-magenta);
+}
+
+body.doom-rainbow-indent-guides .markdown-rendered ul ul ul,
+body.doom-rainbow-indent-guides .markdown-rendered ol ol ol {
+  border-left-color: var(--doom-violet);
+}
+
+body.doom-rainbow-indent-guides .markdown-rendered ul ul ul ul,
+body.doom-rainbow-indent-guides .markdown-rendered ol ol ol ol {
+  border-left-color: var(--doom-orange);
+}
+
+body.doom-rainbow-indent-guides .markdown-rendered ul ul ul ul ul,
+body.doom-rainbow-indent-guides .markdown-rendered ol ol ol ol ol {
+  border-left-color: var(--doom-green);
+}
+
+body.doom-rainbow-indent-guides .markdown-rendered ul ul ul ul ul ul,
+body.doom-rainbow-indent-guides .markdown-rendered ol ol ol ol ol ol {
+  border-left-color: var(--doom-cyan);
+}
+
+/* --------------------------------------------------------------------------
+   10. Command Palette, Modals, Menus, Settings & Controls (Vertico / Ivy)
+   -------------------------------------------------------------------------- */
+.prompt,
+.modal,
+.menu {
+  background-color: var(--doom-bg-alt) !important;
+  border: 1px solid var(--doom-blue) !important;
+  border-radius: 3px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55) !important;
+  font-family: var(--font-monospace-doom);
+  overflow: hidden;
+}
+
+/* Context Menus (Desktop & Mobile harmony) */
+.menu {
+  padding: 4px;
+}
+
+.menu-item {
+  font-family: var(--font-monospace-doom);
+  font-size: 12.5px;
+  border-radius: 2px;
+  padding: 5px 10px;
+  border-left: 2px solid transparent;
+}
+
+.menu-item:hover,
+.menu-item.selected:not(.is-disabled) {
+  background-color: rgba(var(--doom-blue-rgb), 0.16) !important;
+  color: var(--doom-blue) !important;
+  border-left-color: var(--doom-blue);
+}
+
+.menu-separator {
+  border-bottom: 1px solid var(--doom-base3);
+  margin: 4px 0;
+}
+
+/* Vertico/Ivy minibuffer prompt input (`M-x` style) */
+.prompt-input-container {
+  background-color: var(--doom-base0);
+  border-bottom: 1px solid var(--doom-base3);
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+}
+
+.prompt-input-container::before {
+  content: "M-x";
+  color: var(--doom-blue);
+  font-family: var(--font-monospace-doom);
+  font-weight: 700;
+  font-size: 13px;
+  margin-right: 8px;
+  padding: 2px 6px;
+  background-color: rgba(var(--doom-blue-rgb), 0.14);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+input.prompt-input {
+  background-color: transparent !important;
+  border: none !important;
+  font-family: var(--font-monospace-doom) !important;
+  font-size: 14px !important;
+  color: var(--doom-fg) !important;
+  box-shadow: none !important;
+}
+
+.suggestion-item {
+  font-family: var(--font-monospace-doom);
+  font-size: 13px;
+  border-radius: 2px;
+  padding: 6px 12px;
+  border-left: 2px solid transparent;
+}
+
+.suggestion-item.is-selected {
+  background-color: rgba(var(--doom-blue-rgb), 0.16) !important;
+  color: var(--doom-blue) !important;
+  border-left: 2px solid var(--doom-blue);
+}
+
+.suggestion-highlight {
+  color: var(--doom-magenta);
+  font-weight: 700;
+}
+
+.suggestion-hotkey,
+kbd {
+  background-color: var(--doom-base2) !important;
+  color: var(--doom-magenta) !important;
+  border: 1px solid var(--doom-base4) !important;
+  border-radius: 2px !important;
+  font-family: var(--font-monospace-doom) !important;
+  font-size: 11px !important;
+  box-shadow: none !important;
+}
+
+/* Settings Modal & Form Controls (Consistent Doom Emacs UI) */
+.modal.mod-settings {
+  border: none !important;
+}
+
+.modal.mod-settings,
+.modal.mod-settings .vertical-tabs-container {
+  background-color: var(--doom-bg) !important;
+  border-radius: 3px !important;
+  overflow: hidden;
+}
+
+.modal.mod-settings .vertical-tab-header {
+  background-color: var(--doom-bg-alt) !important;
+  border-right: 1px solid var(--doom-base3) !important;
+  padding: 8px 6px;
+}
+
+.modal.mod-settings .vertical-tab-header-group-title {
+  color: var(--doom-violet);
+  font-family: var(--font-monospace-doom);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 11px;
+  padding: 6px 8px 4px 8px;
+}
+
+.modal.mod-settings .vertical-tab-content-container,
+.modal.mod-settings .vertical-tab-content {
+  background-color: var(--doom-bg) !important;
+}
+
+.vertical-tab-nav-item {
+  font-family: var(--font-monospace-doom);
+  font-size: 12.5px;
+  border-radius: 2px;
+  border-left: 2px solid transparent;
+  padding: 6px 10px;
+  margin-bottom: 2px;
+}
+
+.vertical-tab-nav-item.is-active {
+  background-color: rgba(var(--doom-blue-rgb), 0.16) !important;
+  color: var(--doom-blue) !important;
+  border-left: 2px solid var(--doom-blue);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Settings Items Card & List Layout (Eliminating jarring square backgrounds & zero padding)
+   -------------------------------------------------------------------------- */
+
+/* Standalone setting items (core settings, plugins, style settings) */
+.setting-item:not(.setting-item-heading) {
+  background-color: var(--doom-bg-alt) !important;
+  border: 1px solid var(--doom-base3) !important;
+  border-radius: 6px !important;
+  padding: 13px 18px !important;
+  margin-bottom: 8px !important;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.setting-item:not(.setting-item-heading):hover {
+  background-color: var(--doom-base0) !important;
+  border-color: var(--doom-base4) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Grouped setting items container (.setting-items in Obsidian 1.5+) */
+.setting-items {
+  background-color: var(--doom-bg-alt) !important;
+  border: 1px solid var(--doom-base3) !important;
+  border-radius: 6px !important;
+  overflow: hidden;
+  margin-bottom: 14px !important;
+  padding: 0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.setting-items > .setting-item:not(.setting-item-heading) {
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  border-top: 1px solid var(--doom-base2) !important;
+  padding: 13px 18px !important;
+  margin-bottom: 0 !important;
+  box-shadow: none !important;
+}
+
+.setting-items > .setting-item:not(.setting-item-heading):first-child {
+  border-top: none !important;
+}
+
+.setting-items > .setting-item:not(.setting-item-heading):hover {
+  background-color: rgba(255, 255, 255, 0.025) !important;
+}
+
+/* Section Headings inside Settings */
+.setting-item.setting-item-heading {
+  background-color: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid var(--doom-base3) !important;
+  border-radius: 0 !important;
+  padding: 22px 4px 8px 4px !important;
+  margin: 18px 0 12px 0 !important;
+  color: var(--doom-blue) !important;
+  box-shadow: none !important;
+}
+
+.setting-item.setting-item-heading:first-child,
+.modal.mod-settings .vertical-tab-content > .setting-item-heading:first-child {
+  padding-top: 4px !important;
+  margin-top: 0 !important;
+}
+
+.setting-item.setting-item-heading .setting-item-name {
+  color: var(--doom-blue) !important;
+  font-family: var(--font-monospace-doom) !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+.setting-item.setting-item-heading .setting-item-description {
+  color: var(--doom-base6) !important;
+  font-size: 12px !important;
+  margin-top: 4px !important;
+}
+
+/* Setting Item Title & Description */
+.setting-item-name {
+  font-family: var(--font-monospace-doom);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--doom-fg);
+  margin-bottom: 3px;
+  line-height: 1.4;
+}
+
+.setting-item-description {
+  color: var(--doom-base6);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+
+/* Hotkey Pills in Settings */
+.setting-hotkey {
+  background-color: var(--doom-base1);
+  color: var(--doom-magenta);
+  border: 1px solid var(--doom-base4);
+  border-radius: 3px;
+  font-family: var(--font-monospace-doom);
+  font-size: 11px;
+  padding: 2px 7px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* Refined Pill Toggle Switches */
+.checkbox-container {
+  border-radius: 12px !important;
+  background-color: var(--doom-base2) !important;
+  border: 1px solid var(--doom-base4) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25) !important;
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.checkbox-container::after {
+  border-radius: 50% !important;
+  background-color: var(--doom-base6) !important;
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.15s ease !important;
+}
+
+.checkbox-container.is-enabled {
+  background-color: var(--doom-blue) !important;
+  border-color: var(--doom-blue) !important;
+  box-shadow: 0 0 8px rgba(var(--doom-blue-rgb), 0.35) !important;
+}
+
+.checkbox-container.is-enabled::after {
+  background-color: var(--doom-bg) !important;
+}
+
+/* Clean Flat Settings Layout Option */
+body.doom-settings-flat .setting-item:not(.setting-item-heading),
+body.doom-settings-flat .setting-items {
+  background-color: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid var(--doom-base2) !important;
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  margin-bottom: 0 !important;
+  padding: 12px 10px !important;
+}
+
+body.doom-settings-flat .setting-item:not(.setting-item-heading):hover {
+  background-color: rgba(var(--doom-blue-rgb), 0.06) !important;
+}
+
+body.doom-settings-flat .setting-items > .setting-item:not(.setting-item-heading) {
+  border-top: none !important;
+  border-bottom: 1px solid var(--doom-base2) !important;
+}
+
+/* Form Inputs, Selects & Buttons */
+input[type="text"],
+input[type="search"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="url"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
+textarea,
+select,
+.dropdown {
+  background-color: var(--doom-base0);
+  border: 1px solid var(--doom-base3);
+  border-radius: var(--input-radius);
+  color: var(--doom-fg);
+  font-family: var(--font-monospace-doom);
+  box-shadow: none;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+input[type="text"]:hover,
+input[type="search"]:hover,
+input[type="number"]:hover,
+input[type="email"]:hover,
+input[type="password"]:hover,
+input[type="url"]:hover,
+input[type="date"]:hover,
+input[type="datetime-local"]:hover,
+input[type="time"]:hover,
+textarea:hover,
+select:hover,
+.dropdown:hover {
+  border-color: var(--doom-base4);
+}
+
+input[type="text"]:focus,
+input[type="search"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="url"]:focus,
+input[type="date"]:focus,
+input[type="datetime-local"]:focus,
+input[type="time"]:focus,
+textarea:focus,
+select:focus,
+.dropdown:focus {
+  border-color: var(--doom-blue) !important;
+  box-shadow: 0 0 0 2px rgba(var(--doom-blue-rgb), 0.2) !important;
+}
+
+button:not(.clickable-icon):not(.copy-code-button):not(.metadata-add-button) {
+  background-color: var(--doom-base2);
+  color: var(--doom-fg);
+  border: 1px solid var(--doom-base4);
+  border-radius: var(--radius-s);
+  font-family: var(--font-monospace-doom);
+  padding: 4px 12px;
+  box-shadow: none;
+  transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+
+button:not(.clickable-icon):not(.copy-code-button):not(.metadata-add-button):hover {
+  background-color: var(--doom-base3);
+  border-color: var(--doom-blue);
+  color: var(--doom-fg);
+}
+
+button.mod-cta {
+  background-color: var(--doom-blue) !important;
+  border-color: var(--doom-blue) !important;
+  color: var(--doom-base0) !important;
+  font-family: var(--font-monospace-doom);
+  font-weight: 700;
+  border-radius: var(--radius-s);
+}
+
+button.mod-cta:hover {
+  background-color: var(--doom-cyan) !important;
+  border-color: var(--doom-cyan) !important;
+}
+
+button.mod-warning {
+  background-color: var(--doom-red) !important;
+  border-color: var(--doom-red) !important;
+  color: var(--doom-base0) !important;
+  font-family: var(--font-monospace-doom);
+  font-weight: 700;
+  border-radius: var(--radius-s);
+}
+
+/* Graph Controls, Canvas Toolbar & Empty Buffer State */
+.graph-controls {
+  background-color: var(--doom-bg-alt) !important;
+  border: 1px solid var(--doom-base3) !important;
+  border-radius: 3px !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35) !important;
+}
+
+.canvas-control-group {
+  background-color: var(--doom-bg-alt) !important;
+  border: 1px solid var(--doom-base3) !important;
+  border-radius: 3px !important;
+}
+
+.empty-state-title {
+  font-family: var(--font-monospace-doom);
+  color: var(--doom-blue);
+  font-weight: 700;
+}
+
+.empty-state-action {
+  font-family: var(--font-monospace-doom);
+  background-color: var(--doom-base0);
+  border: 1px solid var(--doom-base3);
+  border-radius: 3px;
+  padding: 6px 14px;
+  margin: 4px 0;
+  color: var(--doom-fg);
+  transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+
+.empty-state-action:hover {
+  background-color: var(--doom-base2);
+  border-color: var(--doom-blue);
+  color: var(--doom-blue);
+}
+
+/* Callouts (Org Special Blocks) */
+.callout {
+  border-radius: 3px;
+  border: 1px solid rgba(var(--callout-color), 0.35);
+  border-left: 3px solid rgb(var(--callout-color));
+  background-color: rgba(var(--callout-color), 0.07);
+  padding: 12px 16px;
+  margin: 1.15em 0;
+}
+
+.callout-title {
+  font-family: var(--font-monospace-doom);
+  font-weight: 700;
+  gap: 8px;
+  padding-bottom: 4px;
+}
+
+.callout-content {
+  line-height: 1.6;
+}
+
+/* Notices / Notifications (Emacs echo-area message popup) */
+.notice {
+  background-color: var(--doom-base0) !important;
+  color: var(--doom-fg) !important;
+  border: 1px solid var(--doom-blue) !important;
+  border-left: 4px solid var(--doom-blue) !important;
+  border-radius: 2px !important;
+  font-family: var(--font-monospace-doom);
+  font-size: 12.5px;
+}
+
+/* --------------------------------------------------------------------------
+   11. iOS & iPadOS (Mobile / Tablet) Support
+   -------------------------------------------------------------------------- */
+body.is-phone {
+  --file-margins: 16px 18px;
+}
+
+body.is-tablet {
+  --file-margins: 24px 32px;
+}
+
+/* Ensure desktop status-bar stays hidden on iOS/iPadOS so it never overlaps mobile navbar */
+body.is-mobile .status-bar {
+  display: none !important;
+}
+
+/* iOS & iPadOS View Header — preserve Obsidian's native height & center nav/action buttons */
+body.is-mobile .view-header {
+  display: flex;
+  align-items: center;
+}
+
+body.is-mobile .view-header-nav-buttons,
+body.is-mobile .view-actions {
+  display: flex;
+  align-items: center;
+}
+
+body.is-mobile .view-action,
+body.is-mobile .view-header-nav-buttons .clickable-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--doom-base7);
+}
+
+/* Mobile Keyboard Toolbar (.mobile-toolbar) — Doom Modeline colors without altering position or flex children */
+body.is-mobile .mobile-toolbar {
+  background-color: var(--doom-modeline-bg) !important;
+  border-top: 1px solid var(--doom-base3) !important;
+  border-bottom: 1px solid var(--doom-base2) !important;
+  box-shadow: inset 3px 0 0 0 var(--doom-modeline-bar) !important;
+  font-family: var(--font-monospace-doom) !important;
+}
+
+body.is-mobile .mobile-toolbar-options-container,
+body.is-mobile .mobile-toolbar-options-list,
+body.is-mobile .mobile-toolbar-floating-buttons {
+  display: flex;
+  align-items: center;
+}
+
+body.is-mobile .mobile-toolbar-option,
+body.is-mobile .mobile-toolbar-floating-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-monospace-doom);
+  color: var(--doom-fg);
+  border-radius: 3px;
+}
+
+body.is-mobile .mobile-toolbar-option:active,
+body.is-mobile .mobile-toolbar-floating-button:active {
+  background-color: rgba(var(--doom-blue-rgb), 0.2) !important;
+  color: var(--doom-blue) !important;
+}
+
+/* Mobile Bottom Navigation Bar (.mobile-navbar on iPhone & iPad) — preserve native safe-area height & center buttons */
+body.is-mobile .mobile-navbar {
+  background-color: var(--doom-modeline-bg) !important;
+  border-top: 1px solid var(--doom-base3) !important;
+  box-shadow: inset 3px 0 0 0 var(--doom-modeline-bar);
+  font-family: var(--font-monospace-doom);
+}
+
+body.is-mobile .mobile-navbar-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+body.is-mobile .mobile-navbar-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--doom-base6);
+}
+
+body.is-mobile .mobile-navbar-action.has-active-menu,
+body.is-mobile .mobile-navbar-action:active {
+  color: var(--doom-blue) !important;
+}
+
+/* Mobile Side Drawers (.workspace-drawer on iPhone & iPad) — Treemacs aesthetic */
+body.is-mobile .workspace-drawer {
+  background-color: var(--doom-bg-alt) !important;
+  border-color: var(--doom-base3) !important;
+  font-family: var(--font-monospace-doom);
+}
+
+body.is-mobile .workspace-drawer.mod-left {
+  border-right: 1px solid var(--doom-base3) !important;
+}
+
+body.is-mobile .workspace-drawer.mod-right {
+  border-left: 1px solid var(--doom-base3) !important;
+}
+
+body.is-mobile .workspace-drawer-header {
+  background-color: var(--doom-base0) !important;
+  border-bottom: 1px solid var(--doom-base2) !important;
+  display: flex;
+  align-items: center;
+}
+
+body.is-mobile .workspace-drawer-active-tab-header {
+  font-family: var(--font-monospace-doom);
+  color: var(--doom-blue);
+  font-weight: 600;
+}
+
+body.is-mobile .workspace-drawer-tab-option-item.is-active {
+  color: var(--doom-blue);
+  background-color: rgba(var(--doom-blue-rgb), 0.14);
+}
+
+/* Mobile Drawer Action Bar (.nav-header above file tree / inside mobile drawers) */
+body.is-mobile .nav-header {
+  background-color: var(--doom-base0);
+  padding: 8px 12px !important;
+  border-bottom: 1px solid var(--doom-base2);
+}
+
+body.is-mobile .nav-buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 8px;
+}
+
+body.is-mobile .clickable-icon.nav-action-button {
+  min-width: 36px;
+  min-height: 34px;
+  padding: 6px 10px !important;
+  border-radius: 3px;
+}
+
+/* Touch targets for File Tree items, Suggestion rows, and Checkboxes on iOS/iPadOS */
+body.is-mobile .tree-item-self {
+  min-height: 36px;
+  padding: 6px 10px;
+}
+
+body.is-mobile .suggestion-item {
+  padding: 10px 14px;
+  min-height: 40px;
+  font-size: 14px;
+}
+
+body.is-mobile input[type="checkbox"].task-list-item-checkbox {
+  width: 18px;
+  height: 18px;
+}
+
+/* iPadOS Tab Bar (.is-tablet) — preserve native container height so sidebar toggle & tab buttons stay aligned */
+body.is-tablet .workspace-tab-header-container-inner,
+body.is-tablet .workspace-tab-header,
+body.is-tablet .workspace-tab-header-inner {
+  display: flex;
+  align-items: center;
+}
+
+/* Prevent iOS WebKit viewport auto-zoom when focusing inputs (< 16px triggers zoom on iOS) */
+body.is-mobile input.prompt-input,
+body.is-mobile input[type="text"],
+body.is-mobile input[type="search"],
+body.is-mobile textarea {
+  font-size: 16px !important;
+}
+
+/* Mobile Context Menus & Bottom Sheet Modals on iOS / iPadOS */
+body.is-mobile .menu,
+body.is-mobile .modal-container .modal:not(.mod-settings),
+body.is-mobile .prompt {
+  background-color: var(--doom-bg-alt) !important;
+  border: 1px solid var(--doom-blue) !important;
+  font-family: var(--font-monospace-doom);
+}
+
+body.is-mobile .menu-item {
+  font-family: var(--font-monospace-doom);
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+}
+
+/* --------------------------------------------------------------------------
+   12. Style Settings Plugin Configuration
+   -------------------------------------------------------------------------- */
+/* @settings
+name: DoomEsque
+id: doomesque
+settings:
+  - id: doom-palette-heading
+    title: Color Palette & Faces
+    type: heading
+    level: 1
+    collapsed: false
+  - id: doom-dark-palette
+    title: Dark Mode Doom Palette
+    description: Choose which Doom Emacs color scheme to use in Dark Mode.
+    type: class-select
+    allowEmpty: false
+    default: doom-palette-one
+    options:
+      - label: doom-one (Default)
+        value: doom-palette-one
+      - label: doom-vibrant
+        value: doom-palette-vibrant
+      - label: doom-dracula
+        value: doom-palette-dracula
+      - label: doom-tokyo-night
+        value: doom-palette-tokyo-night
+      - label: doom-gruvbox
+        value: doom-palette-gruvbox
+  - id: doom-no-org-todo
+    title: Disable Org-Mode TODO / DONE Task Badges
+    description: Hide the explicit TODO / DONE text prefix next to checkboxes.
+    type: class-toggle
+    default: false
+  - id: doom-monochrome-headings
+    title: Monochrome Headings
+    description: Use Doom blue for all headings instead of Org rainbow colors.
+    type: class-toggle
+    default: false
+  - id: doom-no-h1-border
+    title: Disable H1 Underline Border
+    description: Hide the subtle bottom border under Level 1 headings.
+    type: class-toggle
+    default: false
+  - id: doom-no-active-line-highlight
+    title: Disable Active Line Highlight
+    description: Turn off the subtle background bar on the active editor line.
+    type: class-toggle
+    default: false
+
+  - id: doom-spacing-heading
+    title: Spacing & Layout Rhythm
+    type: heading
+    level: 1
+    collapsed: true
+  - id: file-line-width
+    title: Readable Line Width
+    description: Max line width in rem units (Default 46rem).
+    type: variable-number-slider
+    default: 46
+    min: 30
+    max: 80
+    step: 1
+    format: rem
+  - id: line-height-normal
+    title: Editor Line Height
+    description: Base line height for reading and editing (Default 1.65).
+    type: variable-number-slider
+    default: 1.65
+    min: 1.2
+    max: 2.2
+    step: 0.05
+  - id: p-spacing
+    title: Paragraph Spacing
+    description: Spacing between markdown paragraphs in rem units (Default 1.15rem).
+    type: variable-number-slider
+    default: 1.15
+    min: 0.4
+    max: 2.5
+    step: 0.05
+    format: rem
+  - id: heading-spacing
+    title: Heading Spacing
+    description: Vertical breathing room around headings in rem units (Default 1.85rem).
+    type: variable-number-slider
+    default: 1.85
+    min: 0.9
+    max: 3.7
+    step: 0.05
+    format: rem
+  - id: list-spacing
+    title: List Item Spacing
+    description: Vertical gap between list items in em units (Default 0.22em).
+    type: variable-number-slider
+    default: 0.22
+    min: 0.0
+    max: 0.8
+    step: 0.02
+    format: em
+  - id: doom-sidebar-density
+    title: Sidebar Item Density
+    description: Density and compactness of file tree and sidebars.
+    type: class-select
+    allowEmpty: false
+    default: doom-sidebar-normal
+    options:
+      - label: Compact
+        value: doom-sidebar-compact
+      - label: Normal (Default)
+        value: doom-sidebar-normal
+      - label: Comfortable
+        value: doom-sidebar-comfortable
+
+  - id: doom-indent-heading
+    title: Indentation & Indent Guides
+    type: heading
+    level: 1
+    collapsed: true
+  - id: list-indent
+    title: List & Outline Indentation
+    description: Nesting indentation width in em units (Default 1.75em).
+    type: variable-number-slider
+    default: 1.75
+    min: 1.0
+    max: 3.5
+    step: 0.05
+    format: em
+  - id: doom-indent-style
+    title: Indentation Guide Line Style
+    description: Visual stroke style of indentation guide lines.
+    type: class-select
+    allowEmpty: false
+    default: doom-indent-style-solid
+    options:
+      - label: Solid (Default)
+        value: doom-indent-style-solid
+      - label: Dashed
+        value: doom-indent-style-dashed
+      - label: Dotted
+        value: doom-indent-style-dotted
+      - label: Double
+        value: doom-indent-style-double
+      - label: None (Hide)
+        value: doom-indent-style-none
+  - id: indentation-guide-width
+    title: Indentation Guide Width
+    description: Width of vertical indent guide lines in px (Default 1px).
+    type: variable-number-slider
+    default: 1
+    min: 1
+    max: 4
+    step: 0.5
+    format: px
+  - id: doom-rainbow-indent-guides
+    title: Rainbow Indent Guides
+    description: Color nested indentation guides with alternating Doom palette colors.
+    type: class-toggle
+    default: false
+  - id: doom-tree-indent
+    title: File Explorer Tree Indent
+    description: Indentation offset per folder depth level in px (Default 14px).
+    type: variable-number-slider
+    default: 14
+    min: 6
+    max: 32
+    step: 2
+    format: px
+
+  - id: doom-typography-heading
+    title: Typography & Buffer Settings
+    type: heading
+    level: 1
+    collapsed: true
+  - id: doom-monospace-editor
+    title: Force Monospace Font in Note Editor
+    description: Make body text in the note editor use your Doom monospace font (like a true Emacs buffer).
+    type: class-toggle
+    default: false
+  - id: doom-disable-monospace-ui
+    title: Use System Sans-Serif Font for UI Chrome
+    description: Switch sidebars, tabs, and modals back to sans-serif instead of monospace.
+    type: class-toggle
+    default: false
+
+  - id: doom-preview-heading
+    title: Hover Preview Windows
+    type: heading
+    level: 1
+    collapsed: true
+  - id: popover-width
+    title: Hover Preview Width
+    description: Width of hover preview popovers in px (Default 550px).
+    type: variable-number-slider
+    default: 550
+    min: 320
+    max: 1200
+    step: 20
+    format: px
+  - id: popover-height
+    title: Hover Preview Height
+    description: Height of hover preview popovers in px (Default 420px).
+    type: variable-number-slider
+    default: 420
+    min: 220
+    max: 1000
+    step: 20
+    format: px
+  - id: doom-sticky-hover-enabled
+    title: Sticky Hover Previews
+    description: Keep preview popovers open until explicitly closed.
+    type: class-toggle
+    default: false
+
+  - id: doom-settings-style-heading
+    title: Settings Window Appearance
+    type: heading
+    level: 1
+    collapsed: true
+  - id: doom-settings-flat
+    title: Flat Settings Rows
+    description: Use clean border-delimited flat rows instead of rounded card boxes for settings items.
+    type: class-toggle
+    default: false
+*/
