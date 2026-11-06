@@ -1723,27 +1723,35 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   box-sizing: border-box !important;
 }
 
+/* Ensure hidden elements (such as inactive editorEl inside embeds) remain strictly hidden */
+.popover.hover-popover [style*="display: none"],
+.popover.hover-popover [style*="display:none"],
+.popover.hover-popover .markdown-embed-content[style*="display: none"],
+.popover.hover-popover .markdown-embed-content[style*="display:none"] {
+  display: none !important;
+}
+
 .popover.hover-popover > .markdown-embed,
 .popover.hover-popover .markdown-embed,
 .popover.hover-popover .popover-content {
   width: 100% !important;
   max-width: 100% !important;
-  height: 100% !important;
-  max-height: none !important;
-  flex: 1 1 auto !important;
-  overflow: auto !important;
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  overflow: hidden !important;
   margin: 0 !important;
   padding: 0 !important;
   border: none !important;
   background: transparent !important;
 }
 
-.popover.hover-popover .markdown-embed-content {
+/* Only display active (non-hidden) embed content containers */
+.popover.hover-popover .markdown-embed-content:not([style*="display: none"]):not([style*="display:none"]) {
   width: 100% !important;
   max-width: 100% !important;
   height: 100% !important;
   max-height: none !important;
-  flex: 1 1 auto !important;
   overflow: auto !important;
 }
 
@@ -1755,17 +1763,24 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   max-width: 100% !important;
   height: 100% !important;
   max-height: none !important;
-  flex: 1 1 auto !important;
   box-sizing: border-box !important;
 }
 
+/* Prevent markdown-preview-sizer from constraining note content and prevent excessive scroll-past-end bottom padding */
 .popover.hover-popover .markdown-preview-sizer {
   width: 100% !important;
   max-width: 100% !important;
   min-height: 100% !important;
   margin: 0 !important;
-  padding: 16px 20px !important;
+  padding: 16px 20px 20px 20px !important;
+  padding-bottom: 20px !important;
   box-sizing: border-box !important;
+}
+
+/* Hide virtual scroll pusher and embedded backlinks inside hover popovers to prevent blank bottom space */
+.popover.hover-popover .markdown-preview-pusher,
+.popover.hover-popover .embedded-backlinks {
+  display: none !important;
 }
 
 .popover.hover-popover .markdown-preview-section {
