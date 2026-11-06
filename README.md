@@ -52,7 +52,7 @@ Designed for keyboard-centric note-takers, hackers, and Emacs enthusiasts who wa
 
 ## Companion Plugin
 
-For keyboard commands, live sliders, and enhanced sticky hover previews, install the companion plugin **[DoomEsque Settings](https://github.com/jasongunst/obsidian-doomesque-settings)** or configure options via the **Style Settings** community plugin.
+For keyboard commands, live sliders, and enhanced sticky hover previews, install the companion plugin **[DoomEsque Settings](https://github.com/blursedperf/obsidian-doomesque-settings)** or configure options via the **Style Settings** community plugin.
 
 ---
 
