@@ -1710,6 +1710,8 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
 
 /* Hover Preview Popover (Posframe popup feel) */
 .hover-popover {
+  --popover-height: 100% !important;
+  --popover-max-height: 100% !important;
   background-color: var(--doom-bg-alt) !important;
   border: 1px solid var(--doom-blue) !important;
   border-radius: 3px !important;
@@ -1717,6 +1719,19 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   display: flex !important;
   flex-direction: column !important;
   overflow: hidden !important;
+}
+
+/* Maximized preview window cleanly occupies the full expanded viewport */
+.popover.hover-popover.mod-maximized {
+  position: fixed !important;
+  left: 4vw !important;
+  top: 5vh !important;
+  width: 92vw !important;
+  height: 90vh !important;
+  max-width: 92vw !important;
+  max-height: 90vh !important;
+  margin: 0 !important;
+  resize: none !important;
 }
 
 /* Ensure content fills 100% width and height of resized hover popovers */
@@ -1734,15 +1749,18 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   display: none !important;
 }
 
-/* Force markdown embeds & popover contents to fill full available height all the way to the bottom */
+/* Force markdown embeds & popover contents to fill full available height all the way to the bottom without height caps */
+.popover.hover-popover > div:not(.doom-popover-header),
 .popover.hover-popover > .markdown-embed,
 .popover.hover-popover .markdown-embed,
-.popover.hover-popover .popover-content {
+.popover.hover-popover .popover-content,
+.popover.hover-popover .bases-embed {
   width: 100% !important;
   max-width: 100% !important;
   flex: 1 1 auto !important;
   min-height: 0 !important;
   height: 100% !important;
+  max-height: none !important;
   display: flex !important;
   flex-direction: column !important;
   overflow: hidden !important;
@@ -1763,9 +1781,10 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   display: flex !important;
   flex-direction: column !important;
   overflow: hidden !important;
+  background: transparent !important;
 }
 
-/* Make preview view, editor and scroller expand to fill entire area to the bottom */
+/* Make preview view, editor and scroller expand to fill entire area to the bottom with seamless background */
 .popover.hover-popover .markdown-preview-view,
 .popover.hover-popover .markdown-source-view.mod-cm6,
 .popover.hover-popover .cm-editor {
@@ -1778,6 +1797,7 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   box-sizing: border-box !important;
   overflow: auto !important;
   padding: 0 !important;
+  background-color: var(--doom-bg-alt) !important;
 }
 
 .popover.hover-popover .cm-scroller {
@@ -1785,9 +1805,11 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   max-width: 100% !important;
   height: 100% !important;
   min-height: 100% !important;
+  max-height: none !important;
   box-sizing: border-box !important;
   overflow: auto !important;
   padding: 0 !important;
+  background-color: var(--doom-bg-alt) !important;
 }
 
 /* Ensure note content container expands to the full height of the resized popover window */
@@ -1799,19 +1821,23 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   padding: 16px 20px 24px 20px !important;
   padding-bottom: 24px !important;
   box-sizing: border-box !important;
+  background-color: var(--doom-bg-alt) !important;
 }
 
-/* Hide virtual scroll pusher and embedded backlinks inside hover popovers to prevent blank bottom space */
-.popover.hover-popover .markdown-preview-pusher,
-.popover.hover-popover .embedded-backlinks {
-  display: none !important;
-}
-
+body .popover.hover-popover .markdown-preview-section,
 .popover.hover-popover .markdown-preview-section {
   width: 100% !important;
   max-width: 100% !important;
   min-height: 100% !important;
   box-sizing: border-box !important;
+}
+
+/* Hide virtual scroll pusher, footers, and embedded backlinks inside hover popovers to prevent blank bottom space */
+.popover.hover-popover .markdown-preview-pusher,
+.popover.hover-popover .embedded-backlinks,
+.popover.hover-popover .mod-footer,
+.popover.hover-popover .mod-ui {
+  display: none !important;
 }
 
 .popover.hover-popover .cm-content {
