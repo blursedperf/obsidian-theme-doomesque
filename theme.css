@@ -2512,7 +2512,19 @@ body.is-mobile .status-bar {
   display: none !important;
 }
 
-/* iOS & iPadOS View Header — ensure safe-area padding so top action buttons are never covered by notch/status bar */
+/* iOS & Android Mobile Layout — solid header bar and safe-area protection so text never bleeds above buttons */
+body.is-mobile .workspace > .mod-root {
+  background-color: var(--doom-bg) !important;
+}
+
+body.is-phone {
+  --system-status-background: var(--doom-bg) !important;
+  --view-header-height: 44px;
+  --view-top-spacing: calc(max(var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 20px) + 44px);
+  --view-top-spacing-markdown: calc(max(var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 20px) + 44px + 12px);
+}
+
+/* iOS & iPadOS View Header — ensure solid opaque background and safe-area padding so top action buttons are reachable and text never scrolls above them */
 body.is-mobile .view-header {
   display: flex !important;
   align-items: center;
@@ -2520,19 +2532,43 @@ body.is-mobile .view-header {
 }
 
 body.is-phone .view-header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 25 !important;
+  background-color: var(--doom-bg) !important;
+  border-bottom: 1px solid var(--doom-base2) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35) !important;
   height: auto !important;
-  min-height: calc(max(var(--view-header-top-offset, 0px), var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 16px) + var(--view-header-height, 44px)) !important;
+  min-height: calc(max(var(--view-header-top-offset, 0px), var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 20px) + var(--view-header-height, 44px)) !important;
   max-height: none !important;
-  padding-top: max(var(--view-header-top-offset, 0px), var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 16px) !important;
+  padding-top: max(var(--view-header-top-offset, 0px), var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 20px) !important;
   padding-bottom: 4px !important;
   padding-left: max(var(--safe-area-inset-left, 0px), env(safe-area-inset-left, 0px), 8px) !important;
   padding-right: max(var(--safe-area-inset-right, 0px), env(safe-area-inset-right, 0px), 8px) !important;
   margin: 0 !important;
+  transition: opacity 0.2s ease-in-out, transform 0.3s ease-in-out !important;
 }
 
-body.is-phone.is-floating-nav .view-header {
-  margin-top: max(var(--view-header-top-offset, 0px), var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 16px) !important;
-  padding-top: 0 !important;
+/* Auto-hide header animation when scrolling fast on phone */
+body.is-phone.is-hidden-nav .view-header {
+  transform: translateY(calc(-100% - 10px)) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Ensure document scroller on phone has padding so first lines start below the fixed header */
+body.is-phone .mod-root .workspace-leaf-content .view-content .markdown-reading-view > .markdown-preview-view,
+body.is-phone .mod-root .workspace-leaf-content .view-content .markdown-source-view > .cm-editor > .cm-scroller {
+  padding-top: var(--view-top-spacing-markdown) !important;
+}
+
+/* WebKit gradient fade mask on iOS WKWebView */
+body.is-phone .mod-root .workspace-leaf-content[data-type="markdown"] .view-content {
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) calc(max(var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 20px) + 20px), #000000 calc(max(var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 20px) + 48px));
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) calc(max(var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 20px) + 20px), #000000 calc(max(var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 20px) + 48px));
 }
 
 body.is-tablet .view-header {
