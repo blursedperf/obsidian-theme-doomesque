@@ -347,6 +347,194 @@ body.theme-dark.doom-palette-gruvbox {
   --doom-modeline-badge-fg: #fafafa;
 }
 
+/* ==========================================================================
+   LIGHT PALETTE ALTERNATIVE: doom-nord-light
+   ========================================================================== */
+body.theme-light.doom-palette-nord-light {
+  --doom-bg: #e5e9f0;
+  --doom-bg-alt: #d8dee9;
+  --doom-base0: #f0f4fc;
+  --doom-base1: #e3eaf5;
+  --doom-base2: #d8dee9;
+  --doom-base3: #c2d0e7;
+  --doom-base4: #b8c5db;
+  --doom-base5: #64738c;
+  --doom-base6: #4c566a;
+  --doom-base7: #3b4252;
+  --doom-base8: #2e3440;
+  --doom-fg: #2e3440;
+  --doom-fg-alt: #4c566a;
+
+  --doom-red: #99324b;
+  --doom-orange: #ac4426;
+  --doom-green: #4f894c;
+  --doom-teal: #29838d;
+  --doom-yellow: #9a7500;
+  --doom-blue: #3b6ea8;
+  --doom-dark-blue: #5272af;
+  --doom-magenta: #97365b;
+  --doom-violet: #842879;
+  --doom-cyan: #398eac;
+  --doom-dark-cyan: #2c7088;
+
+  --doom-blue-rgb: 59, 110, 168;
+  --doom-magenta-rgb: 151, 54, 91;
+  --doom-green-rgb: 79, 137, 76;
+  --doom-yellow-rgb: 154, 117, 0;
+  --doom-red-rgb: 153, 50, 75;
+  --doom-orange-rgb: 172, 68, 38;
+  --doom-cyan-rgb: 57, 142, 172;
+  --doom-violet-rgb: 132, 40, 121;
+  --doom-teal-rgb: 41, 131, 141;
+
+  --doom-modeline-bg: #d8dee9;
+  --doom-modeline-fg: #2e3440;
+  --doom-modeline-bar: #3b6ea8;
+  --doom-modeline-badge-bg: #3b6ea8;
+  --doom-modeline-badge-fg: #f0f4fc;
+}
+
+/* ==========================================================================
+   LIGHT PALETTE ALTERNATIVE: doom-gruvbox-light
+   ========================================================================== */
+body.theme-light.doom-palette-gruvbox-light {
+  --doom-bg: #fbf1c7;
+  --doom-bg-alt: #ebdbb2;
+  --doom-base0: #f9f5d7;
+  --doom-base1: #ebdbb2;
+  --doom-base2: #d5c4a1;
+  --doom-base3: #bdae93;
+  --doom-base4: #a89984;
+  --doom-base5: #928374;
+  --doom-base6: #504945;
+  --doom-base7: #3c3836;
+  --doom-base8: #1d2021;
+  --doom-fg: #3c3836;
+  --doom-fg-alt: #7c6f64;
+
+  --doom-red: #cc241d;
+  --doom-orange: #d65d0e;
+  --doom-green: #79740e;
+  --doom-teal: #427b58;
+  --doom-yellow: #b57614;
+  --doom-blue: #076678;
+  --doom-dark-blue: #458588;
+  --doom-magenta: #8f3f71;
+  --doom-violet: #b16286;
+  --doom-cyan: #427b58;
+  --doom-dark-cyan: #689d6a;
+
+  --doom-blue-rgb: 7, 102, 120;
+  --doom-magenta-rgb: 143, 63, 113;
+  --doom-green-rgb: 121, 116, 14;
+  --doom-yellow-rgb: 181, 118, 20;
+  --doom-red-rgb: 204, 36, 29;
+  --doom-orange-rgb: 214, 93, 14;
+  --doom-cyan-rgb: 66, 123, 88;
+  --doom-violet-rgb: 177, 98, 134;
+  --doom-teal-rgb: 66, 123, 88;
+
+  --doom-modeline-bg: #ebdbb2;
+  --doom-modeline-fg: #3c3836;
+  --doom-modeline-bar: #b57614;
+  --doom-modeline-badge-bg: #076678;
+  --doom-modeline-badge-fg: #fbf1c7;
+}
+
+/* ==========================================================================
+   LIGHT PALETTE ALTERNATIVE: doom-solarized-light
+   ========================================================================== */
+body.theme-light.doom-palette-solarized-light {
+  --doom-bg: #fdf6e3;
+  --doom-bg-alt: #eee8d5;
+  --doom-base0: #fdf6e3;
+  --doom-base1: #eee8d5;
+  --doom-base2: #e0d7c3;
+  --doom-base3: #d6ccb8;
+  --doom-base4: #c4b9a3;
+  --doom-base5: #93a1a1;
+  --doom-base6: #657b83;
+  --doom-base7: #586e75;
+  --doom-base8: #073642;
+  --doom-fg: #586e75;
+  --doom-fg-alt: #839496;
+
+  --doom-red: #dc322f;
+  --doom-orange: #cb4b16;
+  --doom-green: #859900;
+  --doom-teal: #35a69c;
+  --doom-yellow: #b58900;
+  --doom-blue: #268bd2;
+  --doom-dark-blue: #3f88ad;
+  --doom-magenta: #d33682;
+  --doom-violet: #6c71c4;
+  --doom-cyan: #2aa198;
+  --doom-dark-cyan: #204052;
+
+  --doom-blue-rgb: 38, 139, 210;
+  --doom-magenta-rgb: 211, 54, 130;
+  --doom-green-rgb: 133, 153, 0;
+  --doom-yellow-rgb: 181, 137, 0;
+  --doom-red-rgb: 220, 50, 47;
+  --doom-orange-rgb: 203, 75, 22;
+  --doom-cyan-rgb: 42, 161, 152;
+  --doom-violet-rgb: 108, 113, 196;
+  --doom-teal-rgb: 53, 166, 156;
+
+  --doom-modeline-bg: #eee8d5;
+  --doom-modeline-fg: #586e75;
+  --doom-modeline-bar: #268bd2;
+  --doom-modeline-badge-bg: #268bd2;
+  --doom-modeline-badge-fg: #fdf6e3;
+}
+
+/* ==========================================================================
+   LIGHT PALETTE ALTERNATIVE: doom-tomorrow-day
+   ========================================================================== */
+body.theme-light.doom-palette-tomorrow-day {
+  --doom-bg: #ffffff;
+  --doom-bg-alt: #f2f2f2;
+  --doom-base0: #ffffff;
+  --doom-base1: #f2f2f2;
+  --doom-base2: #e0e0e0;
+  --doom-base3: #d6d6d6;
+  --doom-base4: #c4c4c4;
+  --doom-base5: #8e908c;
+  --doom-base6: #4d4d4c;
+  --doom-base7: #282a2e;
+  --doom-base8: #1d1f21;
+  --doom-fg: #4d4d4c;
+  --doom-fg-alt: #8e908c;
+
+  --doom-red: #c82829;
+  --doom-orange: #f5871f;
+  --doom-green: #718c00;
+  --doom-teal: #3e999f;
+  --doom-yellow: #eab700;
+  --doom-blue: #4271ae;
+  --doom-dark-blue: #2a528c;
+  --doom-magenta: #c678dd;
+  --doom-violet: #8959a8;
+  --doom-cyan: #3e999f;
+  --doom-dark-cyan: #266b70;
+
+  --doom-blue-rgb: 66, 113, 174;
+  --doom-magenta-rgb: 198, 120, 221;
+  --doom-green-rgb: 113, 140, 0;
+  --doom-yellow-rgb: 234, 183, 0;
+  --doom-red-rgb: 200, 40, 41;
+  --doom-orange-rgb: 245, 135, 31;
+  --doom-cyan-rgb: 62, 153, 159;
+  --doom-violet-rgb: 137, 89, 168;
+  --doom-teal-rgb: 62, 153, 159;
+
+  --doom-modeline-bg: #f2f2f2;
+  --doom-modeline-fg: #4d4d4c;
+  --doom-modeline-bar: #4271ae;
+  --doom-modeline-badge-bg: #4271ae;
+  --doom-modeline-badge-fg: #ffffff;
+}
+
 /* --------------------------------------------------------------------------
    2. Obsidian Core Variable Mapping (Both Dark & Light)
    -------------------------------------------------------------------------- */
@@ -2518,6 +2706,23 @@ settings:
         value: doom-palette-tokyo-night
       - label: doom-gruvbox
         value: doom-palette-gruvbox
+  - id: doom-light-palette
+    title: Light Mode Doom Palette
+    description: Choose which Doom Emacs color scheme to use in Light Mode.
+    type: class-select
+    allowEmpty: false
+    default: doom-palette-one-light
+    options:
+      - label: doom-one-light (Default)
+        value: doom-palette-one-light
+      - label: doom-nord-light
+        value: doom-palette-nord-light
+      - label: doom-gruvbox-light
+        value: doom-palette-gruvbox-light
+      - label: doom-solarized-light
+        value: doom-palette-solarized-light
+      - label: doom-tomorrow-day
+        value: doom-palette-tomorrow-day
   - id: doom-no-org-todo
     title: Disable Org-Mode TODO / DONE Task Badges
     description: Hide the explicit TODO / DONE text prefix next to checkboxes.

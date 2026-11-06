@@ -9,9 +9,18 @@ Designed for keyboard-centric note-takers, hackers, and Emacs enthusiasts who wa
 ## Features
 
 - **Authentic Color Schemes**:
-  - **Dark Mode (Default)**: `doom-one` (`#282c34` base, `#21242b` alt, `#bbc2cf` foreground, `#51afef` blue, `#c678dd` magenta, `#98be65` green, `#da8548` orange).
-  - **Light Mode (Default)**: `doom-one-light` (`#fafafa` base, `#f0f0f0` alt, `#383a42` foreground, `#4078f2` blue, `#a626a4` magenta).
-  - **Additional Switchable Palettes**: `doom-vibrant`, `doom-dracula`, `doom-tokyo-night`, and `doom-gruvbox` with full RGB alpha-channel and semantic syntax harmony.
+  - **Dark Mode Palettes**:
+    - `doom-one` (Default Atom One Dark inspired background `#282c34`, `#51afef` blue, `#c678dd` magenta, `#98be65` green)
+    - `doom-vibrant` (Deeper `#242730` canvas with punchy, high-saturation syntax accents)
+    - `doom-dracula` (Classic Dracula purple/pink/cyan palette adapted for Doom)
+    - `doom-tokyo-night` (Midnight indigo storm palette `#1a1b26`)
+    - `doom-gruvbox` (Warm retro medium dark `#282828`)
+  - **Light Mode Palettes**:
+    - `doom-one-light` (Default cool parchment `#fafafa` base, `#f0f0f0` alt, `#383a42` text, `#4078f2` blue, `#a626a4` magenta)
+    - `doom-nord-light` (Arctic ice blue `#e5e9f0` base, `#d8dee9` alt, Polar Night `#2e3440` text, Frost `#3b6ea8` blue, `#4f894c` green)
+    - `doom-gruvbox-light` (Warm retro cream parchment `#fbf1c7` base, `#ebdbb2` alt, `#3c3836` text, `#cc241d` red, `#79740e` green)
+    - `doom-solarized-light` (Ethan Schoonover's precision light cream `#fdf6e3` base, `#eee8d5` alt, `#586e75` text, `#268bd2` blue)
+    - `doom-tomorrow-day` (Crisp modern white `#ffffff` base, `#f2f2f2` alt, `#4d4d4c` text, Tomorrow `#4271ae` blue, `#c82829` red)
 - **Org-Mode Buffer Typography & Elements**:
   - Rainbow heading hierarchy (`org-level-1` through `org-level-6`) or optional monochrome headings.
   - Optional `TODO` and `DONE` task list badges alongside checkboxes.
