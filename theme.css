@@ -1714,6 +1714,9 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   border: 1px solid var(--doom-blue) !important;
   border-radius: 3px !important;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
 }
 
 /* Ensure content fills 100% width and height of resized hover popovers */
@@ -1731,14 +1734,17 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   display: none !important;
 }
 
+/* Force markdown embeds & popover contents to fill full available height all the way to the bottom */
 .popover.hover-popover > .markdown-embed,
 .popover.hover-popover .markdown-embed,
 .popover.hover-popover .popover-content {
   width: 100% !important;
   max-width: 100% !important;
-  flex: 1 1 0 !important;
+  flex: 1 1 auto !important;
   min-height: 0 !important;
-  height: auto !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
   overflow: hidden !important;
   margin: 0 !important;
   padding: 0 !important;
@@ -1746,34 +1752,52 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   background: transparent !important;
 }
 
-/* Only display active (non-hidden) embed content containers */
+/* Only display active (non-hidden) embed content containers, expanding to full available height */
 .popover.hover-popover .markdown-embed-content:not([style*="display: none"]):not([style*="display:none"]) {
   width: 100% !important;
   max-width: 100% !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
   height: 100% !important;
   max-height: none !important;
-  overflow: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
 }
 
+/* Make preview view, editor and scroller expand to fill entire area to the bottom */
 .popover.hover-popover .markdown-preview-view,
 .popover.hover-popover .markdown-source-view.mod-cm6,
-.popover.hover-popover .cm-editor,
+.popover.hover-popover .cm-editor {
+  width: 100% !important;
+  max-width: 100% !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  max-height: none !important;
+  box-sizing: border-box !important;
+  overflow: auto !important;
+  padding: 0 !important;
+}
+
 .popover.hover-popover .cm-scroller {
   width: 100% !important;
   max-width: 100% !important;
   height: 100% !important;
-  max-height: none !important;
+  min-height: 100% !important;
   box-sizing: border-box !important;
+  overflow: auto !important;
+  padding: 0 !important;
 }
 
-/* Prevent markdown-preview-sizer from constraining note content and prevent excessive scroll-past-end bottom padding */
+/* Ensure note content container expands to the full height of the resized popover window */
 .popover.hover-popover .markdown-preview-sizer {
   width: 100% !important;
   max-width: 100% !important;
   min-height: 100% !important;
   margin: 0 !important;
-  padding: 16px 20px 20px 20px !important;
-  padding-bottom: 20px !important;
+  padding: 16px 20px 24px 20px !important;
+  padding-bottom: 24px !important;
   box-sizing: border-box !important;
 }
 
@@ -1786,6 +1810,7 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
 .popover.hover-popover .markdown-preview-section {
   width: 100% !important;
   max-width: 100% !important;
+  min-height: 100% !important;
   box-sizing: border-box !important;
 }
 
