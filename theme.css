@@ -559,6 +559,8 @@ body.theme-light.doom-palette-tomorrow-day {
   --background-modifier-success: var(--doom-green);
   --background-modifier-success-rgb: var(--doom-green-rgb);
   --background-modifier-message: var(--doom-base2);
+  --tooltip-background: var(--background-modifier-message);
+  --tooltip-color: #fafafa;
   --background-modifier-form-field: var(--doom-base0);
 
   /* Text */
@@ -743,6 +745,9 @@ body.theme-light.doom-palette-tomorrow-day {
   --tab-text-color: var(--doom-base4);
   --checklist-done-color: var(--doom-base4);
   --text-on-accent: #fafafa;
+  --background-modifier-message: var(--doom-base8);
+  --tooltip-background: var(--doom-base8);
+  --tooltip-color: #fafafa;
 }
 
 /* --------------------------------------------------------------------------
