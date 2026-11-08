@@ -813,6 +813,23 @@ body.theme-light.doom-palette-tomorrow-day {
   --scrollbar-active-thumb-bg: var(--doom-blue);
 }
 
+/* Minimalist Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background-color: var(--scrollbar-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-bg);
+  border-radius: 3px;
+  transition: background-color 0.15s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-active-thumb-bg);
+}
+
 /* Light theme fine-tuning for contrast */
 .theme-light {
   --code-comment: var(--doom-base4);
@@ -1229,6 +1246,20 @@ body:not(.is-mobile) .view-header {
   transition: background-color 0.1s ease, color 0.1s ease;
 }
 
+.tree-item-self:hover {
+  background-color: rgba(var(--doom-blue-rgb), 0.08);
+  color: var(--doom-fg);
+}
+
+.tree-item-self:hover .tree-item-icon.collapse-icon {
+  color: var(--doom-blue);
+}
+
+.tree-item-icon.collapse-icon {
+  color: var(--doom-base5);
+  transition: color 0.12s ease, transform 0.12s ease;
+}
+
 .tree-item-children {
   margin-left: var(--doom-tree-indent, 14px);
   padding-left: 6px;
@@ -1289,6 +1320,8 @@ body.doom-sidebar-comfortable .tree-item-self {
   font-family: var(--font-interface);
   font-size: 10px;
   padding: 1px 5px;
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
 /* Search inputs across sidebars, settings, and global search */
@@ -1825,8 +1858,7 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
 }
 
 /* Blockquotes (`#+BEGIN_QUOTE`) */
-.markdown-rendered blockquote,
-.cm-s-obsidian .HyperMD-quote {
+.markdown-rendered blockquote {
   border-left: 3px solid var(--doom-magenta) !important;
   background-color: rgba(var(--doom-magenta-rgb), 0.05);
   color: var(--doom-base7);
@@ -1835,6 +1867,19 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   margin: 1em 0;
   line-height: 1.6;
   border-radius: 0 3px 3px 0;
+}
+
+.cm-s-obsidian .HyperMD-quote {
+  border-left: 3px solid var(--doom-magenta) !important;
+  background-color: rgba(var(--doom-magenta-rgb), 0.05);
+  color: var(--doom-base7);
+  font-style: italic;
+  padding-left: 14px !important;
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  line-height: 1.6;
 }
 
 /* Note Embeds & Transclusions (Org-transclusion block style) */
@@ -2019,9 +2064,27 @@ body .popover.hover-popover .markdown-preview-section,
 .cm-s-obsidian .cm-embed-block table thead tr > th {
   background-color: var(--table-header-background);
   color: var(--table-header-color);
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-monospace);
   font-weight: 700;
   border-bottom: 2px solid var(--doom-blue);
+}
+
+/* Zebra striping & row hover for regular tables matching Bases clarity */
+.markdown-rendered tbody tr:nth-child(even),
+.cm-s-obsidian .cm-embed-block table tbody tr:nth-child(even) {
+  background-color: var(--table-row-alt-background, rgba(var(--doom-blue-rgb), 0.035));
+}
+
+.markdown-rendered tbody tr:hover,
+.cm-s-obsidian .cm-embed-block table tbody tr:hover {
+  background-color: var(--table-row-background-hover, rgba(var(--doom-blue-rgb), 0.08));
+}
+
+.markdown-rendered td[align="right"],
+.markdown-rendered td[align="center"],
+.cm-s-obsidian .cm-embed-block table td[align="right"],
+.cm-s-obsidian .cm-embed-block table td[align="center"] {
+  font-variant-numeric: tabular-nums;
 }
 
 /* --------------------------------------------------------------------------
@@ -2364,6 +2427,94 @@ body .popover.hover-popover .markdown-preview-section,
   box-shadow: 0 0 0 2px rgba(var(--doom-blue-rgb), 0.2) !important;
 }
 
+/* In-Document Search Matches (Isearch highlights) */
+.cm-searchMatch {
+  background-color: rgba(var(--doom-yellow-rgb), 0.28) !important;
+  color: var(--doom-yellow) !important;
+  border-radius: 2px;
+}
+
+.cm-searchMatch-selected {
+  background-color: var(--doom-yellow) !important;
+  color: var(--doom-base0) !important;
+  font-weight: 700;
+  border-radius: 2px;
+}
+
+/* Text Highlighting (`==highlight==` / <mark>) */
+mark,
+.cm-s-obsidian span.cm-highlight {
+  background-color: rgba(var(--doom-yellow-rgb), 0.24);
+  color: var(--doom-yellow);
+  padding: 1px 4px;
+  border-radius: 2px;
+  border-bottom: 1px solid rgba(var(--doom-yellow-rgb), 0.45);
+}
+
+body.theme-light mark,
+body.theme-light .cm-s-obsidian span.cm-highlight {
+  background-color: rgba(var(--doom-yellow-rgb), 0.35);
+  color: var(--doom-base8);
+}
+
+/* Math & LaTeX Formula Presentation (Org-mode LaTeX preview aesthetic) */
+.math-block,
+.cm-embed-block:has(.math),
+.markdown-rendered .math-block {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 12px 16px;
+  margin: 1.1em 0;
+  border-radius: var(--radius-s);
+  background-color: var(--doom-base0);
+  border: 1px solid var(--doom-base2);
+  text-align: center;
+}
+
+.math-inline,
+.cm-s-obsidian span.cm-math {
+  color: var(--doom-cyan);
+  font-family: var(--font-monospace);
+}
+
+.markdown-rendered .math-inline {
+  color: inherit;
+}
+
+mjx-container[display="true"] {
+  margin: 0.5em 0 !important;
+}
+
+/* Academic Footnotes & Citations */
+.footnote-ref {
+  font-family: var(--font-interface);
+  font-size: 0.75em;
+  font-weight: 700;
+  color: var(--doom-blue) !important;
+  padding: 0 2px;
+  text-decoration: none !important;
+}
+
+.footnote-ref:hover {
+  color: var(--doom-cyan) !important;
+  text-decoration: underline !important;
+}
+
+.footnotes {
+  border-top: 1px solid var(--doom-base3);
+  margin-top: 2em;
+  padding-top: 1em;
+  font-size: 0.9em;
+  color: var(--doom-base6);
+}
+
+.footnote-backref {
+  color: var(--doom-cyan) !important;
+  text-decoration: none !important;
+  font-weight: 700;
+  margin-left: 4px;
+}
+
 /* Tags (`:tag:` Org style) */
 a.tag,
 .cm-s-obsidian span.cm-hashtag {
@@ -2532,6 +2683,27 @@ body.doom-rainbow-indent-guides .markdown-rendered.show-indentation-guide :is(ul
   border-inline-end-color: var(--doom-cyan) !important;
 }
 
+/* File Tree Rainbow Indentation Guides */
+body.doom-rainbow-indent-guides .tree-item-children {
+  border-left-color: var(--doom-base3);
+}
+
+body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children {
+  border-left-color: var(--doom-blue);
+}
+
+body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
+  border-left-color: var(--doom-magenta);
+}
+
+body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
+  border-left-color: var(--doom-violet);
+}
+
+body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
+  border-left-color: var(--doom-orange);
+}
+
 /* --------------------------------------------------------------------------
    10. Command Palette, Modals, Menus, Settings & Controls (Vertico / Ivy)
    -------------------------------------------------------------------------- */
@@ -2619,6 +2791,11 @@ input.prompt-input {
 .suggestion-highlight {
   color: var(--doom-magenta);
   font-weight: 700;
+}
+
+.suggestion-note {
+  color: var(--doom-base5);
+  font-size: 11px;
 }
 
 .suggestion-hotkey,
@@ -2841,6 +3018,10 @@ body.doom-settings-flat .setting-items > .setting-item:not(.setting-item-heading
 }
 
 /* Form Inputs, Selects & Buttons */
+input[type="range"] {
+  accent-color: var(--doom-blue);
+}
+
 input[type="text"],
 input[type="search"],
 input[type="number"],
@@ -2947,6 +3128,34 @@ button.mod-warning {
   border-radius: 3px !important;
 }
 
+/* Obsidian Canvas Cards & Mind Map Polish */
+.canvas-node {
+  border-radius: var(--radius-m);
+}
+
+.canvas-node-container {
+  background-color: var(--doom-base0) !important;
+  border: 1px solid var(--doom-base3) !important;
+  border-radius: var(--radius-m);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.canvas-node.is-focused .canvas-node-container {
+  border-color: var(--doom-blue) !important;
+  box-shadow: 0 0 0 2px rgba(var(--doom-blue-rgb), 0.25), 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+}
+
+.canvas-group-label {
+  font-family: var(--font-interface);
+  font-weight: 700;
+  color: var(--doom-blue);
+  background-color: var(--doom-base1);
+  border: 1px solid var(--doom-base3);
+  border-radius: var(--radius-s);
+  padding: 2px 8px;
+}
+
 .empty-state-title {
   font-family: var(--font-interface);
   color: var(--doom-blue);
@@ -2978,6 +3187,61 @@ button.mod-warning {
   background-color: rgba(var(--callout-color), 0.07);
   padding: 12px 16px;
   margin: 1.15em 0;
+}
+
+/* Callout Color Mappings to Active Doom Palette Tokens */
+.callout[data-callout="note"],
+.callout[data-callout="info"],
+.callout[data-callout="todo"] {
+  --callout-color: var(--doom-blue-rgb);
+}
+
+.callout[data-callout="tip"],
+.callout[data-callout="hint"],
+.callout[data-callout="important"] {
+  --callout-color: var(--doom-cyan-rgb);
+}
+
+.callout[data-callout="abstract"],
+.callout[data-callout="summary"],
+.callout[data-callout="tldr"] {
+  --callout-color: var(--doom-teal-rgb, var(--doom-cyan-rgb));
+}
+
+.callout[data-callout="success"],
+.callout[data-callout="check"],
+.callout[data-callout="done"] {
+  --callout-color: var(--doom-green-rgb);
+}
+
+.callout[data-callout="question"],
+.callout[data-callout="help"],
+.callout[data-callout="faq"] {
+  --callout-color: var(--doom-yellow-rgb);
+}
+
+.callout[data-callout="warning"],
+.callout[data-callout="caution"],
+.callout[data-callout="attention"] {
+  --callout-color: var(--doom-orange-rgb);
+}
+
+.callout[data-callout="failure"],
+.callout[data-callout="fail"],
+.callout[data-callout="missing"],
+.callout[data-callout="danger"],
+.callout[data-callout="error"],
+.callout[data-callout="bug"] {
+  --callout-color: var(--doom-red-rgb);
+}
+
+.callout[data-callout="example"] {
+  --callout-color: var(--doom-violet-rgb);
+}
+
+.callout[data-callout="quote"],
+.callout[data-callout="cite"] {
+  --callout-color: var(--doom-magenta-rgb);
 }
 
 .callout-title {
