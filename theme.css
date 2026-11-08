@@ -749,8 +749,11 @@ body.theme-light.doom-palette-tomorrow-day {
   --table-cell-border-color: var(--doom-base3);
   --table-header-background: var(--doom-base1);
   --table-header-background-hover: var(--doom-base2);
+  --table-header-font: var(--font-heading);
+  --table-header-size: var(--table-text-size, 1em);
   --table-header-color: var(--doom-blue);
   --table-header-weight: 700;
+  --table-line-height: 1.5;
   --table-row-alt-background: rgba(var(--doom-blue-rgb), 0.035);
   --table-row-background-hover: rgba(var(--doom-blue-rgb), 0.085);
 
@@ -1679,6 +1682,16 @@ body:not(.doom-monochrome-headings) .cm-s-obsidian .HyperMD-list-line-6 .cm-form
   background-color: rgba(var(--doom-blue-rgb), 0.06) !important;
 }
 
+/* Do not paint an active-line highlight bar inside focused table cells/headers */
+.cm-s-obsidian .table-wrapper .cm-activeLine,
+.cm-s-obsidian .table-wrapper .cm-active.cm-line,
+.cm-s-obsidian .cm-table-widget .cm-activeLine,
+.cm-s-obsidian .cm-table-widget .cm-active.cm-line,
+.cm-s-obsidian .cm-embed-block table .cm-activeLine,
+.cm-s-obsidian .cm-embed-block table .cm-active.cm-line {
+  background-color: transparent !important;
+}
+
 body.doom-no-active-line-highlight .cm-activeLine,
 body.doom-no-active-line-highlight .cm-s-obsidian .cm-activeLine,
 body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
@@ -2448,30 +2461,32 @@ body.theme-light .cm-s-obsidian .cm-embed-block table {
 .cm-s-obsidian .cm-embed-block table td {
   padding: 8px 13px;
   line-height: 1.5;
+  vertical-align: top;
   border: 1px solid var(--table-cell-border-color, var(--table-border-color));
 }
 
-.markdown-rendered td,
-.cm-s-obsidian .cm-embed-block table td {
-  vertical-align: top;
-}
-
 .markdown-rendered thead tr > th,
-.cm-s-obsidian .cm-embed-block table thead tr > th {
+.cm-s-obsidian .cm-embed-block table thead tr > th,
+.cm-s-obsidian .table-wrapper thead tr > th {
   background-color: var(--table-header-background);
   color: var(--table-header-color);
-  font-family: var(--font-monospace);
-  font-weight: 700;
-  font-size: 0.92em;
-  letter-spacing: 0.02em;
-  vertical-align: bottom;
+  font-family: var(--table-header-font);
+  font-size: var(--table-header-size, 1em);
+  font-weight: var(--table-header-weight, 700);
+  line-height: 1.5;
+  letter-spacing: normal;
   border-bottom: 2px solid var(--doom-blue);
 }
 
-/* First column subtle structural weight for case/element comparison matrices */
-.markdown-rendered tbody tr > td:first-child,
-.cm-s-obsidian .cm-embed-block table tbody tr > td:first-child {
-  color: var(--doom-base8);
+/* Ensure focused Live Preview table headers (`th` containing nested `.cm-editor`) match unfocused `th` identically */
+.cm-s-obsidian .cm-embed-block table thead tr > th :is(.table-cell-wrapper, .cm-editor, .cm-scroller, .cm-content, .cm-line),
+.cm-s-obsidian .table-wrapper thead tr > th :is(.table-cell-wrapper, .cm-editor, .cm-scroller, .cm-content, .cm-line) {
+  font-family: var(--table-header-font) !important;
+  font-size: inherit !important;
+  font-weight: var(--table-header-weight, 700) !important;
+  color: var(--table-header-color) !important;
+  line-height: 1.5 !important;
+  letter-spacing: normal !important;
 }
 
 /* Zebra striping & row hover for regular tables matching Bases clarity */
@@ -2483,12 +2498,6 @@ body.theme-light .cm-s-obsidian .cm-embed-block table {
 .markdown-rendered tbody tr:hover,
 .cm-s-obsidian .cm-embed-block table tbody tr:hover {
   background-color: var(--table-row-background-hover, rgba(var(--doom-blue-rgb), 0.08));
-}
-
-/* Native Live Preview table editor cell focus & selection polish */
-.cm-s-obsidian .table-wrapper .table-cell-wrapper:focus-within {
-  box-shadow: inset 0 0 0 1.5px var(--doom-blue);
-  background-color: rgba(var(--doom-blue-rgb), 0.05);
 }
 
 .markdown-rendered td[align="right"],
