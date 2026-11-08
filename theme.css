@@ -1350,12 +1350,12 @@ body:not(.is-mobile) .view-header {
   line-height: 1.4;
   align-items: center;
   border-left: none;
-  transition: background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease;
+  transition: background-color 0.1s ease, box-shadow 0.1s ease;
 }
 
-.tree-item-self:hover {
+.tree-item-self:hover,
+body:not(.is-grabbing) .tree-item-self.is-clickable:hover {
   background-color: rgba(var(--doom-blue-rgb), 0.09);
-  color: var(--doom-fg);
   box-shadow: inset 2px 0 0 0 rgba(var(--doom-blue-rgb), 0.45);
 }
 
@@ -1376,7 +1376,7 @@ body {
   --nav-item-children-margin-start: var(--size-4-3, 12px);
   --nav-item-children-margin-left: var(--size-4-3, 12px);
   --nav-indentation-guide-width: var(--indentation-guide-width, 1px);
-  --nav-indentation-guide-color: var(--doom-base3);
+  --nav-indentation-guide-color: rgba(var(--doom-blue-rgb), 0.45);
 }
 
 /* Align vertical tree guide line directly underneath folder/section chevrons (24px - 20px + 16px/2 = 12px) */
@@ -1384,7 +1384,7 @@ body {
   padding-inline-start: max(4px, calc(var(--doom-tree-indent, 14px) - 8px)) !important;
   margin-inline-start: var(--size-4-3, 12px) !important;
   margin-left: var(--size-4-3, 12px) !important;
-  border-inline-start: var(--indentation-guide-width, 1px) solid var(--doom-base3);
+  border-inline-start: var(--indentation-guide-width, 1px) solid rgba(var(--doom-blue-rgb), 0.45);
   transition: border-color 0.15s ease;
 }
 
@@ -1398,8 +1398,8 @@ body {
 
 /* Highlight active tree branch guide when hovering a parent folder or outline section */
 .tree-item:hover > .tree-item-children {
-  border-inline-start-color: var(--doom-base4);
-  border-left-color: var(--doom-base4);
+  border-inline-start-color: var(--doom-blue);
+  border-left-color: var(--doom-blue);
 }
 
 body.doom-sidebar-compact {
@@ -1425,37 +1425,42 @@ body.doom-sidebar-comfortable .tree-item-self {
 }
 
 .tree-item-self.is-active,
+.tree-item-self.is-active:hover,
 .nav-file-title.is-active,
-.nav-folder-title.is-active {
+.nav-file-title.is-active:hover,
+.nav-folder-title.is-active,
+.nav-folder-title.is-active:hover {
   background-color: rgba(var(--doom-blue-rgb), 0.15) !important;
   color: var(--doom-blue) !important;
   border-left: none !important;
   box-shadow: inset 2px 0 0 0 var(--doom-blue) !important;
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 
 /* Document Outline Sidebar (Table of Contents hierarchy for long legal outlines) */
-.view-content > .outline > .tree-item > .tree-item-self {
+.view-content > .outline > .tree-item > .tree-item-self,
+body:not(.is-grabbing) .view-content > .outline > .tree-item > .tree-item-self.is-clickable:hover {
   color: var(--doom-blue);
   font-weight: 600;
 }
 
-.view-content > .outline > .tree-item > .tree-item-children > .tree-item > .tree-item-self {
+.view-content > .outline > .tree-item > .tree-item-children > .tree-item > .tree-item-self,
+body:not(.is-grabbing) .view-content > .outline > .tree-item > .tree-item-children > .tree-item > .tree-item-self.is-clickable:hover {
   color: var(--doom-fg);
   font-weight: 500;
 }
 
-.view-content > .outline .tree-item-children .tree-item-children .tree-item-self {
+.view-content > .outline .tree-item-children .tree-item-children .tree-item-self,
+body:not(.is-grabbing) .view-content > .outline .tree-item-children .tree-item-children .tree-item-self.is-clickable:hover {
   color: var(--doom-base6);
   font-size: 12.2px;
-}
-
-.view-content > .outline .tree-item-self:hover {
-  color: var(--doom-fg);
+  font-weight: 400;
 }
 
 /* Root vault title in Treemacs style (no extra bottom border to avoid dual lines under .nav-header) */
-.nav-folder.mod-root > .nav-folder-title {
+.nav-folder.mod-root > .nav-folder-title,
+.nav-folder.mod-root > .nav-folder-title:hover,
+body:not(.is-grabbing) .nav-folder.mod-root > .tree-item-self.nav-folder-title.is-clickable:hover {
   color: var(--doom-magenta);
   font-weight: 700;
   text-transform: uppercase;
@@ -1466,20 +1471,27 @@ body.doom-sidebar-comfortable .tree-item-self {
   margin-bottom: 2px;
 }
 
-.nav-folder-title {
+.nav-folder-title,
+.nav-folder-title:hover,
+body:not(.is-grabbing) .tree-item-self.nav-folder-title.is-clickable:hover {
   font-family: var(--font-interface);
   color: var(--doom-blue);
   font-weight: 500;
 }
 
-.nav-file-title {
+.nav-file-title,
+.nav-file-title:hover,
+body:not(.is-grabbing) .tree-item-self.nav-file-title.is-clickable:hover {
   font-family: var(--font-interface);
   color: var(--doom-fg);
+  font-weight: 400;
 }
 
 /* File extension & search count badges in Dired / Treemacs muted style */
 .nav-file-tag,
-.tree-item-flair {
+.tree-item-flair,
+.tree-item-self:hover .nav-file-tag,
+.tree-item-self:hover .tree-item-flair {
   background-color: var(--doom-base2);
   color: var(--doom-yellow);
   border: 1px solid var(--doom-base3);
@@ -3289,28 +3301,33 @@ body.doom-rainbow-indent-guides .markdown-rendered.show-indentation-guide :is(ul
 
 /* File Tree Rainbow Indentation Guides */
 body.doom-rainbow-indent-guides .tree-item-children {
-  border-inline-start-color: var(--doom-base3);
-  border-left-color: var(--doom-base3);
-}
-
-body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children {
   border-inline-start-color: var(--doom-blue);
   border-left-color: var(--doom-blue);
 }
 
-body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
+body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children {
   border-inline-start-color: var(--doom-magenta);
   border-left-color: var(--doom-magenta);
 }
 
-body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
+body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
   border-inline-start-color: var(--doom-violet);
   border-left-color: var(--doom-violet);
 }
 
-body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
+body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
   border-inline-start-color: var(--doom-orange);
   border-left-color: var(--doom-orange);
+}
+
+body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
+  border-inline-start-color: var(--doom-green);
+  border-left-color: var(--doom-green);
+}
+
+body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
+  border-inline-start-color: var(--doom-cyan);
+  border-left-color: var(--doom-cyan);
 }
 
 /* --------------------------------------------------------------------------
