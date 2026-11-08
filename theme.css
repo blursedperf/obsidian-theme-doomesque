@@ -745,8 +745,12 @@ body.theme-light.doom-palette-tomorrow-day {
   --collapse-icon-color-collapsed: var(--doom-magenta);
 
   /* Tables (Org-table style) */
+  --table-background: var(--doom-bg);
+  --table-border-width: 1px;
   --table-border-color: var(--doom-base4);
   --table-cell-border-color: var(--doom-base3);
+  --table-header-border-width: 1px;
+  --table-header-border-color: var(--doom-base3);
   --table-header-background: var(--doom-base1);
   --table-header-background-hover: var(--doom-base2);
   --table-header-font: var(--font-heading);
@@ -754,8 +758,22 @@ body.theme-light.doom-palette-tomorrow-day {
   --table-header-color: var(--doom-blue);
   --table-header-weight: 700;
   --table-line-height: 1.5;
-  --table-row-alt-background: rgba(var(--doom-blue-rgb), 0.035);
-  --table-row-background-hover: rgba(var(--doom-blue-rgb), 0.085);
+  --table-text-color: var(--doom-fg);
+  --table-row-alt-background: rgba(var(--doom-blue-rgb), 0.032);
+  --table-row-alt-background-hover: rgba(var(--doom-blue-rgb), 0.08);
+  --table-row-background-hover: rgba(var(--doom-blue-rgb), 0.08);
+  --table-selection: rgba(var(--doom-blue-rgb), 0.14);
+  --table-selection-blend-mode: normal;
+  --table-selection-border-color: var(--doom-blue);
+  --table-selection-border-width: 1.5px;
+  --table-selection-border-radius: 0px;
+  --table-drag-handle-background: transparent;
+  --table-drag-handle-background-active: rgba(var(--doom-blue-rgb), 0.16);
+  --table-drag-handle-color: var(--doom-base5);
+  --table-drag-handle-color-active: var(--doom-blue);
+  --table-add-button-background: var(--doom-bg-alt);
+  --table-add-button-border-width: 1px;
+  --table-add-button-border-color: var(--doom-base3);
 
   /* Obsidian Bases / Database Views (Org-table Harmony) */
   --bases-table-border-color: var(--table-border-color);
@@ -2441,30 +2459,67 @@ body .popover.hover-popover .markdown-preview-section,
 
 
 
-/* Tables (Org-table grid borders, top-aligned multi-line legal comparison cells & cell padding) */
+/* Tables (Card-framed Org-table aesthetic, soft inner grid, seamless Live Preview editing) */
 .markdown-rendered table,
-.cm-s-obsidian .cm-embed-block table {
-  margin: 1.15em 0;
-  border-collapse: collapse;
+.cm-s-obsidian .cm-embed-block table,
+.cm-s-obsidian .table-wrapper table.table-editor {
+  margin: 1.2em 0;
+  border-collapse: separate;
+  border-spacing: 0;
   border: 1px solid var(--table-border-color);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.14);
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: var(--table-background, var(--doom-bg));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
 }
 
 body.theme-light .markdown-rendered table,
-body.theme-light .cm-s-obsidian .cm-embed-block table {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+body.theme-light .cm-s-obsidian .cm-embed-block table,
+body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
+/* Inner cell grid lines without double outer borders */
 .markdown-rendered th,
 .markdown-rendered td,
 .cm-s-obsidian .cm-embed-block table th,
 .cm-s-obsidian .cm-embed-block table td {
-  padding: 8px 13px;
   line-height: 1.5;
   vertical-align: top;
-  border: 1px solid var(--table-cell-border-color, var(--table-border-color));
+  border-top: none !important;
+  border-left: none !important;
+  border-right: 1px solid var(--table-cell-border-color, var(--table-border-color)) !important;
+  border-bottom: 1px solid var(--table-cell-border-color, var(--table-border-color)) !important;
 }
 
+.markdown-rendered tr > :is(th, td):last-child,
+.cm-s-obsidian .cm-embed-block table tr > :is(th, td):last-child {
+  border-right: none !important;
+}
+
+.markdown-rendered tbody tr:last-child > td,
+.cm-s-obsidian .cm-embed-block table tbody tr:last-child > td {
+  border-bottom: none !important;
+}
+
+/* Reading View cell padding vs Live Preview .table-cell-wrapper padding (prevents double padding & aligns focus rings to cell edges) */
+.markdown-rendered table:not(.table-editor) th,
+.markdown-rendered table:not(.table-editor) td {
+  padding: 9px 14px;
+}
+
+.cm-s-obsidian .table-wrapper table.table-editor th,
+.cm-s-obsidian .table-wrapper table.table-editor td {
+  padding: 0 !important;
+}
+
+.cm-s-obsidian .table-wrapper .table-cell-wrapper {
+  padding: 9px 14px !important;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+/* Table Header Row (`thead`) */
 .markdown-rendered thead tr > th,
 .cm-s-obsidian .cm-embed-block table thead tr > th,
 .cm-s-obsidian .table-wrapper thead tr > th {
@@ -2475,7 +2530,13 @@ body.theme-light .cm-s-obsidian .cm-embed-block table {
   font-weight: var(--table-header-weight, 700);
   line-height: 1.5;
   letter-spacing: normal;
-  border-bottom: 2px solid var(--doom-blue);
+  border-bottom: 2px solid var(--doom-blue) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  transition: background-color 0.12s ease;
+}
+
+.cm-s-obsidian .table-wrapper thead tr > th:hover {
+  background-color: var(--table-header-background-hover);
 }
 
 /* Ensure focused Live Preview table headers (`th` containing nested `.cm-editor`) match unfocused `th` identically */
@@ -2489,15 +2550,68 @@ body.theme-light .cm-s-obsidian .cm-embed-block table {
   letter-spacing: normal !important;
 }
 
-/* Zebra striping & row hover for regular tables matching Bases clarity */
-.markdown-rendered tbody tr:nth-child(even),
-.cm-s-obsidian .cm-embed-block table tbody tr:nth-child(even) {
-  background-color: var(--table-row-alt-background, rgba(var(--doom-blue-rgb), 0.035));
+/* Ensure focused Live Preview body cells (`td` containing nested `.cm-editor`) maintain identical line-height & padding */
+.cm-s-obsidian .table-wrapper tbody tr > td :is(.cm-editor, .cm-scroller, .cm-content, .cm-line) {
+  line-height: 1.5 !important;
 }
 
-.markdown-rendered tbody tr:hover,
-.cm-s-obsidian .cm-embed-block table tbody tr:hover {
+/* Edge-to-edge cell focus indicator in Live Preview (does not shift text or alter header background) */
+.cm-s-obsidian .table-wrapper .table-cell-wrapper:focus-within {
+  box-shadow: inset 0 0 0 1.5px var(--doom-blue);
+}
+
+/* Zebra striping & row hover for regular tables matching Bases clarity */
+.markdown-rendered tbody tr:nth-child(even) > td,
+.cm-s-obsidian .cm-embed-block table tbody tr:nth-child(even) > td {
+  background-color: var(--table-row-alt-background, rgba(var(--doom-blue-rgb), 0.032));
+}
+
+.markdown-rendered tbody tr:hover > td,
+.cm-s-obsidian .cm-embed-block table tbody tr:hover > td {
   background-color: var(--table-row-background-hover, rgba(var(--doom-blue-rgb), 0.08));
+}
+
+/* Compact lists & zeroed outer margins on multi-element content inside table cells */
+.markdown-rendered :is(th, td) > :first-child,
+.cm-s-obsidian .table-wrapper .table-cell-wrapper > :first-child {
+  margin-top: 0;
+}
+
+.markdown-rendered :is(th, td) > :last-child,
+.cm-s-obsidian .table-wrapper .table-cell-wrapper > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-rendered :is(th, td) :is(ul, ol),
+.cm-s-obsidian .table-wrapper .table-cell-wrapper :is(ul, ol) {
+  margin: 0.2em 0;
+  padding-inline-start: 1.25em;
+}
+
+/* Live Preview Table Row/Column Drag Handles & Add Row/Column Buttons */
+.cm-s-obsidian .table-wrapper :is(.table-row-drag-handle, .table-col-drag-handle) {
+  color: var(--doom-base5);
+  border-radius: 3px;
+  transition: color 0.12s ease, background-color 0.12s ease, opacity 0.12s ease;
+}
+
+.cm-s-obsidian .table-wrapper :is(.table-row-drag-handle, .table-col-drag-handle):hover {
+  color: var(--doom-blue);
+  background-color: rgba(var(--doom-blue-rgb), 0.14);
+}
+
+.cm-s-obsidian .table-wrapper :is(.table-row-btn, .table-col-btn) {
+  background-color: var(--doom-bg-alt);
+  border-color: var(--doom-base3);
+  color: var(--doom-base5);
+  border-radius: 4px;
+  transition: color 0.12s ease, background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.cm-s-obsidian .table-wrapper :is(.table-row-btn, .table-col-btn):hover {
+  background-color: rgba(var(--doom-blue-rgb), 0.12);
+  border-color: var(--doom-blue);
+  color: var(--doom-blue);
 }
 
 .markdown-rendered td[align="right"],
