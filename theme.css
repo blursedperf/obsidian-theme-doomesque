@@ -298,6 +298,50 @@ body.theme-dark.doom-palette-gruvbox {
   --doom-modeline-badge-fg: #1d2021;
 }
 
+/* Optional Dark Variant: doom-cyberpunk (Cyberpunk 2077 Night City Neon) */
+body.theme-dark.doom-palette-cyberpunk {
+  --doom-bg: #101216;
+  --doom-bg-alt: #0a0b0e;
+  --doom-base0: #07080a;
+  --doom-base1: #0f1117;
+  --doom-base2: #161822;
+  --doom-base3: #1f2330;
+  --doom-base4: #30364a;
+  --doom-base5: #5c6480;
+  --doom-base6: #8a94b8;
+  --doom-base7: #b8c4e0;
+  --doom-base8: #eef2f7;
+  --doom-fg: #e2e8f0;
+  --doom-fg-alt: #5c6480;
+
+  --doom-red: #ff003c;
+  --doom-orange: #ff7700;
+  --doom-green: #00ff9f;
+  --doom-teal: #05d9e8;
+  --doom-yellow: #fcee0a;
+  --doom-blue: #00f0ff;
+  --doom-dark-blue: #00487c;
+  --doom-magenta: #ff2a6d;
+  --doom-violet: #9b5de5;
+  --doom-cyan: #00f0ff;
+  --doom-dark-cyan: #058296;
+
+  --doom-blue-rgb: 0, 240, 255;
+  --doom-magenta-rgb: 255, 42, 109;
+  --doom-green-rgb: 0, 255, 159;
+  --doom-yellow-rgb: 252, 238, 10;
+  --doom-red-rgb: 255, 0, 60;
+  --doom-orange-rgb: 255, 119, 0;
+  --doom-cyan-rgb: 0, 240, 255;
+  --doom-violet-rgb: 155, 93, 229;
+  --doom-teal-rgb: 5, 217, 232;
+
+  --doom-modeline-bg: #0a0b0e;
+  --doom-modeline-bar: var(--doom-yellow);
+  --doom-modeline-badge-bg: var(--doom-yellow);
+  --doom-modeline-badge-fg: #07080a;
+}
+
 /* ==========================================================================
    LIGHT THEME: doom-one-light (Default)
    ========================================================================== */
@@ -1987,6 +2031,18 @@ body .popover.hover-popover .markdown-preview-section,
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
 }
 
+/* Reserve comfortable space on the right for CM6 .embed-actions (expose syntax button) */
+.markdown-source-view.mod-cm6 .cm-content > .bases-embed,
+.markdown-source-view.mod-cm6 .cm-content > .cm-lang-base,
+.bases-embed,
+.block-language-base {
+  --bases-header-padding-end: 56px !important;
+}
+
+.workspace-leaf-content[data-type="bases"] .view-content {
+  --bases-header-padding-end: 12px !important;
+}
+
 .bases-embed .bases-view[data-view-type="table"],
 .bases-table-container {
   background-color: var(--doom-bg) !important;
@@ -1997,8 +2053,48 @@ body .popover.hover-popover .markdown-preview-section,
 .bases-header {
   background-color: var(--doom-bg-alt) !important;
   border-bottom: 1px solid var(--table-border-color) !important;
-  padding: 6px 12px !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+  padding-inline-start: 12px !important;
+  padding-inline-end: var(--bases-header-padding-end, 56px) !important;
   min-height: 38px;
+  box-sizing: border-box;
+}
+
+/* Expose Syntax / Edit Block Button in Bases Embed Header */
+.markdown-source-view.mod-cm6 .cm-content > .bases-embed .embed-actions,
+.markdown-source-view.mod-cm6 .cm-content > .cm-lang-base .embed-actions,
+.bases-embed .embed-actions {
+  opacity: 1 !important;
+  top: 6px !important;
+  inset-inline-end: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  z-index: 2;
+}
+
+.markdown-source-view.mod-cm6 .cm-content > .bases-embed .embed-action,
+.markdown-source-view.mod-cm6 .cm-content > .cm-lang-base .embed-action,
+.bases-embed .embed-action {
+  background-color: var(--doom-base0) !important;
+  border: 1px solid var(--doom-base3) !important;
+  border-radius: 3px !important;
+  color: var(--doom-base5) !important;
+  padding: 3px 6px !important;
+  height: 26px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+
+.markdown-source-view.mod-cm6 .cm-content > .bases-embed .embed-action:hover,
+.markdown-source-view.mod-cm6 .cm-content > .cm-lang-base .embed-action:hover,
+.bases-embed .embed-action:hover {
+  background-color: var(--doom-base2) !important;
+  border-color: var(--doom-base4) !important;
+  color: var(--doom-blue) !important;
 }
 
 .bases-header .title {
@@ -2040,6 +2136,10 @@ body .popover.hover-popover .markdown-preview-section,
   font-family: var(--font-monospace-doom) !important;
   color: var(--doom-base5) !important;
   font-size: 0.82em !important;
+}
+
+.bases-toolbar .bases-toolbar-new-item-menu {
+  margin-inline-end: 4px !important;
 }
 
 /* Column Header Row (.bases-thead matching Org-table 2px blue accent underline) */
@@ -3210,6 +3310,8 @@ settings:
         value: doom-palette-tokyo-night
       - label: doom-gruvbox
         value: doom-palette-gruvbox
+      - label: doom-cyberpunk (Cyberpunk 2077)
+        value: doom-palette-cyberpunk
   - id: doom-light-palette
     title: Light Mode Doom Palette
     description: Choose which Doom Emacs color scheme to use in Light Mode.
