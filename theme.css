@@ -751,21 +751,22 @@ body.theme-light.doom-palette-tomorrow-day {
   --table-cell-border-color: var(--doom-base3);
   --table-header-border-width: 1px;
   --table-header-border-color: var(--doom-base3);
-  --table-header-background: var(--doom-base1);
-  --table-header-background-hover: var(--doom-base2);
+  --table-header-background: var(--doom-base0);
+  --table-header-background-hover: var(--doom-base1);
   --table-header-font: var(--font-heading);
-  --table-header-size: var(--table-text-size, 1em);
+  --table-text-size: 0.95em;
+  --table-header-size: 0.95em;
   --table-header-color: var(--doom-blue);
   --table-header-weight: 700;
   --table-line-height: 1.5;
   --table-text-color: var(--doom-fg);
-  --table-row-alt-background: rgba(var(--doom-blue-rgb), 0.032);
-  --table-row-alt-background-hover: rgba(var(--doom-blue-rgb), 0.08);
-  --table-row-background-hover: rgba(var(--doom-blue-rgb), 0.08);
-  --table-selection: rgba(var(--doom-blue-rgb), 0.14);
+  --table-row-alt-background: var(--doom-bg-alt);
+  --table-row-alt-background-hover: rgba(var(--doom-blue-rgb), 0.09);
+  --table-row-background-hover: rgba(var(--doom-blue-rgb), 0.09);
+  --table-selection: rgba(var(--doom-blue-rgb), 0.12);
   --table-selection-blend-mode: normal;
-  --table-selection-border-color: var(--doom-blue);
-  --table-selection-border-width: 1.5px;
+  --table-selection-border-color: transparent;
+  --table-selection-border-width: 0px;
   --table-selection-border-radius: 0px;
   --table-drag-handle-background: transparent;
   --table-drag-handle-background-active: rgba(var(--doom-blue-rgb), 0.16);
@@ -871,6 +872,9 @@ body.theme-light.doom-palette-tomorrow-day {
   --tooltip-color: #fafafa;
   --table-border-color: var(--doom-base3);
   --table-cell-border-color: var(--doom-base2);
+  --table-header-background: var(--doom-base1);
+  --table-header-background-hover: var(--doom-base2);
+  --table-row-alt-background: var(--doom-bg-alt);
   --indentation-guide-color: rgba(var(--doom-blue-rgb), 0.22);
 }
 
@@ -2459,53 +2463,43 @@ body .popover.hover-popover .markdown-preview-section,
 
 
 
-/* Tables (Card-framed Org-table aesthetic, soft inner grid, seamless Live Preview editing) */
+/* Tables (Stable, zero-shift Live Preview & Reading View Org-table aesthetic with Zebra Shading) */
 .markdown-rendered table,
 .cm-s-obsidian .cm-embed-block table,
 .cm-s-obsidian .table-wrapper table.table-editor {
   margin: 1.2em 0;
-  border-collapse: separate;
-  border-spacing: 0;
+  border-collapse: collapse;
   border: 1px solid var(--table-border-color);
-  border-radius: 6px;
-  overflow: hidden;
   background-color: var(--table-background, var(--doom-bg));
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
+  font-size: var(--table-text-size, 0.95em);
+  line-height: var(--table-line-height, 1.5);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.14);
 }
 
 body.theme-light .markdown-rendered table,
 body.theme-light .cm-s-obsidian .cm-embed-block table,
 body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-/* Inner cell grid lines without double outer borders */
+/* Inner cell grid lines */
 .markdown-rendered th,
 .markdown-rendered td,
 .cm-s-obsidian .cm-embed-block table th,
-.cm-s-obsidian .cm-embed-block table td {
-  line-height: 1.5;
+.cm-s-obsidian .cm-embed-block table td,
+.cm-s-obsidian .table-wrapper table.table-editor th,
+.cm-s-obsidian .table-wrapper table.table-editor td {
+  font-size: var(--table-text-size, 0.95em);
+  line-height: var(--table-line-height, 1.5) !important;
   vertical-align: top;
-  border-top: none !important;
-  border-left: none !important;
-  border-right: 1px solid var(--table-cell-border-color, var(--table-border-color)) !important;
-  border-bottom: 1px solid var(--table-cell-border-color, var(--table-border-color)) !important;
+  border: 1px solid var(--table-cell-border-color, var(--table-border-color));
+  box-sizing: border-box;
 }
 
-.markdown-rendered tr > :is(th, td):last-child,
-.cm-s-obsidian .cm-embed-block table tr > :is(th, td):last-child {
-  border-right: none !important;
-}
-
-.markdown-rendered tbody tr:last-child > td,
-.cm-s-obsidian .cm-embed-block table tbody tr:last-child > td {
-  border-bottom: none !important;
-}
-
-/* Reading View cell padding vs Live Preview .table-cell-wrapper padding (prevents double padding & aligns focus rings to cell edges) */
+/* Reading View cell padding vs Live Preview .table-cell-wrapper padding (prevents double padding) */
 .markdown-rendered table:not(.table-editor) th,
 .markdown-rendered table:not(.table-editor) td {
-  padding: 9px 14px;
+  padding: 8px 13px;
 }
 
 .cm-s-obsidian .table-wrapper table.table-editor th,
@@ -2514,61 +2508,90 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
 }
 
 .cm-s-obsidian .table-wrapper .table-cell-wrapper {
-  padding: 9px 14px !important;
-  line-height: 1.5;
+  padding: 8px 13px !important;
+  margin: 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  font-size: inherit !important;
+  line-height: var(--table-line-height, 1.5) !important;
   box-sizing: border-box;
+}
+
+/* Lock nested CodeMirror 6 elements inside focused table cells (`th` and `td`) so there is zero movement when clicking between heading and body cells */
+.cm-s-obsidian .table-wrapper :is(.cm-editor, .cm-scroller, .cm-sizer, .cm-content, .cm-line),
+.cm-s-obsidian .cm-embed-block table :is(.cm-editor, .cm-scroller, .cm-sizer, .cm-content, .cm-line) {
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  min-height: 0 !important;
+  background-color: transparent !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: var(--table-line-height, 1.5) !important;
+  letter-spacing: inherit !important;
+}
+
+/* Remove active cell highlight border / outline completely */
+.cm-s-obsidian .table-wrapper :is(th, td, .table-cell-wrapper, .cm-editor, .cm-scroller, .cm-content, .cm-line):is(:focus, :focus-within, .mod-focused, .is-focused) {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 /* Table Header Row (`thead`) */
 .markdown-rendered thead tr > th,
 .cm-s-obsidian .cm-embed-block table thead tr > th,
 .cm-s-obsidian .table-wrapper thead tr > th {
-  background-color: var(--table-header-background);
-  color: var(--table-header-color);
-  font-family: var(--table-header-font);
-  font-size: var(--table-header-size, 1em);
-  font-weight: var(--table-header-weight, 700);
-  line-height: 1.5;
-  letter-spacing: normal;
+  background-color: var(--table-header-background) !important;
+  color: var(--table-header-color) !important;
+  font-family: var(--table-header-font) !important;
+  font-size: var(--table-header-size, 0.95em) !important;
+  font-weight: var(--table-header-weight, 700) !important;
+  line-height: var(--table-line-height, 1.5) !important;
+  letter-spacing: normal !important;
   border-bottom: 2px solid var(--doom-blue) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
-  transition: background-color 0.12s ease;
-}
-
-.cm-s-obsidian .table-wrapper thead tr > th:hover {
-  background-color: var(--table-header-background-hover);
 }
 
 /* Ensure focused Live Preview table headers (`th` containing nested `.cm-editor`) match unfocused `th` identically */
-.cm-s-obsidian .cm-embed-block table thead tr > th :is(.table-cell-wrapper, .cm-editor, .cm-scroller, .cm-content, .cm-line),
-.cm-s-obsidian .table-wrapper thead tr > th :is(.table-cell-wrapper, .cm-editor, .cm-scroller, .cm-content, .cm-line) {
+.cm-s-obsidian .cm-embed-block table thead tr > th :is(.table-cell-wrapper, .cm-editor, .cm-scroller, .cm-sizer, .cm-content, .cm-line),
+.cm-s-obsidian .table-wrapper thead tr > th :is(.table-cell-wrapper, .cm-editor, .cm-scroller, .cm-sizer, .cm-content, .cm-line) {
   font-family: var(--table-header-font) !important;
   font-size: inherit !important;
   font-weight: var(--table-header-weight, 700) !important;
   color: var(--table-header-color) !important;
-  line-height: 1.5 !important;
+  line-height: var(--table-line-height, 1.5) !important;
   letter-spacing: normal !important;
 }
 
-/* Ensure focused Live Preview body cells (`td` containing nested `.cm-editor`) maintain identical line-height & padding */
-.cm-s-obsidian .table-wrapper tbody tr > td :is(.cm-editor, .cm-scroller, .cm-content, .cm-line) {
-  line-height: 1.5 !important;
+/* Zebra Shading & Row Hover (Odd vs Even rows in both Reading View & Live Preview) */
+.markdown-rendered tbody tr:nth-child(odd),
+.markdown-rendered tbody tr:nth-child(odd) > td,
+.cm-s-obsidian .cm-embed-block table tbody tr:nth-child(odd),
+.cm-s-obsidian .cm-embed-block table tbody tr:nth-child(odd) > td,
+.cm-s-obsidian .table-wrapper tbody tr:nth-child(odd),
+.cm-s-obsidian .table-wrapper tbody tr:nth-child(odd) > td {
+  background-color: var(--table-background, var(--doom-bg)) !important;
 }
 
-/* Edge-to-edge cell focus indicator in Live Preview (does not shift text or alter header background) */
-.cm-s-obsidian .table-wrapper .table-cell-wrapper:focus-within {
-  box-shadow: inset 0 0 0 1.5px var(--doom-blue);
-}
-
-/* Zebra striping & row hover for regular tables matching Bases clarity */
+.markdown-rendered tbody tr:nth-child(even),
 .markdown-rendered tbody tr:nth-child(even) > td,
-.cm-s-obsidian .cm-embed-block table tbody tr:nth-child(even) > td {
-  background-color: var(--table-row-alt-background, rgba(var(--doom-blue-rgb), 0.032));
+.cm-s-obsidian .cm-embed-block table tbody tr:nth-child(even),
+.cm-s-obsidian .cm-embed-block table tbody tr:nth-child(even) > td,
+.cm-s-obsidian .table-wrapper tbody tr:nth-child(even),
+.cm-s-obsidian .table-wrapper tbody tr:nth-child(even) > td {
+  background-color: var(--table-row-alt-background, var(--doom-bg-alt)) !important;
 }
 
+.markdown-rendered tbody tr:hover,
 .markdown-rendered tbody tr:hover > td,
-.cm-s-obsidian .cm-embed-block table tbody tr:hover > td {
-  background-color: var(--table-row-background-hover, rgba(var(--doom-blue-rgb), 0.08));
+.cm-s-obsidian .cm-embed-block table tbody tr:hover,
+.cm-s-obsidian .cm-embed-block table tbody tr:hover > td,
+.cm-s-obsidian .table-wrapper tbody tr:hover,
+.cm-s-obsidian .table-wrapper tbody tr:hover > td {
+  background-color: var(--table-row-background-hover, rgba(var(--doom-blue-rgb), 0.09)) !important;
 }
 
 /* Compact lists & zeroed outer margins on multi-element content inside table cells */
