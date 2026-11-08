@@ -16,9 +16,12 @@
    1. Base Theme Palette & Geometry Definitions
    -------------------------------------------------------------------------- */
 body {
-  /* Typography (includes ui-monospace & SF Mono so iOS/iPadOS/macOS never fall back to Courier) */
-  --font-monospace-doom: "JetBrains Mono", "Iosevka", "Fira Code", "Source Code Pro", "Cascadia Code", ui-monospace, "SF Mono", "Menlo", "Monaco", monospace;
-  --font-sans-doom: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* Typography: Theme defaults (deferring cleanly to user overrides from Obsidian Settings -> Appearance) */
+  --font-monospace-theme: "JetBrains Mono", "Iosevka", "Fira Code", "Source Code Pro", "Cascadia Code", ui-monospace, "SF Mono", "Menlo", "Monaco", monospace;
+  --font-monospace-doom: var(--font-monospace);
+  --font-sans-doom: var(--font-interface);
+  --font-heading-theme: var(--font-monospace);
+  --font-heading: var(--font-text-override, var(--font-heading-theme, var(--font-text)));
 
   /* Geometry & Chrome (Doom Emacs flat aesthetic) */
   --radius-s: 2px;
@@ -823,15 +826,18 @@ body.theme-light.doom-palette-tomorrow-day {
 }
 
 /* --------------------------------------------------------------------------
-   3. Typography & Monospace-First Aesthetic
+   3. Typography & Monospace-First Aesthetic (Respecting Obsidian Appearance Settings)
    -------------------------------------------------------------------------- */
 body:not(.doom-disable-monospace-ui) {
-  --font-interface-override: var(--font-monospace-doom);
-  --font-monospace-override: var(--font-monospace-doom);
+  --font-interface-theme: var(--font-monospace);
+}
+
+body.doom-disable-monospace-ui {
+  --font-interface-theme: var(--font-default);
 }
 
 body.doom-monospace-editor {
-  --font-text-override: var(--font-monospace-doom);
+  --font-text-theme: var(--font-monospace);
 }
 
 /* Refined Link Underlines (Org-link harmony) */
@@ -854,7 +860,7 @@ body.doom-monospace-editor {
 .markdown-rendered h4,
 .markdown-rendered h5,
 .markdown-rendered h6 {
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-heading);
   letter-spacing: -0.01em;
   line-height: 1.35;
 }
@@ -919,7 +925,7 @@ body:not(.is-mobile) .status-bar {
   padding: 0 8px 0 0 !important;
   height: 26px !important;
   min-height: 26px !important;
-  font-family: var(--font-monospace-doom) !important;
+  font-family: var(--font-interface) !important;
   font-size: 11.5px !important;
   display: flex !important;
   align-items: center !important;
@@ -982,7 +988,7 @@ body:not(.is-mobile) .workspace-tab-header-container-inner {
 .workspace-tab-header {
   background-color: var(--doom-base0);
   border-right: 1px solid var(--doom-base2);
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-size: 12.5px;
   transition: background-color 0.1s ease, color 0.1s ease;
 }
@@ -1162,7 +1168,7 @@ body:not(.is-mobile) .nav-buttons-container:not(.has-separator) {
 .view-header {
   background-color: var(--doom-bg-alt) !important;
   border-bottom: 1px solid var(--doom-base2) !important;
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   align-items: center;
 }
 
@@ -1183,7 +1189,7 @@ body:not(.is-mobile) .view-header {
 
 .view-header-title,
 .view-header-breadcrumb {
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-size: 12.5px;
 }
 
@@ -1198,7 +1204,7 @@ body:not(.is-mobile) .view-header {
 .workspace-sidedock-vault-profile {
   background-color: var(--doom-base0) !important;
   border-top: 1px solid var(--doom-base2) !important;
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   padding: 8px 12px !important;
 }
 
@@ -1206,13 +1212,14 @@ body:not(.is-mobile) .view-header {
 .view-content > .outline,
 .view-content > .tag-container,
 .view-content > .bookmarks-container {
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-size: 13px;
   line-height: 1.45;
   padding: 8px 8px 16px 8px;
 }
 
 .tree-item-self {
+  font-family: var(--font-interface);
   border-radius: 3px;
   padding: 4px 8px;
   margin-bottom: 2px;
@@ -1262,11 +1269,13 @@ body.doom-sidebar-comfortable .tree-item-self {
 }
 
 .nav-folder-title {
+  font-family: var(--font-interface);
   color: var(--doom-blue);
   font-weight: 500;
 }
 
 .nav-file-title {
+  font-family: var(--font-interface);
   color: var(--doom-fg);
 }
 
@@ -1277,7 +1286,7 @@ body.doom-sidebar-comfortable .tree-item-self {
   color: var(--doom-yellow);
   border: 1px solid var(--doom-base3);
   border-radius: 2px;
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-size: 10px;
   padding: 1px 5px;
 }
@@ -1288,7 +1297,7 @@ body.doom-sidebar-comfortable .tree-item-self {
   border: 1px solid var(--doom-base3) !important;
   border-radius: var(--input-radius) !important;
   color: var(--doom-fg) !important;
-  font-family: var(--font-monospace-doom) !important;
+  font-family: var(--font-interface) !important;
   box-shadow: none !important;
   transition: border-color 0.12s ease, box-shadow 0.12s ease;
 }
@@ -1306,7 +1315,7 @@ body.doom-sidebar-comfortable .tree-item-self {
 .search-results-info {
   padding: 6px 10px;
   border-bottom: 1px solid var(--doom-base2);
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-size: 11.5px;
   color: var(--doom-base6);
   align-items: center;
@@ -1314,7 +1323,7 @@ body.doom-sidebar-comfortable .tree-item-self {
 
 .backlink-pane,
 .outgoing-link-pane {
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   padding: 6px 8px 16px 8px;
 }
 
@@ -1336,13 +1345,13 @@ body.doom-sidebar-comfortable .tree-item-self {
 }
 
 .search-result-file-title {
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   color: var(--doom-magenta);
   font-weight: 600;
 }
 
 .search-result-file-matches {
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-size: 12px;
   background-color: var(--doom-base0);
   border: 1px solid var(--doom-base3);
@@ -1481,7 +1490,7 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
 
 /* Inline Title (Org `#+TITLE:` feel) */
 .inline-title {
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-heading);
   color: var(--doom-blue);
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -1498,13 +1507,13 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   border-radius: 3px;
   padding: 10px 12px;
   margin-bottom: 1.2em;
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-size: 0.9em;
 }
 
 .metadata-properties-heading {
   color: var(--doom-violet);
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-size: 0.85em;
   font-weight: 700;
   text-transform: uppercase;
@@ -1573,7 +1582,7 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   display: flex;
   align-items: center;
   color: var(--doom-cyan);
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   transition: border-color 0.12s ease, box-shadow 0.12s ease;
 }
 
@@ -1591,7 +1600,7 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   border: none !important;
   box-shadow: none !important;
   color: var(--doom-cyan) !important;
-  font-family: var(--font-monospace-doom) !important;
+  font-family: var(--font-interface) !important;
   padding: 2px 4px !important;
 }
 
@@ -1623,7 +1632,7 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   border: none !important;
   box-shadow: none !important;
   color: var(--doom-fg) !important;
-  font-family: var(--font-monospace-doom) !important;
+  font-family: var(--font-interface) !important;
   width: 100%;
   padding: 2px 4px;
 }
@@ -1633,7 +1642,7 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   border: 1px solid rgba(var(--doom-blue-rgb), 0.35);
   border-radius: 2px;
   color: var(--doom-blue);
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-size: 0.85em;
   padding: 1px 6px;
   margin: 2px 4px 2px 0;
@@ -1653,7 +1662,7 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   border: 1px dashed var(--doom-base4) !important;
   border-radius: 3px !important;
   color: var(--doom-base7) !important;
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-size: 0.85em;
   display: inline-flex;
   align-items: center;
@@ -1804,7 +1813,7 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   background-color: var(--doom-base2);
   color: var(--doom-base7);
   border: 1px solid var(--doom-base3);
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-size: 11px;
   border-radius: 2px;
 }
@@ -1840,7 +1849,7 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
 }
 
 .markdown-embed-title {
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   color: var(--doom-cyan);
   font-weight: 700;
   font-size: 0.9em;
@@ -2098,7 +2107,7 @@ body .popover.hover-popover .markdown-preview-section,
 }
 
 .bases-header .title {
-  font-family: var(--font-monospace-doom) !important;
+  font-family: var(--font-interface) !important;
   font-weight: 700 !important;
   color: var(--doom-blue) !important;
   font-size: 1.05em !important;
@@ -2111,7 +2120,7 @@ body .popover.hover-popover .markdown-preview-section,
   border: 1px solid var(--doom-base3) !important;
   border-radius: 3px !important;
   color: var(--doom-fg) !important;
-  font-family: var(--font-monospace-doom) !important;
+  font-family: var(--font-interface) !important;
   font-size: 0.82em !important;
   padding: 3px 8px !important;
   transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
@@ -2133,7 +2142,7 @@ body .popover.hover-popover .markdown-preview-section,
 }
 
 .bases-toolbar .bases-toolbar-result-count {
-  font-family: var(--font-monospace-doom) !important;
+  font-family: var(--font-interface) !important;
   color: var(--doom-base5) !important;
   font-size: 0.82em !important;
 }
@@ -2307,7 +2316,7 @@ body .popover.hover-popover .markdown-preview-section,
 }
 
 .bases-kanban-column-header {
-  font-family: var(--font-monospace-doom) !important;
+  font-family: var(--font-interface) !important;
   font-weight: 700 !important;
   color: var(--doom-blue) !important;
   border-bottom: 1px solid var(--doom-base2);
@@ -2328,7 +2337,7 @@ body .popover.hover-popover .markdown-preview-section,
   background-color: var(--doom-bg-alt) !important;
   border: 1px solid var(--doom-blue) !important;
   border-radius: 4px !important;
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
 }
 
 /* In-Document Find & Replace Bar (Isearch / Swiper feel) */
@@ -2346,7 +2355,7 @@ body .popover.hover-popover .markdown-preview-section,
   border: 1px solid var(--doom-base3) !important;
   border-radius: var(--input-radius) !important;
   color: var(--doom-fg) !important;
-  font-family: var(--font-monospace-doom) !important;
+  font-family: var(--font-interface) !important;
 }
 
 .document-search-input:focus,
@@ -2533,7 +2542,7 @@ body.doom-rainbow-indent-guides .markdown-rendered.show-indentation-guide :is(ul
   border: 1px solid var(--doom-blue) !important;
   border-radius: 3px !important;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55) !important;
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   overflow: hidden;
 }
 
@@ -2543,7 +2552,7 @@ body.doom-rainbow-indent-guides .markdown-rendered.show-indentation-guide :is(ul
 }
 
 .menu-item {
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-size: 12.5px;
   border-radius: 2px;
   padding: 5px 10px;
@@ -2587,14 +2596,14 @@ body.doom-rainbow-indent-guides .markdown-rendered.show-indentation-guide :is(ul
 input.prompt-input {
   background-color: transparent !important;
   border: none !important;
-  font-family: var(--font-monospace-doom) !important;
+  font-family: var(--font-interface) !important;
   font-size: 14px !important;
   color: var(--doom-fg) !important;
   box-shadow: none !important;
 }
 
 .suggestion-item {
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-size: 13px;
   border-radius: 2px;
   padding: 6px 12px;
@@ -2618,7 +2627,7 @@ kbd {
   color: var(--doom-magenta) !important;
   border: 1px solid var(--doom-base4) !important;
   border-radius: 2px !important;
-  font-family: var(--font-monospace-doom) !important;
+  font-family: var(--font-interface) !important;
   font-size: 11px !important;
   box-shadow: none !important;
 }
@@ -2643,7 +2652,7 @@ kbd {
 
 .modal.mod-settings .vertical-tab-header-group-title {
   color: var(--doom-violet);
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -2657,7 +2666,7 @@ kbd {
 }
 
 .vertical-tab-nav-item {
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-size: 12.5px;
   border-radius: 2px;
   border-left: 2px solid transparent;
@@ -2744,7 +2753,7 @@ kbd {
 
 .setting-item.setting-item-heading .setting-item-name {
   color: var(--doom-blue) !important;
-  font-family: var(--font-monospace-doom) !important;
+  font-family: var(--font-interface) !important;
   font-size: 13.5px !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
@@ -2759,7 +2768,7 @@ kbd {
 
 /* Setting Item Title & Description */
 .setting-item-name {
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-weight: 600;
   font-size: 13px;
   color: var(--doom-fg);
@@ -2848,7 +2857,7 @@ select,
   border: 1px solid var(--doom-base3);
   border-radius: var(--input-radius);
   color: var(--doom-fg);
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   box-shadow: none;
   transition: border-color 0.12s ease, box-shadow 0.12s ease;
 }
@@ -2889,7 +2898,7 @@ button:not(.clickable-icon):not(.copy-code-button):not(.metadata-add-button) {
   color: var(--doom-fg);
   border: 1px solid var(--doom-base4);
   border-radius: var(--radius-s);
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   padding: 4px 12px;
   box-shadow: none;
   transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
@@ -2905,7 +2914,7 @@ button.mod-cta {
   background-color: var(--doom-blue) !important;
   border-color: var(--doom-blue) !important;
   color: var(--doom-base0) !important;
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-weight: 700;
   border-radius: var(--radius-s);
 }
@@ -2919,7 +2928,7 @@ button.mod-warning {
   background-color: var(--doom-red) !important;
   border-color: var(--doom-red) !important;
   color: var(--doom-base0) !important;
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-weight: 700;
   border-radius: var(--radius-s);
 }
@@ -2939,13 +2948,13 @@ button.mod-warning {
 }
 
 .empty-state-title {
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   color: var(--doom-blue);
   font-weight: 700;
 }
 
 .empty-state-action {
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   background-color: var(--doom-base0);
   border: 1px solid var(--doom-base3);
   border-radius: 3px;
@@ -2972,7 +2981,7 @@ button.mod-warning {
 }
 
 .callout-title {
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-weight: 700;
   gap: 8px;
   padding-bottom: 4px;
@@ -2989,7 +2998,7 @@ button.mod-warning {
   border: 1px solid var(--doom-blue) !important;
   border-left: 4px solid var(--doom-blue) !important;
   border-radius: 2px !important;
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   font-size: 12.5px;
 }
 
@@ -3113,7 +3122,7 @@ body.is-mobile .mobile-toolbar {
   border-top: 1px solid var(--doom-base3) !important;
   border-bottom: 1px solid var(--doom-base2) !important;
   box-shadow: inset 3px 0 0 0 var(--doom-modeline-bar) !important;
-  font-family: var(--font-monospace-doom) !important;
+  font-family: var(--font-interface) !important;
 }
 
 body.is-mobile .mobile-toolbar-options-container,
@@ -3128,7 +3137,7 @@ body.is-mobile .mobile-toolbar-floating-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   color: var(--doom-fg);
   border-radius: 3px;
 }
@@ -3144,7 +3153,7 @@ body.is-mobile .mobile-navbar {
   background-color: var(--doom-modeline-bg) !important;
   border-top: 1px solid var(--doom-base3) !important;
   box-shadow: inset 3px 0 0 0 var(--doom-modeline-bar);
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
 }
 
 body.is-mobile .mobile-navbar-actions {
@@ -3170,7 +3179,7 @@ body.is-mobile .mobile-navbar-action:active {
 body.is-mobile .workspace-drawer {
   background-color: var(--doom-bg-alt) !important;
   border-color: var(--doom-base3) !important;
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
 }
 
 body.is-mobile .workspace-drawer.mod-left {
@@ -3198,7 +3207,7 @@ body.is-mobile .workspace-drawer-header-icon {
 }
 
 body.is-mobile .workspace-drawer-active-tab-header {
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   color: var(--doom-blue);
   font-weight: 600;
 }
@@ -3271,11 +3280,11 @@ body.is-mobile .modal-container .modal:not(.mod-settings),
 body.is-mobile .prompt {
   background-color: var(--doom-bg-alt) !important;
   border: 1px solid var(--doom-blue) !important;
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
 }
 
 body.is-mobile .menu-item {
-  font-family: var(--font-monospace-doom);
+  font-family: var(--font-interface);
   display: flex;
   align-items: center;
   min-height: 40px;
