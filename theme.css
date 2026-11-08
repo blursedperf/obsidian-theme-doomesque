@@ -21,7 +21,7 @@ body {
   --font-monospace-doom: var(--font-monospace);
   --font-sans-doom: var(--font-interface);
   --font-heading-theme: var(--font-monospace);
-  --font-heading: var(--font-text-override, var(--font-heading-theme, var(--font-text)));
+  --font-heading: var(--font-heading-override, var(--font-heading-theme, var(--font-monospace)));
 
   /* Geometry & Chrome (Doom Emacs flat aesthetic) */
   --radius-s: 2px;
@@ -77,6 +77,13 @@ body {
   --h4-weight: 600;
   --h5-weight: 600;
   --h6-weight: 600;
+
+  --h1-font: var(--font-heading), monospace;
+  --h2-font: var(--font-heading), monospace;
+  --h3-font: var(--font-heading), monospace;
+  --h4-font: var(--font-heading), monospace;
+  --h5-font: var(--font-heading), monospace;
+  --h6-font: var(--font-heading), monospace;
 }
 
 body:not(.is-mobile) {
@@ -877,7 +884,7 @@ body.doom-monospace-editor {
 .markdown-rendered h4,
 .markdown-rendered h5,
 .markdown-rendered h6 {
-  font-family: var(--font-heading);
+  font-family: var(--font-heading), monospace;
   letter-spacing: -0.01em;
   line-height: 1.35;
 }
@@ -1542,7 +1549,7 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
 
 /* Inline Title (Org `#+TITLE:` feel) */
 .inline-title {
-  font-family: var(--font-heading);
+  font-family: var(--font-heading), monospace;
   color: var(--doom-blue);
   font-weight: 800;
   letter-spacing: -0.02em;
