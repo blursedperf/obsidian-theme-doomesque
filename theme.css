@@ -352,6 +352,51 @@ body.theme-dark.doom-palette-cyberpunk {
   --doom-modeline-badge-fg: #07080a;
 }
 
+/* Optional Dark Variant: doom-retro-terminal (VT220 / IBM 3270 Green Phosphor CRT) */
+body.theme-dark.doom-palette-retro-terminal {
+  --doom-bg: #080d08;
+  --doom-bg-alt: #050a05;
+  --doom-base0: #020502;
+  --doom-base1: #0b140b;
+  --doom-base2: #101c10;
+  --doom-base3: #162616;
+  --doom-base4: #1f381f;
+  --doom-base5: #2d522d;
+  --doom-base6: #4a8a4a;
+  --doom-base7: #66e666;
+  --doom-base8: #a8ffa8;
+  --doom-fg: #33ff33;
+  --doom-fg-alt: #4a8a4a;
+
+  --doom-red: #ff4d4d;
+  --doom-orange: #ffaa00;
+  --doom-green: #33ff33;
+  --doom-teal: #2ce8a2;
+  --doom-yellow: #ccff33;
+  --doom-blue: #33ff66;
+  --doom-dark-blue: #166534;
+  --doom-magenta: #55ff99;
+  --doom-violet: #66ffaa;
+  --doom-cyan: #2ce8d5;
+  --doom-dark-cyan: #127563;
+
+  --doom-blue-rgb: 51, 255, 102;
+  --doom-magenta-rgb: 85, 255, 153;
+  --doom-green-rgb: 51, 255, 51;
+  --doom-yellow-rgb: 204, 255, 51;
+  --doom-red-rgb: 255, 77, 77;
+  --doom-orange-rgb: 255, 170, 0;
+  --doom-cyan-rgb: 44, 232, 213;
+  --doom-violet-rgb: 102, 255, 170;
+  --doom-teal-rgb: 44, 232, 162;
+
+  --doom-modeline-bg: #050a05;
+  --doom-modeline-fg: #33ff33;
+  --doom-modeline-bar: var(--doom-green);
+  --doom-modeline-badge-bg: var(--doom-green);
+  --doom-modeline-badge-fg: #020502;
+}
+
 /* ==========================================================================
    LIGHT THEME: doom-one-light (Default)
    ========================================================================== */
@@ -1768,11 +1813,75 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   background-color: transparent !important;
 }
 
-/* Cursor (`evil-normal-state-cursor` / bar cursor) */
+/* --------------------------------------------------------------------------
+   Editor Text Cursor Styles (Modern Bar & Retro Terminal Options)
+   -------------------------------------------------------------------------- */
+@keyframes doom-retro-cursor-blink {
+  0%, 49.9% {
+    opacity: 1;
+    visibility: visible;
+  }
+  50%, 100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Default Modern 2px Bar Cursor */
 .cm-s-obsidian .cm-cursor,
-.cm-s-obsidian .cm-dropCursor {
+.cm-s-obsidian .cm-dropCursor,
+body.doom-cursor-bar .markdown-source-view.mod-cm6 .cm-cursor,
+body.doom-cursor-bar .cm-s-obsidian .cm-cursor {
   border-left-color: var(--doom-blue) !important;
   border-left-width: 2px !important;
+}
+
+/* Retro Solid Inverted Block Cursor (VT100 / DEC Emacs difference blend) */
+body.doom-cursor-block .markdown-source-view.mod-cm6 .cm-cursor,
+body.doom-cursor-block .cm-s-obsidian .cm-cursor {
+  width: 1ch !important;
+  background-color: var(--text-accent, var(--doom-blue)) !important;
+  mix-blend-mode: difference !important;
+  border-left: none !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 5px rgba(var(--doom-blue-rgb, 81, 175, 239), 0.45) !important;
+  animation: doom-retro-cursor-blink 1s steps(1) infinite !important;
+}
+
+/* Retro Phosphor Glowing Block Cursor (Translucent CRT Bloom) */
+body.doom-cursor-glow .markdown-source-view.mod-cm6 .cm-cursor,
+body.doom-cursor-glow .cm-s-obsidian .cm-cursor {
+  width: 1ch !important;
+  background-color: rgba(var(--interactive-accent-rgb, var(--doom-blue-rgb, 81, 175, 239)), 0.6) !important;
+  border-left: none !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 8px rgba(var(--interactive-accent-rgb, var(--doom-blue-rgb, 81, 175, 239)), 0.8),
+              0 0 2px var(--text-accent, var(--doom-blue)) !important;
+  animation: doom-retro-cursor-blink 1s steps(1) infinite !important;
+}
+
+/* Retro CRT Hollow Wireframe Block Cursor */
+body.doom-cursor-hollow .markdown-source-view.mod-cm6 .cm-cursor,
+body.doom-cursor-hollow .cm-s-obsidian .cm-cursor {
+  width: 1ch !important;
+  background-color: transparent !important;
+  border-left: none !important;
+  border-radius: 0 !important;
+  box-shadow: inset 0 0 0 1.5px var(--text-accent, var(--doom-blue)),
+              0 0 6px rgba(var(--interactive-accent-rgb, var(--doom-blue-rgb, 81, 175, 239)), 0.5) !important;
+  animation: doom-retro-cursor-blink 1s steps(1) infinite !important;
+}
+
+/* Retro Terminal Underline Cursor */
+body.doom-cursor-underline .markdown-source-view.mod-cm6 .cm-cursor,
+body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
+  width: 1ch !important;
+  background-color: transparent !important;
+  border-left: none !important;
+  border-bottom: 2.5px solid var(--text-accent, var(--doom-blue)) !important;
+  border-radius: 0 !important;
+  box-shadow: 0 1px 6px rgba(var(--interactive-accent-rgb, var(--doom-blue-rgb, 81, 175, 239)), 0.6) !important;
+  animation: doom-retro-cursor-blink 1s steps(1) infinite !important;
 }
 
 /* Vim Mode Normal/Visual Block Cursor */
@@ -4460,6 +4569,8 @@ settings:
         value: doom-palette-gruvbox
       - label: doom-cyberpunk (Cyberpunk 2077)
         value: doom-palette-cyberpunk
+      - label: doom-retro-terminal (VT220 Green Screen)
+        value: doom-palette-retro-terminal
   - id: doom-light-palette
     title: Light Mode Doom Palette
     description: Choose which Doom Emacs color scheme to use in Light Mode.
@@ -4641,6 +4752,23 @@ settings:
     description: Switch sidebars, tabs, and modals back to sans-serif instead of monospace.
     type: class-toggle
     default: false
+  - id: doom-cursor-style
+    title: Text Cursor Style
+    description: Choose the text cursor style in the note editor (modern bar or retro terminal styles).
+    type: class-select
+    allowEmpty: false
+    default: doom-cursor-bar
+    options:
+      - label: Modern Bar (Default 2px)
+        value: doom-cursor-bar
+      - label: Retro Block (Solid Inverted CRT Block)
+        value: doom-cursor-block
+      - label: Retro Phosphor (Glowing Translucent Block)
+        value: doom-cursor-glow
+      - label: Retro Hollow (CRT Wireframe Box)
+        value: doom-cursor-hollow
+      - label: Retro Underline (Classic Terminal Prompt)
+        value: doom-cursor-underline
 
   - id: doom-preview-heading
     title: Hover Preview Windows
