@@ -368,35 +368,65 @@ body.theme-dark.doom-palette-retro-terminal {
   --doom-base7: #66e666;
   --doom-base8: #a8ffa8;
   --doom-fg: #33ff33;
-  --doom-fg-alt: #4a8a4a;
+  --doom-fg-alt: #66e666;
 
-  --doom-red: #ff4d4d;
-  --doom-orange: #ffaa00;
+  /* Strict phosphor green accents across all semantic color tokens */
+  --doom-red: #a8ffa8;
+  --doom-orange: #77ff55;
   --doom-green: #33ff33;
-  --doom-teal: #2ce8a2;
-  --doom-yellow: #ccff33;
-  --doom-blue: #33ff66;
+  --doom-teal: #33ff77;
+  --doom-yellow: #66ff33;
+  --doom-blue: #33ff33;
   --doom-dark-blue: #166534;
-  --doom-magenta: #55ff99;
-  --doom-violet: #66ffaa;
-  --doom-cyan: #2ce8d5;
-  --doom-dark-cyan: #127563;
+  --doom-magenta: #55ff88;
+  --doom-violet: #44ff77;
+  --doom-cyan: #33ff66;
+  --doom-dark-cyan: #165328;
 
-  --doom-blue-rgb: 51, 255, 102;
-  --doom-magenta-rgb: 85, 255, 153;
+  --doom-blue-rgb: 51, 255, 51;
+  --doom-magenta-rgb: 85, 255, 136;
   --doom-green-rgb: 51, 255, 51;
-  --doom-yellow-rgb: 204, 255, 51;
-  --doom-red-rgb: 255, 77, 77;
-  --doom-orange-rgb: 255, 170, 0;
-  --doom-cyan-rgb: 44, 232, 213;
-  --doom-violet-rgb: 102, 255, 170;
-  --doom-teal-rgb: 44, 232, 162;
+  --doom-yellow-rgb: 102, 255, 51;
+  --doom-red-rgb: 168, 255, 168;
+  --doom-orange-rgb: 119, 255, 85;
+  --doom-cyan-rgb: 51, 255, 102;
+  --doom-violet-rgb: 68, 255, 119;
+  --doom-teal-rgb: 51, 255, 119;
 
   --doom-modeline-bg: #050a05;
   --doom-modeline-fg: #33ff33;
   --doom-modeline-bar: var(--doom-green);
   --doom-modeline-badge-bg: var(--doom-green);
   --doom-modeline-badge-fg: #020502;
+
+  /* Cohesive CRT Green Phosphor Overrides */
+  --text-normal: var(--doom-fg);
+  --text-muted: var(--doom-base7);
+  --text-faint: var(--doom-base5);
+  --text-accent: var(--doom-fg);
+  --text-accent-hover: var(--doom-base8);
+  --interactive-accent: var(--doom-fg);
+  --interactive-accent-hover: var(--doom-base8);
+  --icon-color: var(--doom-base7);
+  --icon-color-hover: var(--doom-fg);
+  --icon-color-active: var(--doom-base8);
+  --icon-color-focused: var(--doom-fg);
+  --table-header-color: var(--doom-fg);
+  --metadata-label-text-color: var(--doom-fg);
+  --metadata-label-text-color-hover: var(--doom-base8);
+  --tag-color: var(--doom-fg);
+  --tag-color-hover: var(--doom-base8);
+  --tag-background: rgba(51, 255, 51, 0.12);
+  --tag-background-hover: rgba(51, 255, 51, 0.22);
+  --tag-border-color: rgba(51, 255, 51, 0.35);
+  --link-color: var(--doom-fg);
+  --link-color-hover: var(--doom-base8);
+  --link-external-color: var(--doom-fg);
+  --link-external-color-hover: var(--doom-base8);
+  --link-unresolved-color: var(--doom-base6);
+  --bases-table-header-color: var(--doom-fg);
+  --bases-table-cell-shadow-active: 0 0 0 2px var(--doom-fg);
+  --bases-table-cell-shadow-focus: 0 0 0 2px var(--doom-fg);
 }
 
 /* ==========================================================================
@@ -3325,6 +3355,204 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   border: 1px solid var(--doom-blue) !important;
   border-radius: 4px !important;
   font-family: var(--font-interface);
+}
+
+/* --------------------------------------------------------------------------
+   Retro Green Terminal (doom-palette-retro-terminal) Polish
+   Phosphor green consistency across Bases, Properties & UI Elements
+   -------------------------------------------------------------------------- */
+
+/* 1. Bases Table & Database Views */
+body.doom-palette-retro-terminal .bases-header .title,
+body.doom-palette-retro-terminal .bases-thead .bases-table-header-label,
+body.doom-palette-retro-terminal .bases-table-header-icon,
+body.doom-palette-retro-terminal .bases-table-header-icon svg,
+body.doom-palette-retro-terminal .bases-table-header-sort,
+body.doom-palette-retro-terminal .bases-table-header-sort svg,
+body.doom-palette-retro-terminal .bases-table-summary-cell .summary-function-name,
+body.doom-palette-retro-terminal .bases-table-summary-cell .summary-content,
+body.doom-palette-retro-terminal .bases-group-property,
+body.doom-palette-retro-terminal .bases-group-value,
+body.doom-palette-retro-terminal .bases-cards-property,
+body.doom-palette-retro-terminal .bases-list-property,
+body.doom-palette-retro-terminal .bases-kanban-column-header,
+body.doom-palette-retro-terminal .bases-toolbar .text-icon-button,
+body.doom-palette-retro-terminal .bases-toolbar .text-icon-button svg,
+body.doom-palette-retro-terminal .bases-toolbar-menu-item-icon,
+body.doom-palette-retro-terminal .bases-toolbar-menu-item-icon svg,
+body.doom-palette-retro-terminal .bases-toolbar-menu-item-name,
+body.doom-palette-retro-terminal .bases-embed .embed-action,
+body.doom-palette-retro-terminal .bases-embed .embed-action svg {
+  color: var(--doom-fg) !important;
+}
+
+body.doom-palette-retro-terminal .bases-table-cell,
+body.doom-palette-retro-terminal .bases-table-cell.bases-rendered-value,
+body.doom-palette-retro-terminal .bases-table-cell.bases-metadata-value,
+body.doom-palette-retro-terminal .bases-table-cell.metadata-property-value,
+body.doom-palette-retro-terminal .bases-table-cell input,
+body.doom-palette-retro-terminal .bases-table-cell .metadata-link,
+body.doom-palette-retro-terminal .bases-table-cell a.internal-link {
+  color: var(--doom-fg) !important;
+}
+
+body.doom-palette-retro-terminal .bases-thead {
+  border-bottom: 2px solid var(--doom-fg) !important;
+  box-shadow: inset 0 -2px 0 var(--doom-fg), 0 -1px 0 var(--table-border-color) !important;
+}
+
+body.doom-palette-retro-terminal .bases-thead .bases-td:hover,
+body.doom-palette-retro-terminal .bases-thead .bases-td.has-active-menu {
+  background-color: var(--doom-base3) !important;
+}
+
+body.doom-palette-retro-terminal .bases-table-header-resizer:hover,
+body.doom-palette-retro-terminal .bases-table-header-resizer.is-active {
+  background-color: var(--doom-fg) !important;
+}
+
+body.doom-palette-retro-terminal .bases-td:focus-within,
+body.doom-palette-retro-terminal .bases-table-active-cell {
+  box-shadow: inset 0 0 0 2px var(--doom-fg) !important;
+}
+
+body.doom-palette-retro-terminal .bases-table-selection {
+  background-color: rgba(51, 255, 51, 0.18) !important;
+}
+
+body.doom-palette-retro-terminal .bases-toolbar .text-icon-button.is-active,
+body.doom-palette-retro-terminal .bases-toolbar .bases-toolbar-views-menu .text-icon-button {
+  border-color: var(--doom-fg) !important;
+  background-color: rgba(51, 255, 51, 0.15) !important;
+  color: var(--doom-fg) !important;
+}
+
+body.doom-palette-retro-terminal .bases-toolbar .text-icon-button:hover,
+body.doom-palette-retro-terminal .bases-toolbar .bases-toolbar-item button:hover {
+  border-color: var(--doom-base6) !important;
+  color: var(--doom-base8) !important;
+}
+
+body.doom-palette-retro-terminal .bases-kanban-card {
+  border-left: 3px solid var(--doom-fg) !important;
+}
+
+body.doom-palette-retro-terminal .bases-table .bases-group-heading {
+  border-left: 3px solid var(--doom-fg) !important;
+}
+
+body.doom-palette-retro-terminal .bases-toolbar-menu-container,
+body.doom-palette-retro-terminal .bases-filter-page,
+body.doom-palette-retro-terminal .bases-groupby-container,
+body.doom-palette-retro-terminal .bases-sort-container {
+  border-color: var(--doom-fg) !important;
+}
+
+/* 2. Note Properties Drawer & Popover Properties */
+body.doom-palette-retro-terminal .metadata-container {
+  border-left: 3px solid var(--doom-fg) !important;
+}
+
+body.doom-palette-retro-terminal .metadata-properties-heading {
+  color: var(--doom-fg) !important;
+}
+
+body.doom-palette-retro-terminal .metadata-properties-heading .collapse-indicator,
+body.doom-palette-retro-terminal .metadata-properties-heading .collapse-indicator svg {
+  color: var(--doom-fg) !important;
+  opacity: 0.8 !important;
+}
+
+body.doom-palette-retro-terminal .metadata-properties-heading:hover .collapse-indicator,
+body.doom-palette-retro-terminal .metadata-container.is-collapsed .metadata-properties-heading .collapse-indicator {
+  color: var(--doom-base8) !important;
+  opacity: 1 !important;
+}
+
+body.doom-palette-retro-terminal .metadata-container .metadata-property-key,
+body.doom-palette-retro-terminal .metadata-container .metadata-property-key .metadata-property-key-input {
+  color: var(--doom-fg) !important;
+}
+
+body.doom-palette-retro-terminal .metadata-container .metadata-property-key:focus-within {
+  border-color: var(--doom-fg) !important;
+  box-shadow: 0 0 0 2px rgba(51, 255, 51, 0.25) !important;
+}
+
+body.doom-palette-retro-terminal .metadata-property-icon,
+body.doom-palette-retro-terminal .metadata-property-icon svg {
+  color: var(--doom-base7) !important;
+  stroke: currentColor !important;
+}
+
+body.doom-palette-retro-terminal .metadata-container .metadata-property-value,
+body.doom-palette-retro-terminal .metadata-container .metadata-property-value input,
+body.doom-palette-retro-terminal .metadata-container .metadata-property-value textarea,
+body.doom-palette-retro-terminal .metadata-container .metadata-property-value .metadata-input-longtext {
+  color: var(--doom-fg) !important;
+}
+
+body.doom-palette-retro-terminal .metadata-container .metadata-property-value:focus-within {
+  border-color: var(--doom-fg) !important;
+  box-shadow: 0 0 0 2px rgba(51, 255, 51, 0.25) !important;
+}
+
+body.doom-palette-retro-terminal .metadata-container .multi-select-pill,
+body.doom-palette-retro-terminal .metadata-container .metadata-property[data-property-key="tags"] .multi-select-pill,
+body.doom-palette-retro-terminal .bases-table-cell .multi-select-pill {
+  color: var(--doom-fg) !important;
+  background-color: rgba(51, 255, 51, 0.12) !important;
+  border: 1px solid rgba(51, 255, 51, 0.35) !important;
+}
+
+body.doom-palette-retro-terminal .metadata-add-button,
+body.doom-palette-retro-terminal .metadata-add-button svg {
+  color: var(--doom-base7) !important;
+  border-color: var(--doom-base5) !important;
+}
+
+body.doom-palette-retro-terminal .metadata-add-button:hover {
+  color: var(--doom-fg) !important;
+  border-color: var(--doom-fg) !important;
+  background-color: var(--doom-base2) !important;
+}
+
+/* 3. Tags, Badges, Links & UI Symbols */
+body.doom-palette-retro-terminal .tag,
+body.doom-palette-retro-terminal a.tag,
+body.doom-palette-retro-terminal .cm-s-obsidian span.cm-hashtag,
+body.doom-palette-retro-terminal .cm-s-obsidian span.cm-hashtag-begin,
+body.doom-palette-retro-terminal .cm-s-obsidian span.cm-hashtag-end {
+  color: var(--doom-fg) !important;
+  background-color: rgba(51, 255, 51, 0.12) !important;
+  border-color: rgba(51, 255, 51, 0.32) !important;
+}
+
+body.doom-palette-retro-terminal .cm-s-obsidian .cm-link,
+body.doom-palette-retro-terminal .cm-s-obsidian .cm-hmd-internal-link,
+body.doom-palette-retro-terminal .markdown-rendered a.internal-link,
+body.doom-palette-retro-terminal .markdown-rendered a.external-link {
+  color: var(--doom-fg) !important;
+  text-decoration-color: var(--doom-base6) !important;
+}
+
+body.doom-palette-retro-terminal .cm-s-obsidian .cm-link:hover,
+body.doom-palette-retro-terminal .cm-s-obsidian .cm-hmd-internal-link:hover,
+body.doom-palette-retro-terminal .markdown-rendered a.internal-link:hover,
+body.doom-palette-retro-terminal .markdown-rendered a.external-link:hover {
+  color: var(--doom-base8) !important;
+  text-decoration-color: var(--doom-fg) !important;
+}
+
+body.doom-palette-retro-terminal .callout {
+  border-color: rgba(51, 255, 51, 0.35) !important;
+  border-left-color: var(--doom-fg) !important;
+  background-color: rgba(51, 255, 51, 0.07) !important;
+}
+
+body.doom-palette-retro-terminal .callout-title,
+body.doom-palette-retro-terminal .callout-icon svg {
+  color: var(--doom-fg) !important;
 }
 
 /* In-Document Find & Replace Bar (Isearch / Swiper feel) */
