@@ -6,57 +6,96 @@ Designed for keyboard-centric note-takers, hackers, and Emacs enthusiasts who wa
 
 ---
 
-## Features
+## ✨ Features & Color Palettes
 
-- **Authentic Color Schemes**:
-  - **Dark Mode Palettes**:
-    - `doom-one` (Default Atom One Dark inspired background `#282c34`, `#51afef` blue, `#c678dd` magenta, `#98be65` green)
-    - `doom-vibrant` (Deeper `#242730` canvas with punchy, high-saturation syntax accents)
-    - `doom-dracula` (Classic Dracula purple/pink/cyan palette adapted for Doom)
-    - `doom-tokyo-night` (Midnight indigo storm palette `#1a1b26`)
-    - `doom-gruvbox` (Warm retro medium dark `#282828`)
-  - **Light Mode Palettes**:
-    - `doom-one-light` (Default cool parchment `#fafafa` base, `#f0f0f0` alt, `#383a42` text, `#4078f2` blue, `#a626a4` magenta)
-    - `doom-nord-light` (Arctic ice blue `#e5e9f0` base, `#d8dee9` alt, Polar Night `#2e3440` text, Frost `#3b6ea8` blue, `#4f894c` green)
-    - `doom-gruvbox-light` (Warm retro cream parchment `#fbf1c7` base, `#ebdbb2` alt, `#3c3836` text, `#cc241d` red, `#79740e` green)
-    - `doom-solarized-light` (Ethan Schoonover's precision light cream `#fdf6e3` base, `#eee8d5` alt, `#586e75` text, `#268bd2` blue)
-    - `doom-tomorrow-day` (Crisp modern white `#ffffff` base, `#f2f2f2` alt, `#4d4d4c` text, Tomorrow `#4271ae` blue, `#c82829` red)
-- **Org-Mode Buffer Typography & Elements**:
-  - Rainbow heading hierarchy (`org-level-1` through `org-level-6`) or optional monochrome headings.
-  - Optional `TODO` and `DONE` task list badges alongside checkboxes.
-  - Org-styled frontmatter drawers, transclusion embeds, and `#+BEGIN_SRC` code blocks with left accent borders and `font-lock` syntax highlighting.
-- **Doom Modeline & Window Chrome**:
-  - Bottom status bar styled after `doom-modeline` with the signature colored left mode badge.
-  - Flat, clean buffer tabs with active buffer accent highlights.
-  - `M-x` Vertico / Ivy / Which-key styled command palette, quick switcher, and context menus.
-  - Treemacs / Dired styled file explorer.
-- **Refined Settings Window**:
-  - Clean, comfortable card containers with 6px rounded geometry and generous 18px horizontal padding (no harsh square backgrounds or zero-padding edges).
-  - Smooth pill toggle switches with circular thumbs and glowing active accents.
-  - Optional flat border-delimited row style via Style Settings or the companion plugin.
-- **Hover Preview & Popovers**:
-  - Fully unconstrained preview windows with adjustable width, height, text scaling, and draggable modeline header.
-  - Supports sticky preview windows and Super-key sidebar pop-out.
-- **Full Device Support**:
-  - Optimized for desktop (macOS, Linux, Windows) and mobile (iOS, iPadOS, Android).
+### 🎨 Authentic Color Schemes
+
+DoomEsque includes **7 Dark Mode palettes** and **5 Light Mode palettes**, configurable out-of-the-box via the **[Style Settings](https://github.com/mgmeyers/obsidian-style-settings)** plugin or the companion **[DoomEsque Settings](https://github.com/blursedperf/obsidian-doomesque-settings)** plugin:
+
+#### Dark Mode Palettes (7 Schemes)
+- **`doom-one` (Default)**: Flagship Atom One Dark inspired Doom palette (`#282c34` canvas, `#51afef` blue, `#c678dd` magenta, `#98be65` green, `#ecbe7b` yellow).
+- **`doom-vibrant`**: Deeper `#242730` canvas with punchy, high-saturation syntax accents.
+- **`doom-dracula`**: Classic Dracula purple/pink/cyan adaptation for Doom.
+- **`doom-tokyo-night`**: Midnight indigo storm palette (`#1a1b26`).
+- **`doom-gruvbox`**: Warm retro medium dark palette (`#282828`).
+- **`doom-cyberpunk`**: High-contrast Night City neon aesthetic featuring electric cyan (`#00ffff`), signature yellow (`#fee801`), and Samurai crimson (`#ff003c`) on deep dark slate (`#0d1117`).
+- **`doom-retro-terminal`**: Authentic monochrome VT220 green phosphor CRT terminal aesthetic (`#080d08` deep phosphor background, `#33ff33` vibrant glowing green text).
+
+#### Light Mode Palettes (5 Schemes)
+- **`doom-one-light` (Default)**: Cool parchment base (`#fafafa`) with `#383a42` text and bright Doom syntax accents.
+- **`doom-nord-light`**: Arctic ice blue base (`#e5e9f0`) with cool slate and pine accents.
+- **`doom-gruvbox-light`**: Warm retro cream parchment base (`#fbf1c7`) with earthy tones.
+- **`doom-solarized-light`**: Ethan Schoonover's precision light cream base (`#fdf6e3`).
+- **`doom-tomorrow-day`**: Crisp modern white Chris Kempson Tomorrow Day base (`#ffffff`).
 
 ---
 
-## 100% Offline & Secure
+### 🔲 Retro Text Cursor Styles
 
-- **Zero Network Calls**: `theme.css` is completely local and offline.
-- **Zero Remote Imports**: No `@import` rules, no external stylesheet requests, and no remote CDN font or image URLs.
-- **Local Typography**: Uses locally installed monospace fonts (`JetBrains Mono`, `Iosevka`, `Fira Code`, `Source Code Pro`, `Cascadia Code`, `ui-monospace`, `SF Mono`, `Menlo`, `Monaco`) and system sans-serif fonts (`Inter`, `-apple-system`, `Segoe UI`, `Roboto`).
+Choose from five distinct editor text cursor styles designed to recreate classic CRT and terminal workflows:
 
----
-
-## Companion Plugin
-
-For keyboard commands, live sliders, and enhanced sticky hover previews, install the companion plugin **[DoomEsque Settings](https://github.com/blursedperf/obsidian-doomesque-settings)** or configure options via the **Style Settings** community plugin.
+- **Modern Bar (Default)**: Clean 2px vertical bar cursor with standard smooth blink.
+- **Retro Block**: Solid character block cursor with difference-blend glyph inversion and hard CRT 1s step blink.
+- **Retro Phosphor**: Glowing translucent character block cursor with CRT neon bloom effect.
+- **Retro Hollow**: Wireframe CRT character box with phosphor border.
+- **Retro Underline**: Classic VT100 / terminal prompt underline cursor.
 
 ---
 
-## Installation
+### 🔍 Hover Preview Popovers & Modeline Controls
+
+- **Fully Unconstrained Popover Layout**: Overrides Obsidian's narrow column limits, expanding text, tables, and embeds to 100% width and height of the resized popover window.
+- **Frontmatter YAML Properties at Top of Popovers**: Option to display note properties (`:PROPERTIES:` drawer) at the top of hover preview popovers. Formatted with compact badges, violet left accent border (`var(--doom-violet)`), and clean empty state suppression.
+- **Contained Scrolling**: Traps wheel scrolling within preview windows to prevent scroll chaining to the underlying document.
+- **Adjustable Dimensions & Scale**: Fine-tune popover width (`320px` to `1200px`), height (`220px` to `1000px`), and font scaling.
+- **Sticky Previews & Floating Header**: Compatible with sticky pinning, draggable top handle, maximize toggle, and right sidebar pop-out.
+
+---
+
+### 📜 Org-Mode Typography & Buffer Elements
+
+- **Org Rainbow Headings**: Full 6-level Org-mode color hierarchy (`org-level-1` through `org-level-6`), or optional monochrome blue headings.
+- **Org-Mode Task Badges**: Optional `TODO` and `DONE` badges beside task checkboxes.
+- **Frontmatter & Code Drawers**: `:PROPERTIES:` style frontmatter drawer with violet left accent border and syntax highlighting.
+- **Rainbow Indentation Guides**: Alternates Doom palette colors per nesting depth in Live Preview and Reading View.
+- **Legal / Hornbook Outline Numbering**: Formal legal outline numbering (`I.` → `A.` → `1.` → `a.` → `i.`) for nested ordered lists.
+- **Editorial Emphasis**: High-contrast neutral text colors for bold and italic emphasis.
+
+---
+
+### 📊 Obsidian Bases Integration
+
+- **Zero-Shift Grid Layout**: Stable, zero-movement table and database cells on hover, click, and edit.
+- **Uniform Input Cells**: Text input cells match non-alterable cells in height, font sizing, padding, and vertical centering.
+
+---
+
+### ⚙️ Settings Window Appearance
+
+- **Card Containers**: Generous 18px horizontal padding with subtle borders and 6px rounded geometry.
+- **Optional Flat Rows**: Clean border-delimited flat rows option via Style Settings.
+- **Pill Toggles**: Custom circular thumb switches with smooth transition animations and glowing active accents.
+
+---
+
+## 🔒 100% Offline & Secure
+
+DoomEsque is designed for complete local privacy and adheres strictly to **Obsidian Theme Security Guidelines**:
+
+- **Zero Network Calls**: `theme.css` makes zero external HTTP/HTTPS requests.
+- **Zero Remote Imports**: No `@import url(...)` rules, no external stylesheet fetches, and no remote CDN font or image URLs.
+- **Local Font Stacks**: Uses locally installed system monospace fonts (`JetBrains Mono`, `Iosevka`, `Fira Code`, `Source Code Pro`, `Cascadia Code`, `ui-monospace`, `SF Mono`, `Menlo`, `Monaco`) and system sans-serif fonts (`Inter`, `-apple-system`, `BlinkMacSystemFont`, `Segoe UI`, `Roboto`).
+- **Zero Telemetry or Analytics**: Operates 100% offline in air-gapped or restricted network environments.
+
+---
+
+## 🧩 Companion Plugin
+
+For keyboard shortcuts, live sliders, enhanced sticky popovers, and constant 1ch retro cursor width, install the companion plugin **[DoomEsque Settings](https://github.com/blursedperf/obsidian-doomesque-settings)**. All visual options can also be configured directly via the **Style Settings** community plugin.
+
+---
+
+## 📦 Installation
 
 ### From Obsidian Community Themes
 1. Open **Settings → Appearance → Themes → Manage**.
@@ -72,6 +111,6 @@ cp manifest.json theme.css "/path/to/your/vault/.obsidian/themes/DoomEsque/"
 
 ---
 
-## License
+## 📄 License
 
 [MIT License](./LICENSE) © 2026 Jason Gunst
