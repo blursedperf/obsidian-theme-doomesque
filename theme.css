@@ -962,19 +962,27 @@ body.doom-editorial-emphasis {
 }
 
 /* Level 1 Heading has a crisp bottom border like Doom's org-level-1 */
-.markdown-rendered h1,
-.HyperMD-header-1 {
+.markdown-rendered h1 {
   border-bottom: 1px solid var(--doom-base3);
   padding-bottom: 0.22em !important;
   margin-bottom: 0.5em;
 }
 
+.HyperMD-header-1 {
+  border-bottom: 1px solid var(--doom-base3);
+  padding-bottom: 0.22em !important;
+}
+
 /* Level 2 Heading has a subtle structural hairline to divide major doctrinal sections */
-.markdown-rendered h2,
-.HyperMD-header-2 {
+.markdown-rendered h2 {
   border-bottom: 1px solid var(--doom-base2);
   padding-bottom: 0.16em !important;
   margin-bottom: 0.4em;
+}
+
+.HyperMD-header-2 {
+  border-bottom: 1px solid var(--doom-base2);
+  padding-bottom: 0.16em !important;
 }
 
 /* Level 5 & 6 Headings have distinct tracking so deep sub-sections never blend into body text */
@@ -1427,34 +1435,41 @@ body.doom-sidebar-comfortable .tree-item-self {
 .tree-item-self.is-active,
 .tree-item-self.is-active:hover,
 .nav-file-title.is-active,
-.nav-file-title.is-active:hover,
+.nav-file-title.is-active:hover {
+  background-color: rgba(var(--doom-blue-rgb), 0.15) !important;
+  color: var(--doom-blue) !important;
+  border-left: none !important;
+  box-shadow: inset 2px 0 0 0 var(--doom-blue) !important;
+  font-weight: 400 !important;
+}
+
 .nav-folder-title.is-active,
 .nav-folder-title.is-active:hover {
   background-color: rgba(var(--doom-blue-rgb), 0.15) !important;
   color: var(--doom-blue) !important;
   border-left: none !important;
   box-shadow: inset 2px 0 0 0 var(--doom-blue) !important;
-  font-weight: 600 !important;
+  font-weight: 500 !important;
 }
 
 /* Document Outline Sidebar (Table of Contents hierarchy for long legal outlines) */
 .view-content > .outline > .tree-item > .tree-item-self,
 body:not(.is-grabbing) .view-content > .outline > .tree-item > .tree-item-self.is-clickable:hover {
   color: var(--doom-blue);
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 
 .view-content > .outline > .tree-item > .tree-item-children > .tree-item > .tree-item-self,
 body:not(.is-grabbing) .view-content > .outline > .tree-item > .tree-item-children > .tree-item > .tree-item-self.is-clickable:hover {
   color: var(--doom-fg);
-  font-weight: 500;
+  font-weight: 500 !important;
 }
 
 .view-content > .outline .tree-item-children .tree-item-children .tree-item-self,
 body:not(.is-grabbing) .view-content > .outline .tree-item-children .tree-item-children .tree-item-self.is-clickable:hover {
   color: var(--doom-base6);
   font-size: 12.2px;
-  font-weight: 400;
+  font-weight: 400 !important;
 }
 
 /* Root vault title in Treemacs style (no extra bottom border to avoid dual lines under .nav-header) */
@@ -1498,6 +1513,7 @@ body:not(.is-grabbing) .tree-item-self.nav-file-title.is-clickable:hover {
   border-radius: 2px;
   font-family: var(--font-interface);
   font-size: 10px;
+  font-variant-numeric: tabular-nums;
   padding: 1px 5px;
   margin-left: auto;
   flex-shrink: 0;
@@ -1771,12 +1787,18 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   border-right: 1px solid var(--doom-base2) !important;
   color: var(--doom-base4) !important;
   font-family: var(--font-monospace-doom) !important;
+  font-variant-numeric: tabular-nums !important;
   padding-right: 6px;
+}
+
+.cm-s-obsidian .cm-lineNumbers .cm-gutterElement {
+  font-variant-numeric: tabular-nums !important;
 }
 
 .cm-s-obsidian .cm-activeLineGutter {
   color: var(--doom-blue) !important;
   font-weight: 700;
+  font-variant-numeric: tabular-nums !important;
   background-color: transparent !important;
 }
 
@@ -1809,8 +1831,8 @@ body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
 .cm-s-obsidian .cm-matchingBracket {
   background-color: rgba(var(--doom-magenta-rgb), 0.25) !important;
   color: var(--doom-magenta) !important;
-  font-weight: 700;
-  border-bottom: 1px solid var(--doom-magenta);
+  box-shadow: inset 0 -1.5px 0 var(--doom-magenta) !important;
+  border-bottom: none !important;
 }
 
 /* Inline Title (Org `#+TITLE:` feel) */
@@ -2533,12 +2555,12 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   padding: 8px 13px;
 }
 
-.cm-s-obsidian .table-wrapper table.table-editor th,
-.cm-s-obsidian .table-wrapper table.table-editor td {
+.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) table.table-editor th,
+.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) table.table-editor td {
   padding: 0 !important;
 }
 
-.cm-s-obsidian .table-wrapper .table-cell-wrapper {
+.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) .table-cell-wrapper {
   padding: 8px 13px !important;
   margin: 0 !important;
   border: none !important;
@@ -2551,8 +2573,7 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
 }
 
 /* Lock nested CodeMirror 6 elements inside focused table cells (`th` and `td`) so there is zero movement when clicking between heading and body cells */
-.cm-s-obsidian .table-wrapper :is(.cm-editor, .cm-scroller, .cm-sizer, .cm-content, .cm-line),
-.cm-s-obsidian .cm-embed-block table :is(.cm-editor, .cm-scroller, .cm-sizer, .cm-content, .cm-line) {
+.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.cm-editor, .cm-scroller, .cm-sizer, .cm-content, .cm-line) {
   padding: 0 !important;
   margin: 0 !important;
   border: none !important;
@@ -2567,7 +2588,7 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
 }
 
 /* Remove active cell highlight border / outline completely */
-.cm-s-obsidian .table-wrapper :is(th, td, .table-cell-wrapper, .cm-editor, .cm-scroller, .cm-content, .cm-line):is(:focus, :focus-within, .mod-focused, .is-focused) {
+.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(th, td, .table-cell-wrapper, .cm-editor, .cm-scroller, .cm-content, .cm-line):is(:focus, :focus-within, .mod-focused, .is-focused) {
   outline: none !important;
   box-shadow: none !important;
 }
@@ -3235,7 +3256,7 @@ input[type="checkbox"].task-list-item-checkbox:checked {
 /* Optional Org-mode `TODO` / `DONE` badge prefixes on task items */
 body:not(.doom-no-org-todo) .markdown-rendered .task-list-item:not(.is-checked) > p::before,
 body:not(.doom-no-org-todo) .markdown-rendered .task-list-item:not(.is-checked)::before,
-body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task=" "] .cm-list-1::after {
+body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task=" "] :is(.cm-list-1, .cm-list-2, .cm-list-3, .cm-list-4, .cm-list-5, .cm-list-6)::after {
   content: "TODO ";
   color: var(--doom-orange);
   font-family: var(--font-monospace-doom);
@@ -3244,8 +3265,8 @@ body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task=" "] .cm
   letter-spacing: 0.03em;
 }
 
-body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task="x"] .cm-list-1::after,
-body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task="X"] .cm-list-1::after {
+body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task="x"] :is(.cm-list-1, .cm-list-2, .cm-list-3, .cm-list-4, .cm-list-5, .cm-list-6)::after,
+body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task="X"] :is(.cm-list-1, .cm-list-2, .cm-list-3, .cm-list-4, .cm-list-5, .cm-list-6)::after {
   content: "DONE ";
   color: var(--doom-green);
   font-family: var(--font-monospace-doom);
@@ -3991,13 +4012,14 @@ body.theme-light .callout {
   font-family: var(--font-interface);
   font-weight: 700;
   gap: 8px;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   letter-spacing: 0.01em;
+  box-sizing: border-box;
+  border-bottom: 1px solid transparent;
 }
 
 .callout:not(.is-collapsed) > .callout-title:has(+ .callout-content) {
-  border-bottom: 1px solid rgba(var(--callout-color), 0.18);
-  padding-bottom: 6px;
+  border-bottom-color: rgba(var(--callout-color), 0.18);
   margin-bottom: 8px;
 }
 
