@@ -1793,25 +1793,27 @@ body:not(.doom-monochrome-headings) .cm-s-obsidian .HyperMD-list-line-6 .cm-form
   color: var(--doom-fg);
 }
 
-/* Active line highlight (`hl-line-mode`) */
-.cm-s-obsidian .cm-activeLine,
-.cm-s-obsidian .cm-active.cm-line {
+/* Active block/line highlight (`hl-line-mode`) - optional, defaults to off */
+body.doom-active-block-highlight .cm-s-obsidian .cm-activeLine,
+body.doom-active-block-highlight .cm-s-obsidian .cm-active.cm-line,
+body.doom-active-line-highlight .cm-s-obsidian .cm-activeLine,
+body.doom-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
   background-color: rgba(var(--doom-blue-rgb), 0.06) !important;
 }
 
-/* Do not paint an active-line highlight bar inside focused table cells/headers */
-.cm-s-obsidian .table-wrapper .cm-activeLine,
-.cm-s-obsidian .table-wrapper .cm-active.cm-line,
-.cm-s-obsidian .cm-table-widget .cm-activeLine,
-.cm-s-obsidian .cm-table-widget .cm-active.cm-line,
-.cm-s-obsidian .cm-embed-block table .cm-activeLine,
-.cm-s-obsidian .cm-embed-block table .cm-active.cm-line {
-  background-color: transparent !important;
-}
-
-body.doom-no-active-line-highlight .cm-activeLine,
-body.doom-no-active-line-highlight .cm-s-obsidian .cm-activeLine,
-body.doom-no-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
+/* Do not paint an active-block highlight bar inside focused table cells/headers */
+body.doom-active-block-highlight .cm-s-obsidian .table-wrapper .cm-activeLine,
+body.doom-active-block-highlight .cm-s-obsidian .table-wrapper .cm-active.cm-line,
+body.doom-active-block-highlight .cm-s-obsidian .cm-table-widget .cm-activeLine,
+body.doom-active-block-highlight .cm-s-obsidian .cm-table-widget .cm-active.cm-line,
+body.doom-active-block-highlight .cm-s-obsidian .cm-embed-block table .cm-activeLine,
+body.doom-active-block-highlight .cm-s-obsidian .cm-embed-block table .cm-active.cm-line,
+body.doom-active-line-highlight .cm-s-obsidian .table-wrapper .cm-activeLine,
+body.doom-active-line-highlight .cm-s-obsidian .table-wrapper .cm-active.cm-line,
+body.doom-active-line-highlight .cm-s-obsidian .cm-table-widget .cm-activeLine,
+body.doom-active-line-highlight .cm-s-obsidian .cm-table-widget .cm-active.cm-line,
+body.doom-active-line-highlight .cm-s-obsidian .cm-embed-block table .cm-activeLine,
+body.doom-active-line-highlight .cm-s-obsidian .cm-embed-block table .cm-active.cm-line {
   background-color: transparent !important;
 }
 
@@ -4713,9 +4715,9 @@ settings:
     description: Hide the subtle bottom border under Level 1 headings.
     type: class-toggle
     default: false
-  - id: doom-no-active-line-highlight
-    title: Disable Active Line Highlight
-    description: Turn off the subtle background bar on the active editor line.
+  - id: doom-active-block-highlight
+    title: Active Block Highlight
+    description: Display a subtle Doom blue background highlight on the active editor block / line (hl-line-mode).
     type: class-toggle
     default: false
 
