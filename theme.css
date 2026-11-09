@@ -2264,6 +2264,7 @@ body.theme-light .file-embed {
   display: flex !important;
   flex-direction: column !important;
   overflow: hidden !important;
+  overscroll-behavior: contain !important;
 }
 
 body.theme-light .hover-popover {
@@ -2313,6 +2314,7 @@ body .popover.hover-popover .bases-embed {
   display: flex !important;
   flex-direction: column !important;
   overflow: hidden !important;
+  overscroll-behavior: contain !important;
   margin: 0 !important;
   padding: 0 !important;
   border: none !important;
@@ -2330,11 +2332,28 @@ body .popover.hover-popover .bases-embed {
   display: flex !important;
   flex-direction: column !important;
   overflow: hidden !important;
+  overscroll-behavior: contain !important;
   background: transparent !important;
 }
 
-/* Make preview view, editor and scroller expand to fill entire area to the bottom with seamless background */
-.popover.hover-popover .markdown-preview-view,
+/* Make Reading View scroll seamlessly with momentum and contained scroll chaining */
+.popover.hover-popover .markdown-preview-view {
+  width: 100% !important;
+  max-width: 100% !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  max-height: none !important;
+  box-sizing: border-box !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: contain !important;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 !important;
+  background-color: var(--doom-bg-alt) !important;
+}
+
+/* In Live Preview, outer containers must NOT scroll so only .cm-scroller handles virtual line scrolling */
 .popover.hover-popover .markdown-source-view.mod-cm6,
 .popover.hover-popover .cm-editor {
   width: 100% !important;
@@ -2344,7 +2363,7 @@ body .popover.hover-popover .bases-embed {
   height: 100% !important;
   max-height: none !important;
   box-sizing: border-box !important;
-  overflow: auto !important;
+  overflow: hidden !important;
   padding: 0 !important;
   background-color: var(--doom-bg-alt) !important;
 }
@@ -2356,7 +2375,10 @@ body .popover.hover-popover .bases-embed {
   min-height: 100% !important;
   max-height: none !important;
   box-sizing: border-box !important;
-  overflow: auto !important;
+  overflow-y: auto !important;
+  overflow-x: auto !important;
+  overscroll-behavior: contain !important;
+  -webkit-overflow-scrolling: touch;
   padding: 0 !important;
   background-color: var(--doom-bg-alt) !important;
 }
@@ -2377,12 +2399,10 @@ body .popover.hover-popover .markdown-preview-section,
 .popover.hover-popover .markdown-preview-section {
   width: 100% !important;
   max-width: 100% !important;
-  min-height: 100% !important;
   box-sizing: border-box !important;
 }
 
-/* Hide virtual scroll pusher, footers, and embedded backlinks inside hover popovers to prevent blank bottom space */
-.popover.hover-popover .markdown-preview-pusher,
+/* Hide footers and embedded backlinks inside hover popovers to prevent blank bottom space (pusher retained for virtual scroll calculation) */
 .popover.hover-popover .embedded-backlinks,
 .popover.hover-popover .mod-footer,
 .popover.hover-popover .mod-ui {
