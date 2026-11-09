@@ -74,7 +74,7 @@ Choose from five distinct editor text cursor styles designed to recreate classic
 
 - **Card Containers**: Generous 18px horizontal padding with subtle borders and 6px rounded geometry.
 - **Optional Flat Rows**: Clean border-delimited flat rows option via Style Settings.
-- **Pill Toggles**: Custom circular thumb switches with smooth transition animations and glowing active accents.
+- **Square Toggles**: Rectangular track switches with square sliding thumbs and glowing active accents, designed to harmonize with Doom's crisp buffer geometry.
 
 ---
 

@@ -31,8 +31,10 @@ body {
   --input-radius: 4px;
   --tab-radius: 0px;
   --tab-radius-active: 0px;
-  --toggle-radius: 12px;
-  --toggle-thumb-radius: 50%;
+  --toggle-radius: 2px;
+  --toggle-thumb-radius: 2px;
+  --toggle-s-radius: 2px;
+  --toggle-s-thumb-radius: 2px;
   --border-width: 1px;
 
   /* Settings & UI Card Geometry */
@@ -3940,9 +3942,9 @@ kbd {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
-/* Refined Pill Toggle Switches */
+/* Square Retro Toggle Switches */
 .checkbox-container {
-  border-radius: 999px !important;
+  border-radius: 2px !important;
   border: none !important;
   background-color: var(--doom-base2) !important;
   box-shadow: inset 0 0 0 1px var(--doom-base4) !important;
@@ -3964,7 +3966,7 @@ kbd {
 }
 
 .checkbox-container::after {
-  border-radius: 50% !important;
+  border-radius: 2px !important;
   background-color: #ffffff !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35) !important;
   transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1),
