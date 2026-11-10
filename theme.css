@@ -913,6 +913,7 @@ body.theme-light.doom-palette-suit-and-tie {
   --collapse-icon-color-collapsed: var(--doom-magenta);
 
   /* Tables (Org-table style) */
+  --table-white-space: normal;
   --table-background: var(--doom-bg);
   --table-border-width: 1px;
   --table-column-first-border-width: 1px;
@@ -948,6 +949,7 @@ body.theme-light.doom-palette-suit-and-tie {
   --table-add-button-border-color: var(--doom-base3);
 
   /* Obsidian Bases / Database Views (Org-table Harmony) */
+  --bases-table-white-space: normal;
   --bases-table-border-color: var(--table-border-color);
   --bases-table-header-background: var(--table-header-background);
   --bases-table-header-background-hover: var(--table-header-background-hover);
@@ -2943,6 +2945,7 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
 .cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) table.table-editor th,
 .cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) table.table-editor td {
   padding: 0 !important;
+  overflow-x: hidden !important;
 }
 
 .cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) .table-cell-wrapper {
@@ -2954,7 +2957,11 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   background-color: transparent !important;
   font-size: inherit !important;
   line-height: var(--table-line-height, 1.5) !important;
-  box-sizing: border-box;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+  scrollbar-width: none !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
 }
 
 /* Lock nested CodeMirror 6 elements inside focused table cells (`th` and `td`) so there is zero movement when clicking between heading and body cells */
@@ -2970,6 +2977,33 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   font-size: inherit !important;
   line-height: var(--table-line-height, 1.5) !important;
   letter-spacing: inherit !important;
+  box-sizing: border-box !important;
+}
+
+/* Prevent horizontal scrollbars inside table cell editors when typing reaches right edge */
+.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.table-cell-wrapper, .cm-editor, .cm-scroller) {
+  overflow-x: hidden !important;
+  scrollbar-width: none !important;
+}
+
+.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.table-cell-wrapper, .cm-editor, .cm-scroller)::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Ensure text in table cells wraps naturally at the right edge without horizontal overflow */
+.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.cm-content, .cm-line) {
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.markdown-rendered :is(th, td),
+.cm-s-obsidian .table-wrapper table.table-editor :is(th, td) {
+  white-space: normal !important;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 /* Remove active cell highlight border / outline completely */
@@ -3277,6 +3311,10 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   line-height: 1.45;
   font-size: var(--bases-table-font-size, 0.88em);
   align-items: center !important;
+  overflow: hidden !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+  scrollbar-width: none !important;
 }
 
 .bases-table-cell,
@@ -3297,6 +3335,17 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   min-height: var(--bases-table-row-height, 30px) !important;
   height: 100%;
   width: 100%;
+  overflow: hidden !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+  scrollbar-width: none !important;
+}
+
+.bases-td::-webkit-scrollbar,
+.bases-table-cell::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 .bases-table-cell.bases-rendered-value {
@@ -3333,10 +3382,22 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   align-self: center !important;
   min-height: 0 !important;
   width: 100%;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
   font-family: var(--font-interface) !important;
   font-size: inherit !important;
   line-height: 1.45 !important;
   color: var(--doom-fg) !important;
+  overflow-x: hidden !important;
+  scrollbar-width: none !important;
+}
+
+.bases-table-cell .metadata-input-longtext::-webkit-scrollbar,
+.bases-table-cell .metadata-input-text::-webkit-scrollbar,
+.bases-table-cell input:not([type="checkbox"])::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 .bases-table-cell[data-property-type="number"],
