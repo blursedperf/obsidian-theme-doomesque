@@ -32,9 +32,7 @@ An authentic, distraction-free **Doom Emacs** inspired theme for Obsidian, bring
 
 ## ⚙️ Configuration
 
-Customize palettes, spacing, typography, and cursor styles using:
-- **[DoomEsque Settings](https://github.com/blursedperf/obsidian-doomesque-settings)** (Companion Plugin): Adds live sliders, keyboard shortcuts, sticky popover controls, and a fixed 1ch retro block cursor engine.
-- **[Style Settings](https://github.com/mgmeyers/obsidian-style-settings)**: Full native GUI customization support.
+Customize palettes, spacing, typography, and cursor styles using the companion plugin **[DoomEsque Settings](https://github.com/blursedperf/obsidian-doomesque-settings)**, which adds live sliders, keyboard shortcuts, sticky popover controls, and a fixed 1ch retro block cursor engine.
 
 ---
 

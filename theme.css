@@ -4466,7 +4466,7 @@ kbd {
    Settings Items Card & List Layout (Eliminating jarring square backgrounds & zero padding)
    -------------------------------------------------------------------------- */
 
-/* Standalone setting items (core settings, plugins, style settings) */
+/* Standalone setting items (core settings, plugins, settings tabs) */
 .setting-item:not(.setting-item-heading) {
   background-color: var(--doom-bg-alt);
   border: 1px solid var(--doom-base3);
@@ -5282,7 +5282,7 @@ body.is-mobile .menu-item {
 }
 
 /* --------------------------------------------------------------------------
-   12. Style Settings Plugin Configuration
+   12. Theme Configuration Settings
    -------------------------------------------------------------------------- */
 /* @settings
 name: DoomEsque
