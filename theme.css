@@ -3149,11 +3149,11 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
 .bases-header {
   background-color: var(--doom-bg-alt) !important;
   border-bottom: 1px solid var(--table-border-color) !important;
-  padding-top: 4px !important;
-  padding-bottom: 4px !important;
-  padding-inline-start: 12px !important;
+  padding-top: 3px !important;
+  padding-bottom: 3px !important;
+  padding-inline-start: 8px !important;
   padding-inline-end: var(--bases-header-padding-end, 56px) !important;
-  min-height: 38px;
+  min-height: 36px;
   box-sizing: border-box;
 }
 
@@ -3206,12 +3206,18 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   overflow-x: auto !important;
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
+  column-gap: 3px !important;
+  gap: 3px !important;
 }
 
 .bases-toolbar::-webkit-scrollbar {
   display: none !important;
   width: 0 !important;
   height: 0 !important;
+}
+
+.bases-toolbar .bases-toolbar-item {
+  margin: 0 !important;
 }
 
 .bases-toolbar .text-icon-button,
@@ -3221,8 +3227,9 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   border-radius: 3px !important;
   color: var(--doom-fg) !important;
   font-family: var(--font-interface) !important;
-  font-size: 0.82em !important;
-  padding: 3px 8px !important;
+  font-size: 0.76em !important;
+  padding: 2px 6px !important;
+  gap: 4px !important;
   transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
 }
 
@@ -3251,8 +3258,8 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   max-width: none !important;
   overflow: visible !important;
   white-space: nowrap !important;
-  gap: 6px !important;
-  padding: 3px 10px !important;
+  gap: 5px !important;
+  padding: 2px 8px !important;
 }
 
 .bases-toolbar .bases-toolbar-views-menu .text-button-label,
@@ -3279,7 +3286,7 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   overflow: visible !important;
   font-family: var(--font-interface) !important;
   color: var(--doom-base5) !important;
-  font-size: 0.82em !important;
+  font-size: 0.76em !important;
 }
 
 .bases-toolbar :is(.bases-toolbar-result-count, .bases-toolbar-results-menu) .text-icon-button,
@@ -3289,7 +3296,8 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   max-width: none !important;
   overflow: visible !important;
   white-space: nowrap !important;
-  padding: 3px 8px !important;
+  padding: 2px 6px !important;
+  gap: 4px !important;
 }
 
 .bases-toolbar :is(.bases-toolbar-result-count, .bases-toolbar-results-menu) .text-button-label {
@@ -3302,7 +3310,7 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
 }
 
 .bases-toolbar .bases-toolbar-new-item-menu {
-  margin-inline-end: 4px !important;
+  margin-inline-end: 0 !important;
 }
 
 /* Column Header Row (.bases-thead matching Org-table 2px blue accent underline) */
