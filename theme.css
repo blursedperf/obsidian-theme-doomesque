@@ -2989,6 +2989,7 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   min-width: var(--table-column-min-width, 70px);
 }
 
+.markdown-source-view.mod-cm6 .cm-table-widget .table-cell-wrapper,
 .cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) .table-cell-wrapper {
   padding: 8px 13px;
   margin: 0;
@@ -2999,9 +3000,12 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   font-size: inherit;
   line-height: var(--table-line-height, 1.5);
   box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* Lock nested CodeMirror 6 elements inside focused table cells (`th` and `td`) so there is zero movement when clicking between heading and body cells */
+.markdown-source-view.mod-cm6 .cm-table-widget :is(.cm-editor, .cm-scroller, .cm-sizer, .cm-content, .cm-line),
 .cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.cm-editor, .cm-scroller, .cm-sizer, .cm-content, .cm-line) {
   padding: 0;
   margin: 0;
@@ -3017,7 +3021,18 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   box-sizing: border-box;
 }
 
+/* Prevent text field from extending beyond the cell boundaries when typing and focused */
+.markdown-source-view.mod-cm6 .cm-table-widget :is(.cm-editor, .cm-scroller),
+.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.table-cell-wrapper, .cm-editor, .cm-scroller) {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
 /* Prevent horizontal scrollbars inside table cell editors when typing reaches right edge */
+.markdown-source-view.mod-cm6 .cm-table-widget :is(.table-cell-wrapper, .cm-editor, .cm-scroller)::-webkit-scrollbar,
 .cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.table-cell-wrapper, .cm-editor, .cm-scroller)::-webkit-scrollbar {
   display: none;
   width: 0;
@@ -3025,9 +3040,16 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
 }
 
 /* Ensure text in table cells wraps naturally at the right edge without horizontal overflow */
+.markdown-source-view.mod-cm6 .cm-table-widget .cm-content.cm-lineWrapping,
+.markdown-source-view.mod-cm6 .cm-table-widget :is(.cm-content, .cm-line),
 .cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.cm-content, .cm-line) {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   white-space: pre-wrap;
+  word-break: break-word;
   overflow-wrap: break-word;
+  box-sizing: border-box;
 }
 
 /* Remove active cell highlight border / outline completely */
@@ -3429,6 +3451,7 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   min-height: var(--bases-table-row-height, 30px);
   height: 100%;
   width: 100%;
+  overflow-x: hidden;
   box-sizing: border-box;
 }
 
