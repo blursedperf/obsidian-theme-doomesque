@@ -770,6 +770,27 @@ body.theme-light.doom-palette-suit-and-tie {
   --background-secondary: var(--doom-bg-alt);
   --background-secondary-alt: var(--doom-base0);
 
+  /* Core Base Colors (Obsidian internal views, Canvas, PDF, & graph tokens) */
+  --color-base-00: var(--doom-bg);
+  --color-base-05: var(--doom-bg);
+  --color-base-10: var(--doom-bg-alt);
+  --color-base-20: var(--doom-bg-alt);
+  --color-base-25: var(--doom-base0);
+  --color-base-30: var(--doom-base1);
+  --color-base-35: var(--doom-base2);
+  --color-base-40: var(--doom-base3);
+  --color-base-50: var(--doom-base4);
+  --color-base-60: var(--doom-base5);
+  --color-base-70: var(--doom-base6);
+  --color-base-100: var(--doom-fg);
+
+  /* Titlebar, Tab Container, & Ribbon Background Tokens */
+  --titlebar-background: var(--doom-base0);
+  --titlebar-background-focused: var(--doom-base0);
+  --ribbon-background: var(--doom-base0);
+  --tab-container-background: var(--doom-base0);
+  --tab-background-active: var(--doom-bg);
+
   --background-modifier-hover: rgba(var(--doom-blue-rgb), 0.12);
   --background-modifier-active-hover: rgba(var(--doom-blue-rgb), 0.18);
   --background-modifier-border: var(--doom-base3);
