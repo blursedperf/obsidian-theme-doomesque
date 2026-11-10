@@ -1068,11 +1068,12 @@ body.doom-monospace-editor {
 
 /* Clean Editorial Bold & Italic Option (Ideal for citation-heavy legal texts) */
 body.doom-editorial-emphasis {
-  --bold-color: var(--doom-base8) !important;
-  --italic-color: var(--doom-fg) !important;
+  --bold-color: var(--doom-base8);
+  --italic-color: var(--doom-fg);
 }
 
 /* Refined Link Underlines (Org-link harmony with descender skip-ink) */
+/* stylelint-disable plugin/no-unsupported-browser-features -- text-decoration-color and subproperties supported in Chromium 57+ (Obsidian 1.4.5 is Chrome 114) */
 .markdown-rendered a.internal-link,
 .markdown-rendered a.external-link,
 .cm-s-obsidian span.cm-hmd-internal-link,
@@ -1092,6 +1093,7 @@ body.doom-editorial-emphasis {
 .cm-s-obsidian span.cm-url:hover {
   text-decoration-color: var(--doom-cyan);
 }
+/* stylelint-enable plugin/no-unsupported-browser-features */
 
 /* --------------------------------------------------------------------------
    4. Org-Mode Inspired Headings, Legal Outlines & Structural Hierarchy
@@ -1175,12 +1177,12 @@ body.doom-no-h1-border .HyperMD-header-2 {
 }
 
 body.doom-monochrome-headings {
-  --h1-color: var(--doom-blue) !important;
-  --h2-color: var(--doom-blue) !important;
-  --h3-color: var(--doom-blue) !important;
-  --h4-color: var(--doom-blue) !important;
-  --h5-color: var(--doom-blue) !important;
-  --h6-color: var(--doom-blue) !important;
+  --h1-color: var(--doom-blue);
+  --h2-color: var(--doom-blue);
+  --h3-color: var(--doom-blue);
+  --h4-color: var(--doom-blue);
+  --h5-color: var(--doom-blue);
+  --h6-color: var(--doom-blue);
 }
 
 /* Color the `#` characters in Source mode / active line to match heading level */
@@ -1374,25 +1376,13 @@ body:not(.is-mobile) .mod-right-split .workspace-tab-header-inner {
 
 body:not(.is-mobile) .nav-header {
   min-height: var(--header-height) !important;
+  height: auto;
   padding: 0 6px !important;
   margin: 0 !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box !important;
-}
-
-/* Note: Obsidian's File Explorer always injects a hidden `.search-input-container[style*="display: none"]` inside `.nav-header` */
-body:not(.is-mobile) .nav-header:not(:has(.search-input-container:not([style*="display: none"]))) {
-  height: var(--header-height) !important;
-  min-height: var(--header-height) !important;
-  max-height: var(--header-height) !important;
-  padding: 0 6px !important;
-}
-
-body:not(.is-mobile) .nav-header:has(.search-input-container:not([style*="display: none"])) {
-  height: auto !important;
-  padding: 4px 8px 6px 8px !important;
 }
 
 body:not(.is-mobile) .nav-header .search-input-container:not([style*="display: none"]) {
@@ -1580,8 +1570,8 @@ body {
 }
 
 body.doom-sidebar-compact {
-  --nav-item-padding: 1px var(--size-4-2, 8px) 1px var(--size-4-6, 24px) !important;
-  --nav-item-parent-padding: 1px var(--size-4-2, 8px) 1px var(--size-4-6, 24px) !important;
+  --nav-item-padding: 1px var(--size-4-2, 8px) 1px var(--size-4-6, 24px);
+  --nav-item-parent-padding: 1px var(--size-4-2, 8px) 1px var(--size-4-6, 24px);
 }
 
 body.doom-sidebar-compact .tree-item-self {
@@ -1591,8 +1581,8 @@ body.doom-sidebar-compact .tree-item-self {
 }
 
 body.doom-sidebar-comfortable {
-  --nav-item-padding: 6px var(--size-4-2, 8px) 6px var(--size-4-6, 24px) !important;
-  --nav-item-parent-padding: 6px var(--size-4-2, 8px) 6px var(--size-4-6, 24px) !important;
+  --nav-item-padding: 6px var(--size-4-2, 8px) 6px var(--size-4-6, 24px);
+  --nav-item-parent-padding: 6px var(--size-4-2, 8px) 6px var(--size-4-6, 24px);
 }
 
 body.doom-sidebar-comfortable .tree-item-self {
@@ -2529,8 +2519,8 @@ body.theme-light .file-embed {
 
 /* Hover Preview Popover (Posframe popup feel) */
 .hover-popover {
-  --popover-height: 100% !important;
-  --popover-max-height: 100% !important;
+  --popover-height: 100%;
+  --popover-max-height: 100%;
   background-color: var(--doom-bg-alt) !important;
   border: 1px solid var(--doom-blue) !important;
   border-radius: 3px !important;
@@ -2992,7 +2982,6 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   font-size: inherit !important;
   line-height: var(--table-line-height, 1.5) !important;
   box-sizing: border-box !important;
-  scrollbar-width: none !important;
 }
 
 /* Lock nested CodeMirror 6 elements inside focused table cells (`th` and `td`) so there is zero movement when clicking between heading and body cells */
@@ -3012,11 +3001,6 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
 }
 
 /* Prevent horizontal scrollbars inside table cell editors when typing reaches right edge */
-.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.table-cell-wrapper, .cm-editor, .cm-scroller) {
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
-}
-
 .cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.table-cell-wrapper, .cm-editor, .cm-scroller)::-webkit-scrollbar {
   display: none !important;
   width: 0 !important;
@@ -3159,11 +3143,11 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
 .markdown-source-view.mod-cm6 .cm-content > .cm-lang-base,
 .bases-embed,
 .block-language-base {
-  --bases-header-padding-end: 56px !important;
+  --bases-header-padding-end: 56px;
 }
 
 .workspace-leaf-content[data-type="bases"] .view-content {
-  --bases-header-padding-end: 12px !important;
+  --bases-header-padding-end: 12px;
 }
 
 .bases-embed .bases-view[data-view-type="table"],
@@ -3236,9 +3220,6 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
 .bases-toolbar {
   max-width: 100% !important;
   overflow-x: auto !important;
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
-  column-gap: 3px !important;
   gap: 3px !important;
 }
 
@@ -3411,7 +3392,6 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   align-items: center !important;
   box-sizing: border-box !important;
   min-width: max(var(--bases-column-width, 80px), 80px);
-  scrollbar-width: none !important;
 }
 
 .bases-table-cell,
@@ -3433,7 +3413,6 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   height: 100%;
   width: 100%;
   box-sizing: border-box !important;
-  scrollbar-width: none !important;
 }
 
 .bases-td::-webkit-scrollbar,
@@ -3484,7 +3463,6 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   line-height: 1.45 !important;
   color: var(--doom-fg) !important;
   overflow-x: hidden !important;
-  scrollbar-width: none !important;
 }
 
 .bases-table-cell .metadata-input-longtext::-webkit-scrollbar,
@@ -3812,6 +3790,7 @@ body.doom-palette-retro-terminal .cm-s-obsidian span.cm-hashtag-end {
   border-color: rgba(51, 255, 51, 0.32) !important;
 }
 
+/* stylelint-disable plugin/no-unsupported-browser-features -- text-decoration-color supported in Chrome 57+ (Obsidian 1.4.5 is Chrome 114) */
 body.doom-palette-retro-terminal .cm-s-obsidian .cm-link,
 body.doom-palette-retro-terminal .cm-s-obsidian .cm-hmd-internal-link,
 body.doom-palette-retro-terminal .markdown-rendered a.internal-link,
@@ -3827,6 +3806,7 @@ body.doom-palette-retro-terminal .markdown-rendered a.external-link:hover {
   color: var(--doom-base8) !important;
   text-decoration-color: var(--doom-fg) !important;
 }
+/* stylelint-enable plugin/no-unsupported-browser-features */
 
 body.doom-palette-retro-terminal .callout {
   border-color: rgba(51, 255, 51, 0.35) !important;
@@ -4026,8 +4006,10 @@ mark,
   padding: 1px 4px;
   border-radius: 2px;
   border-bottom: 1.5px solid rgba(var(--doom-yellow-rgb), 0.55);
+  /* stylelint-disable plugin/no-unsupported-browser-features -- box-decoration-break vendor prefix for WebKit/Blink */
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+  /* stylelint-enable plugin/no-unsupported-browser-features */
 }
 
 body.theme-light mark,
@@ -4039,7 +4021,7 @@ body.theme-light .cm-s-obsidian span.cm-highlight {
 
 /* Math & LaTeX Formula Presentation (Org-mode LaTeX preview aesthetic) */
 .math-block,
-.cm-embed-block:has(.math),
+.cm-embed-block > .math,
 .markdown-rendered .math-block {
   overflow-x: auto;
   overflow-y: hidden;
@@ -4061,7 +4043,8 @@ body.theme-light .cm-s-obsidian span.cm-highlight {
   color: inherit;
 }
 
-mjx-container[display="true"] {
+.math-block > [display="true"],
+.math > [display="true"] {
   margin: 0.5em 0 !important;
 }
 
@@ -4149,7 +4132,10 @@ input[type="checkbox"].task-list-item-checkbox:checked {
 }
 
 /* Optional Org-mode `TODO` / `DONE` badge prefixes on task items */
-body:not(.doom-no-org-todo) .markdown-rendered .task-list-item:not(.is-checked) > p::before,
+.markdown-rendered .task-list-item > p {
+  display: inline;
+}
+
 body:not(.doom-no-org-todo) .markdown-rendered .task-list-item:not(.is-checked)::before,
 body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task=" "] :is(.cm-list-1, .cm-list-2, .cm-list-3, .cm-list-4, .cm-list-5, .cm-list-6)::after {
   content: "TODO ";
@@ -4160,23 +4146,9 @@ body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task=" "] :is
   letter-spacing: 0.03em;
 }
 
+body:not(.doom-no-org-todo) .markdown-rendered .task-list-item.is-checked::before,
 body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task="x"] :is(.cm-list-1, .cm-list-2, .cm-list-3, .cm-list-4, .cm-list-5, .cm-list-6)::after,
 body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task="X"] :is(.cm-list-1, .cm-list-2, .cm-list-3, .cm-list-4, .cm-list-5, .cm-list-6)::after {
-  content: "DONE ";
-  color: var(--doom-green);
-  font-family: var(--font-monospace-doom);
-  font-weight: 700;
-  font-size: 0.85em;
-  letter-spacing: 0.03em;
-}
-
-/* Prevent double TODO pseudo-elements on nested paragraphs in Reading View */
-body:not(.doom-no-org-todo) .markdown-rendered .task-list-item:not(.is-checked):has(> p)::before {
-  content: none;
-}
-
-body:not(.doom-no-org-todo) .markdown-rendered .task-list-item.is-checked > p::before,
-body:not(.doom-no-org-todo) .markdown-rendered .task-list-item.is-checked:not(:has(> p))::before {
   content: "DONE ";
   color: var(--doom-green);
   font-family: var(--font-monospace-doom);
@@ -4984,12 +4956,11 @@ body.theme-light .callout {
   padding-bottom: 6px;
   letter-spacing: 0.01em;
   box-sizing: border-box;
-  border-bottom: 1px solid transparent;
 }
 
-.callout:not(.is-collapsed) > .callout-title:has(+ .callout-content) {
-  border-bottom-color: rgba(var(--callout-color), 0.18);
-  margin-bottom: 8px;
+.callout:not(.is-collapsed) > .callout-content {
+  border-top: 1px solid rgba(var(--callout-color), 0.18);
+  padding-top: 8px;
 }
 
 .callout-content {
@@ -5037,7 +5008,7 @@ body.is-mobile .workspace > .mod-root {
 }
 
 body.is-phone {
-  --system-status-background: var(--doom-bg) !important;
+  --system-status-background: var(--doom-bg);
   --view-header-height: 44px;
   --view-top-spacing: calc(max(var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 20px) + 44px);
   --view-top-spacing-markdown: calc(max(var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 20px) + 44px + 12px);
@@ -5085,10 +5056,12 @@ body.is-phone .mod-root .workspace-leaf-content .view-content .markdown-source-v
 }
 
 /* WebKit gradient fade mask on iOS WKWebView */
+/* stylelint-disable plugin/no-unsupported-browser-features -- WebKit gradient fade mask for iOS WKWebView */
 body.is-phone .mod-root .workspace-leaf-content[data-type="markdown"] .view-content {
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) calc(max(var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 20px) + 20px), #000000 calc(max(var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 20px) + 48px));
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) calc(max(var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 20px) + 20px), #000000 calc(max(var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 20px) + 48px));
 }
+/* stylelint-enable plugin/no-unsupported-browser-features */
 
 body.is-tablet .view-header {
   min-height: var(--view-header-height, 44px) !important;
