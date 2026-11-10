@@ -3201,6 +3201,19 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   letter-spacing: -0.01em;
 }
 
+.bases-toolbar {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.bases-toolbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
 .bases-toolbar .text-icon-button,
 .bases-toolbar .bases-toolbar-item button {
   background-color: var(--doom-base0) !important;
@@ -3257,10 +3270,35 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   flex-shrink: 0 !important;
 }
 
-.bases-toolbar .bases-toolbar-result-count {
+.bases-toolbar .bases-toolbar-result-count,
+.bases-toolbar .bases-toolbar-results-menu,
+.bases-toolbar .bases-toolbar-item.bases-toolbar-result-count,
+.bases-toolbar .bases-toolbar-item.bases-toolbar-results-menu {
+  flex-shrink: 0 !important;
+  min-width: max-content !important;
+  overflow: visible !important;
   font-family: var(--font-interface) !important;
   color: var(--doom-base5) !important;
   font-size: 0.82em !important;
+}
+
+.bases-toolbar :is(.bases-toolbar-result-count, .bases-toolbar-results-menu) .text-icon-button,
+.bases-toolbar :is(.bases-toolbar-result-count, .bases-toolbar-results-menu) button {
+  flex-shrink: 0 !important;
+  min-width: max-content !important;
+  max-width: none !important;
+  overflow: visible !important;
+  white-space: nowrap !important;
+  padding: 3px 8px !important;
+}
+
+.bases-toolbar :is(.bases-toolbar-result-count, .bases-toolbar-results-menu) .text-button-label {
+  overflow: visible !important;
+  text-overflow: clip !important;
+  white-space: nowrap !important;
+  max-width: none !important;
+  flex-shrink: 0 !important;
+  font-size: inherit !important;
 }
 
 .bases-toolbar .bases-toolbar-new-item-menu {
@@ -3541,7 +3579,8 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
 .bases-toolbar-menu-container,
 .bases-filter-page,
 .bases-groupby-container,
-.bases-sort-container {
+.bases-sort-container,
+.bases-results-page {
   background-color: var(--doom-bg-alt) !important;
   border: 1px solid var(--doom-blue) !important;
   border-radius: 4px !important;
