@@ -2765,6 +2765,14 @@ body .popover.hover-popover .markdown-preview-section,
   pointer-events: none;
 }
 
+.doom-popover-btn.mod-pin {
+  font-family: var(--font-monospace-doom, var(--font-monospace)) !important;
+  font-weight: 700 !important;
+  font-size: 11px !important;
+  line-height: 1 !important;
+  letter-spacing: 0.02em;
+}
+
 .doom-popover-btn:hover {
   background-color: var(--doom-base3);
   color: var(--doom-fg);
