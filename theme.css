@@ -3227,7 +3227,7 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   border-radius: 3px !important;
   color: var(--doom-fg) !important;
   font-family: var(--font-interface) !important;
-  font-size: 0.76em !important;
+  font-size: 0.70em !important;
   padding: 2px 6px !important;
   gap: 4px !important;
   transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
@@ -3286,7 +3286,7 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   overflow: visible !important;
   font-family: var(--font-interface) !important;
   color: var(--doom-base5) !important;
-  font-size: 0.76em !important;
+  font-size: 0.70em !important;
 }
 
 .bases-toolbar :is(.bases-toolbar-result-count, .bases-toolbar-results-menu) .text-icon-button,
