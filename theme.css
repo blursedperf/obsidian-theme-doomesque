@@ -429,6 +429,51 @@ body.theme-dark.doom-palette-retro-terminal {
   --bases-table-cell-shadow-focus: 0 0 0 2px var(--doom-fg);
 }
 
+/* Optional Dark Variant: doom-suit-and-tie (Modern Sartorial Slate) */
+body.theme-dark.doom-palette-suit-and-tie {
+  --doom-bg: #191c22;
+  --doom-bg-alt: #14161b;
+  --doom-base0: #111317;
+  --doom-base1: #15181e;
+  --doom-base2: #1b1e25;
+  --doom-base3: #232732;
+  --doom-base4: #343a49;
+  --doom-base5: #565f73;
+  --doom-base6: #7b8599;
+  --doom-base7: #a6b0c2;
+  --doom-base8: #e2e8f2;
+  --doom-fg: #edf1f7;
+  --doom-fg-alt: #929cb0;
+
+  --doom-red: #e24a58;
+  --doom-orange: #df7d45;
+  --doom-green: #4ec07d;
+  --doom-teal: #40b8a6;
+  --doom-yellow: #ebb15b;
+  --doom-blue: #4b96e6;
+  --doom-dark-blue: #25589c;
+  --doom-magenta: #c36fd6;
+  --doom-violet: #9575e6;
+  --doom-cyan: #3ec5dd;
+  --doom-dark-cyan: #2c788a;
+
+  --doom-blue-rgb: 75, 150, 230;
+  --doom-magenta-rgb: 195, 111, 214;
+  --doom-green-rgb: 78, 192, 125;
+  --doom-yellow-rgb: 235, 177, 91;
+  --doom-red-rgb: 226, 74, 88;
+  --doom-orange-rgb: 223, 125, 69;
+  --doom-cyan-rgb: 62, 197, 221;
+  --doom-violet-rgb: 149, 117, 230;
+  --doom-teal-rgb: 64, 184, 166;
+
+  --doom-modeline-bg: #131519;
+  --doom-modeline-fg: #d8e0ec;
+  --doom-modeline-bar: var(--doom-blue);
+  --doom-modeline-badge-bg: var(--doom-blue);
+  --doom-modeline-badge-fg: #111317;
+}
+
 /* ==========================================================================
    LIGHT THEME: doom-one-light (Default)
    ========================================================================== */
@@ -665,6 +710,52 @@ body.theme-light.doom-palette-tomorrow-day {
   --doom-modeline-fg: #4d4d4c;
   --doom-modeline-bar: #4271ae;
   --doom-modeline-badge-bg: #4271ae;
+  --doom-modeline-badge-fg: #ffffff;
+}
+
+/* Optional Light Variant: doom-suit-and-tie-light (Linen Suit & Silk Tie) */
+body.theme-light.doom-palette-suit-and-tie-light,
+body.theme-light.doom-palette-suit-and-tie {
+  --doom-bg: #f6f8fb;
+  --doom-bg-alt: #edf1f6;
+  --doom-base0: #e4e8ef;
+  --doom-base1: #edf1f6;
+  --doom-base2: #dee3ec;
+  --doom-base3: #cfd6e3;
+  --doom-base4: #a8b3c5;
+  --doom-base5: #7d899d;
+  --doom-base6: #546074;
+  --doom-base7: #333d4e;
+  --doom-base8: #161c26;
+  --doom-fg: #1e2532;
+  --doom-fg-alt: #566275;
+
+  --doom-red: #bf3243;
+  --doom-orange: #c45f26;
+  --doom-green: #2e8b57;
+  --doom-teal: #1f8378;
+  --doom-yellow: #b07d1a;
+  --doom-blue: #2a6fc2;
+  --doom-dark-blue: #184882;
+  --doom-magenta: #9240ad;
+  --doom-violet: #6a4fb5;
+  --doom-cyan: #1887a0;
+  --doom-dark-cyan: #135c6e;
+
+  --doom-blue-rgb: 42, 111, 194;
+  --doom-magenta-rgb: 146, 64, 173;
+  --doom-green-rgb: 46, 139, 87;
+  --doom-yellow-rgb: 176, 125, 26;
+  --doom-red-rgb: 191, 50, 67;
+  --doom-orange-rgb: 196, 95, 38;
+  --doom-cyan-rgb: 24, 135, 160;
+  --doom-violet-rgb: 106, 79, 181;
+  --doom-teal-rgb: 31, 131, 120;
+
+  --doom-modeline-bg: #e5eaf2;
+  --doom-modeline-fg: #1e2532;
+  --doom-modeline-bar: var(--doom-blue);
+  --doom-modeline-badge-bg: var(--doom-blue);
   --doom-modeline-badge-fg: #ffffff;
 }
 
@@ -3577,6 +3668,86 @@ body.doom-palette-retro-terminal .callout-icon svg {
   color: var(--doom-fg) !important;
 }
 
+/* --------------------------------------------------------------------------
+   Suit and Tie (doom-palette-suit-and-tie) Sartorial Polish & Details
+   Crisp pinstripe borders, bespoke tailoring accents, and refined contrast
+   -------------------------------------------------------------------------- */
+
+/* Tailored crisp pinstripe H1 underline border */
+body.doom-palette-suit-and-tie .markdown-rendered h1,
+body.doom-palette-suit-and-tie .HyperMD-header-1,
+body.doom-palette-suit-and-tie-light .markdown-rendered h1,
+body.doom-palette-suit-and-tie-light .HyperMD-header-1 {
+  border-bottom: 1px solid rgba(var(--doom-blue-rgb), 0.32);
+  padding-bottom: 0.22em;
+}
+
+/* Crisp pinstripe structural dividers */
+body.doom-palette-suit-and-tie hr,
+body.doom-palette-suit-and-tie-light hr {
+  border: none;
+  border-top: 1px solid var(--doom-base3);
+  height: 1px;
+}
+
+/* Bespoke tailored blockquotes with silk-tie accent */
+body.doom-palette-suit-and-tie blockquote,
+body.doom-palette-suit-and-tie .cm-quote,
+body.doom-palette-suit-and-tie-light blockquote,
+body.doom-palette-suit-and-tie-light .cm-quote {
+  border-left: 2.5px solid var(--doom-blue) !important;
+  background-color: rgba(var(--doom-blue-rgb), 0.04);
+}
+
+/* Tailored lapel pin tags */
+body.doom-palette-suit-and-tie .tag,
+body.doom-palette-suit-and-tie a.tag,
+body.doom-palette-suit-and-tie .cm-s-obsidian span.cm-hashtag,
+body.doom-palette-suit-and-tie-light .tag,
+body.doom-palette-suit-and-tie-light a.tag,
+body.doom-palette-suit-and-tie-light .cm-s-obsidian span.cm-hashtag {
+  border-radius: 3px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* Crisp inline code pill */
+body.doom-palette-suit-and-tie code:not(pre code),
+body.doom-palette-suit-and-tie-light code:not(pre code) {
+  border: 1px solid var(--doom-base3);
+  background-color: var(--doom-base1);
+  border-radius: 3px;
+  padding: 0.15em 0.35em;
+}
+
+/* Subtle tailored active block highlight */
+body.doom-palette-suit-and-tie.doom-active-block-highlight .cm-active,
+body.doom-palette-suit-and-tie.doom-active-line-highlight .cm-active,
+body.doom-palette-suit-and-tie-light.doom-active-block-highlight .cm-active,
+body.doom-palette-suit-and-tie-light.doom-active-line-highlight .cm-active {
+  background-color: rgba(var(--doom-blue-rgb), 0.065) !important;
+}
+
+/* Crisp sidebar active tab pinstripe top border */
+body.doom-palette-suit-and-tie .workspace-tab-header.is-active::before,
+body.doom-palette-suit-and-tie-light .workspace-tab-header.is-active::before {
+  background-color: var(--doom-blue);
+  height: 2px;
+}
+
+/* Modeline tailored status bar accent */
+body.doom-palette-suit-and-tie .status-bar,
+body.doom-palette-suit-and-tie-light .status-bar {
+  border-top: 1px solid var(--doom-base3);
+}
+
+/* Hover preview window crisp border and tailored shadow */
+body.doom-palette-suit-and-tie .popover.hover-popover,
+body.doom-palette-suit-and-tie-light .popover.hover-popover {
+  border: 1px solid var(--doom-base3);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+}
+
 /* In-Document Find & Replace Bar (Isearch / Swiper feel) */
 .document-search-container {
   background-color: var(--doom-bg-alt) !important;
@@ -4933,6 +5104,8 @@ settings:
         value: doom-palette-cyberpunk
       - label: doom-retro-terminal (VT220 Green Screen)
         value: doom-palette-retro-terminal
+      - label: doom-suit-and-tie (Modern Sartorial Slate)
+        value: doom-palette-suit-and-tie
   - id: doom-light-palette
     title: Light Mode Doom Palette
     description: Choose which Doom Emacs color scheme to use in Light Mode.
@@ -4950,6 +5123,8 @@ settings:
         value: doom-palette-solarized-light
       - label: doom-tomorrow-day
         value: doom-palette-tomorrow-day
+      - label: doom-suit-and-tie-light (Linen Suit & Silk Tie)
+        value: doom-palette-suit-and-tie-light
   - id: doom-no-org-todo
     title: Disable Org-Mode TODO / DONE Task Badges
     description: Hide the explicit TODO / DONE text prefix next to checkboxes.

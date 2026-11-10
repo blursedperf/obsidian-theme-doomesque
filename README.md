@@ -10,9 +10,9 @@ Designed for keyboard-centric note-takers, hackers, and Emacs enthusiasts who wa
 
 ### 🎨 Authentic Color Schemes
 
-DoomEsque includes **7 Dark Mode palettes** and **5 Light Mode palettes**, configurable out-of-the-box via the **[Style Settings](https://github.com/mgmeyers/obsidian-style-settings)** plugin or the companion **[DoomEsque Settings](https://github.com/blursedperf/obsidian-doomesque-settings)** plugin:
+DoomEsque includes **8 Dark Mode palettes** and **6 Light Mode palettes**, configurable out-of-the-box via the **[Style Settings](https://github.com/mgmeyers/obsidian-style-settings)** plugin or the companion **[DoomEsque Settings](https://github.com/blursedperf/obsidian-doomesque-settings)** plugin:
 
-#### Dark Mode Palettes (7 Schemes)
+#### Dark Mode Palettes (8 Schemes)
 - **`doom-one` (Default)**: Flagship Atom One Dark inspired Doom palette (`#282c34` canvas, `#51afef` blue, `#c678dd` magenta, `#98be65` green, `#ecbe7b` yellow).
 - **`doom-vibrant`**: Deeper `#242730` canvas with punchy, high-saturation syntax accents.
 - **`doom-dracula`**: Classic Dracula purple/pink/cyan adaptation for Doom.
@@ -20,13 +20,15 @@ DoomEsque includes **7 Dark Mode palettes** and **5 Light Mode palettes**, confi
 - **`doom-gruvbox`**: Warm retro medium dark palette (`#282828`).
 - **`doom-cyberpunk`**: High-contrast Night City neon aesthetic featuring electric cyan (`#00ffff`), signature yellow (`#fee801`), and Samurai crimson (`#ff003c`) on deep dark slate (`#0d1117`).
 - **`doom-retro-terminal`**: Authentic monochrome VT220 green phosphor CRT terminal aesthetic (`#080d08` deep phosphor background, `#33ff33` vibrant glowing green text).
+- **`doom-suit-and-tie`**: Clean modern bespoke tailoring palette. Deep tailored charcoal slate canvas (`#191c22`), crisp French cuff dress shirt white (`#edf1f7`), silk crimson tie (`#e24a58`), and steel blue accents (`#4b96e6`) with subtle pinstripe structural dividers.
 
-#### Light Mode Palettes (5 Schemes)
+#### Light Mode Palettes (6 Schemes)
 - **`doom-one-light` (Default)**: Cool parchment base (`#fafafa`) with `#383a42` text and bright Doom syntax accents.
 - **`doom-nord-light`**: Arctic ice blue base (`#e5e9f0`) with cool slate and pine accents.
 - **`doom-gruvbox-light`**: Warm retro cream parchment base (`#fbf1c7`) with earthy tones.
 - **`doom-solarized-light`**: Ethan Schoonover's precision light cream base (`#fdf6e3`).
 - **`doom-tomorrow-day`**: Crisp modern white Chris Kempson Tomorrow Day base (`#ffffff`).
+- **`doom-suit-and-tie-light`**: Crisp summer linen and Egyptian cotton base (`#f6f8fb`) with tailored navy (`#2a6fc2`), silver cufflink tones, and silk burgundy tie accents (`#bf3243`).
 
 ---
 
