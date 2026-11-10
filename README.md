@@ -1,6 +1,6 @@
 # DoomEsque Theme for Obsidian
 
-An authentic, distraction-free **Doom Emacs** inspired theme for Obsidian created by **Jason Gunst**, drawing inspiration from [hlissner/emacs-doom-themes](https://github.com/doomemacs/themes).
+An authentic, distraction-free **Doom Emacs** inspired theme for Obsidian created by **blursedperf**, drawing inspiration from [hlissner/emacs-doom-themes](https://github.com/doomemacs/themes).
 
 Designed for keyboard-centric note-takers, hackers, and Emacs enthusiasts who want an authentic, cohesive editor aesthetic inside Obsidian.
 
@@ -115,4 +115,4 @@ cp manifest.json theme.css "/path/to/your/vault/.obsidian/themes/DoomEsque/"
 
 ## 📄 License
 
-[MIT License](./LICENSE) © 2026 Jason Gunst
+[MIT License](./LICENSE) © 2026 blursedperf
