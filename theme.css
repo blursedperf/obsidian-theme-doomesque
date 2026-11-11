@@ -2386,11 +2386,21 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
   transition: color 0.15s ease, opacity 0.15s ease;
 }
 
-/* Reading view list fold toggles: Obsidian's -2.65em offset put each toggle on the parent's indent
-   guide with the theme's list indent; match Live Preview's toggle-to-marker spacing instead. */
+/* List fold toggles sit next to their own marker (about 5px gap), clear of the parent's indent guide
+   (about 10px), the same in both views. Obsidian's defaults put them against the parent guide. */
 .markdown-rendered .list-collapse-indicator {
-  margin-inline-start: -2.3em;
-  padding-inline-end: 1.65em;
+  margin-inline-start: -1.9em;
+  padding-inline-end: 1.25em;
+}
+
+.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line:not(.cm-active):not(.HyperMD-task-line) .cm-fold-indicator .collapse-indicator {
+  inset-inline-end: calc(var(--list-bullet-end-padding) * -1 - 0.4em);
+}
+
+/* Numbered markers are wider than a bullet dot: keep the same visible gap */
+.markdown-rendered ol > li > .list-collapse-indicator {
+  margin-inline-start: -2.1em;
+  padding-inline-end: 1.45em;
 }
 
 .is-collapsed .collapse-indicator,
@@ -4234,7 +4244,7 @@ input[type="checkbox"].task-list-item-checkbox:checked {
 .markdown-rendered li.task-list-item > p > .task-list-item-checkbox {
   position: absolute;
   margin: 0;
-  inset-inline-start: calc(var(--checkbox-size) * -1.5);
+  inset-inline-start: calc(var(--checkbox-size) * -1.5 + 0.25em); /* same checkbox-to-text gap as Live Preview */
   top: calc((1.6em - var(--checkbox-size)) / 2 + 0.25em);
 }
 
@@ -4242,7 +4252,7 @@ input[type="checkbox"].task-list-item-checkbox:checked {
   position: absolute;
   margin: 0;
   padding: 0;
-  inset-inline-start: calc(var(--checkbox-size) * -1 - 1.5em);
+  inset-inline-start: calc(var(--checkbox-size) * -1 - 1.25em);
   top: calc((1.6em - 1em) / 2 + 0.15em);
   line-height: 1;
 }
