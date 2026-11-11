@@ -5729,7 +5729,7 @@ settings:
     format: px
   - id: doom-popover-properties
     title: Show Properties in Hover Previews
-    description: Display frontmatter YAML properties (:PROPERTIES: drawer) at the top of note preview popovers.
+    description: "Display frontmatter YAML properties (:PROPERTIES: drawer) at the top of note preview popovers."
     type: class-toggle
     default: false
 
