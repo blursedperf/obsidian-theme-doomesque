@@ -2402,6 +2402,13 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
   transition: color 0.15s ease, opacity 0.15s ease;
 }
 
+/* Reading view list fold toggles: Obsidian's -2.65em offset put each toggle on the parent's indent
+   guide with the theme's list indent; match Live Preview's toggle-to-marker spacing instead. */
+.markdown-rendered .list-collapse-indicator {
+  margin-inline-start: -2.3em;
+  padding-inline-end: 1.65em;
+}
+
 .is-collapsed .collapse-indicator,
 .cm-fold-indicator.is-collapsed .collapse-indicator,
 .cm-gutterElement .is-collapsed .collapse-indicator {
@@ -3904,9 +3911,10 @@ body.doom-table-header-caps .bases-thead .bases-table-header-label {
 .bases-groupby-container,
 .bases-sort-container,
 .bases-results-page {
-  background-color: var(--doom-bg-alt);
-  border: 1px solid var(--doom-blue);
-  border-radius: 4px;
+  /* These sit inside Obsidian's .menu, which already draws the frame: no second border or panel. */
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
   font-family: var(--font-interface);
   max-width: min(720px, 90vw);
   min-width: 220px;
@@ -4005,13 +4013,6 @@ body.theme-dark.doom-palette-retro-terminal .bases-kanban-card {
 
 body.theme-dark.doom-palette-retro-terminal .bases-table .bases-group-heading {
   border-left: 3px solid var(--doom-fg);
-}
-
-body.theme-dark.doom-palette-retro-terminal .bases-toolbar-menu-container,
-body.theme-dark.doom-palette-retro-terminal .bases-filter-page,
-body.theme-dark.doom-palette-retro-terminal .bases-groupby-container,
-body.theme-dark.doom-palette-retro-terminal .bases-sort-container {
-  border-color: var(--doom-fg);
 }
 
 /* 2. Note Properties Drawer & Popover Properties */
@@ -4429,14 +4430,40 @@ input[type="checkbox"].task-list-item-checkbox:checked {
   border-color: var(--doom-green);
 }
 
-/* Optional Org-mode `TODO` / `DONE` badge prefixes on task items */
+/* Reading view task items: the checkbox (and its fold toggle) hang in the gutter out of the text flow,
+   so the TODO / DONE badge leads the text instead of being drawn under the checkbox. */
+.markdown-rendered li.task-list-item {
+  position: relative;
+}
+
+.markdown-rendered li.task-list-item > .task-list-item-checkbox,
+.markdown-rendered li.task-list-item > p > .task-list-item-checkbox {
+  position: absolute;
+  margin: 0;
+  inset-inline-start: calc(var(--checkbox-size) * -1.5);
+  top: calc((1.6em - var(--checkbox-size)) / 2 + 0.25em);
+}
+
+.markdown-rendered li.task-list-item > .list-collapse-indicator {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  inset-inline-start: calc(var(--checkbox-size) * -1 - 1.5em);
+  top: calc((1.6em - 1em) / 2 + 0.15em);
+  line-height: 1;
+}
+
+/* Optional Org-mode `TODO` / `DONE` badge prefixes on task items
+   (checkbox → badge → text in both views). */
 .markdown-rendered .task-list-item > p {
   display: inline;
 }
 
 body:not(.doom-no-org-todo) .markdown-rendered .task-list-item:not(.is-checked)::before,
-body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task=" "] :is(.cm-list-1, .cm-list-2, .cm-list-3, .cm-list-4, .cm-list-5, .cm-list-6)::after {
-  content: "TODO ";
+body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task=" "] .task-list-label::after {
+  content: "TODO";
+  display: inline-block;
+  margin-inline-end: 0.4em;
   color: var(--doom-orange-text);
   font-family: var(--font-monospace-doom);
   font-weight: 700;
@@ -4445,9 +4472,9 @@ body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task=" "] :is
 }
 
 body:not(.doom-no-org-todo) .markdown-rendered .task-list-item.is-checked::before,
-body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task="x"] :is(.cm-list-1, .cm-list-2, .cm-list-3, .cm-list-4, .cm-list-5, .cm-list-6)::after,
-body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task="X"] :is(.cm-list-1, .cm-list-2, .cm-list-3, .cm-list-4, .cm-list-5, .cm-list-6)::after {
-  content: "DONE ";
+body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task="x"] .task-list-label::after,
+body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task="X"] .task-list-label::after {
+  content: "DONE";
   color: var(--doom-green-text);
   font-family: var(--font-monospace-doom);
   font-weight: 700;
@@ -4455,7 +4482,7 @@ body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task="X"] :is
   letter-spacing: 0.03em;
   text-decoration: none;
   display: inline-block;
-  margin-right: 4px;
+  margin-inline-end: 0.4em;
 }
 
 /* --------------------------------------------------------------------------
