@@ -2940,6 +2940,25 @@ body.doom-popover-properties .popover.hover-popover .metadata-container[data-pro
 
 
 
+/* Table cell editors: undo global editor tweaks so nested CodeMirror geometry is native.
+   - .cm-line vertical padding (buffer rhythm) made cells grow on focus.
+   - Wide theme/retro cursors overflowed the cell edge, spawning a horizontal scrollbar. */
+.markdown-source-view.mod-cm6 .cm-table-widget .cm-content > .cm-line {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+body .markdown-source-view.mod-cm6 .cm-table-widget .cm-cursorLayer .cm-cursor {
+  width: 0;
+  margin-left: -0.6px;
+  border-left: 1.2px solid var(--text-accent, var(--doom-blue));
+  border-bottom: none;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+  mix-blend-mode: normal;
+}
+
 /* Tables: Org-table Doom Color Aesthetic (Functionality and layout 100% native) */
 .markdown-rendered thead tr > th,
 .cm-s-obsidian .cm-embed-block table thead tr > th {
