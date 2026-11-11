@@ -1296,6 +1296,7 @@ body.theme-light.doom-palette-suit-and-tie-light {
   --bases-table-container-border-width: 1px;
   --bases-table-container-border-radius: var(--radius-m);
   --bases-table-group-background: var(--doom-bg-alt);
+  --bases-toolbar-badge-display: inline; /* show active sort / filter counts on the icon-only buttons */
   --bases-table-group-gap: 0px; /* read by Bases when laying out rows; groups are separated by their heading bar */
   --bases-embed-border-color: var(--table-border-color);
   --bases-embed-border-radius: var(--radius-m);
@@ -3441,6 +3442,25 @@ body.doom-table-no-zebra .markdown-rendered tbody tr:nth-child(odd) {
 }
 
 /* Bases Top Toolbar (Treemacs / Dired style control bar) */
+/* Icon-only action buttons (the view name and result count keep their text). The labels are the
+   buttons' only accessible names (no aria-label/tooltip), so hide them visually rather than with
+   Obsidian's --bases-toolbar-label-display, which uses display: none. */
+body:not(.doom-bases-toolbar-labels) .bases-toolbar .bases-toolbar-item:not(.bases-toolbar-views-menu, .bases-toolbar-result-count) .text-button-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+body.doom-bases-toolbar-labels {
+  --bases-toolbar-badge-display: none;
+}
+
 .bases-header {
   background-color: var(--doom-bg-alt);
   border-bottom: 1px solid var(--table-border-color);
@@ -5866,6 +5886,11 @@ settings:
   - id: doom-table-no-zebra
     title: Disable Zebra Striping
     description: Remove alternating row shading in Markdown tables. (Bases tables are not striped because their rows are virtualized.)
+    type: class-toggle
+    default: false
+  - id: doom-bases-toolbar-labels
+    title: Bases Toolbar Text Labels
+    description: Show text labels (Sort, Group, Filter, Properties, Search, New) next to the Bases toolbar icons. Off by default for a compact icon-only toolbar.
     type: class-toggle
     default: false
   - id: doom-table-header-caps
