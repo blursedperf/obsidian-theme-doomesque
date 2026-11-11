@@ -5183,6 +5183,16 @@ body.is-phone .view-header {
   transition: opacity 0.2s ease-in-out, transform 0.3s ease-in-out;
 }
 
+/* Obsidian's floating navigation on phones (.is-floating-nav) makes the header transparent and
+   pushes it below the status bar (margin-top), so note content showed through and behind the status
+   bar. Keep it a solid bar that covers the status-bar area; the floating action pills sit inside it.
+   Specificity beats Obsidian's `.is-mobile.is-floating-nav.is-phone .view-header`. */
+body.is-mobile.is-floating-nav.is-phone .view-header {
+  margin-top: 0;
+  padding-top: max(var(--view-header-top-offset, 0px), var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 20px);
+  background-color: var(--doom-bg);
+}
+
 /* Auto-hide header animation when scrolling fast on phone */
 body.is-phone.is-hidden-nav .view-header {
   transform: translateY(calc(-100% - 10px));
