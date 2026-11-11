@@ -24,6 +24,7 @@ An authentic, distraction-free **Doom Emacs** inspired theme for Obsidian, bring
 - **📊 Obsidian Bases & Tables**:
   - Stable, zero-shift table grid layout on click and edit.
   - Uniform cell heights, padding, and vertical alignment.
+  - Table density (compact / normal / comfortable), gridline style, and zebra striping options.
 - **🔒 100% Offline & Private**:
   - Zero network calls, zero `@import` rules, and no remote telemetry.
   - Uses locally installed system fonts.
@@ -49,6 +50,22 @@ Copy [`manifest.json`](./manifest.json) and [`theme.css`](./theme.css) into your
 mkdir -p "/path/to/vault/.obsidian/themes/DoomEsque"
 cp manifest.json theme.css "/path/to/vault/.obsidian/themes/DoomEsque/"
 ```
+
+---
+
+## 🎨 Editing Palettes
+
+Each palette block defines raw Doom colors (`--doom-bg`, `--doom-base0`–`8`, accents). The theme paints with **derived tokens** (`--doom-text-faint`, `--doom-text-muted`, `--doom-hairline`, `--doom-border-subtle`, `--doom-border-strong`, `--doom-stripe`, and readable `--doom-<accent>-text` variants) that are generated to meet contrast targets on every palette.
+
+After changing or adding a palette:
+
+```bash
+node scripts/palette-tokens.mjs           # contrast report per palette
+node scripts/palette-tokens.mjs --write   # regenerate derived tokens
+node scripts/palette-tokens.mjs --check   # what CI runs
+```
+
+Raw accents are still used for fills, bars and borders; only text uses the `-text` variants.
 
 ---
 

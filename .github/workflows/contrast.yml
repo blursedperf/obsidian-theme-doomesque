@@ -1,0 +1,17 @@
+name: Palette Contrast
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  contrast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Verify derived palette tokens and contrast targets
+        run: node scripts/palette-tokens.mjs --check

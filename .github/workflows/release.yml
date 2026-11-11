@@ -16,6 +16,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Verify palette contrast
+        run: node scripts/palette-tokens.mjs --check
+
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
         with:
