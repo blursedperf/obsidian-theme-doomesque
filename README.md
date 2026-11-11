@@ -18,9 +18,10 @@ An authentic, distraction-free **Doom Emacs** inspired theme for Obsidian, bring
   - Five distinct cursor styles: Modern Bar, Retro Block, Phosphor Glow, Hollow Box, and Underline.
   - Rainbow indentation guides alternating theme accents per nesting depth (default; single-colour option available).
   - Monospace buffer option for a focused hacker aesthetic.
-- **🔍 Unconstrained Hover Previews**:
-  - Expanded viewports that eliminate artificial column caps.
-  - Contained mouse wheel scrolling and frontmatter properties support.
+- **🔍 Hover Previews**:
+  - Doom-styled preview windows with configurable width and height (Style Settings).
+  - Optional frontmatter properties drawer inside previews.
+  - Resizable, draggable, maximizable and sticky preview windows come with the companion plugin.
 - **📊 Obsidian Bases & Tables**:
   - Stable, zero-shift table grid layout on click and edit.
   - Uniform cell heights, padding, and vertical alignment.

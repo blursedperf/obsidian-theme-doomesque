@@ -548,9 +548,9 @@ body.theme-dark.doom-palette-retro-terminal {
   --metadata-label-text-color-hover: var(--doom-base8);
   --tag-color: var(--doom-fg);
   --tag-color-hover: var(--doom-base8);
-  --tag-background: rgba(51, 255, 51, 0.12);
-  --tag-background-hover: rgba(51, 255, 51, 0.22);
-  --tag-border-color: rgba(51, 255, 51, 0.35);
+  --tag-background: rgba(var(--doom-green-rgb), 0.12);
+  --tag-background-hover: rgba(var(--doom-green-rgb), 0.22);
+  --tag-border-color: rgba(var(--doom-green-rgb), 0.35);
   --link-color: var(--doom-fg);
   --link-color-hover: var(--doom-base8);
   --link-external-color: var(--doom-fg);
@@ -1098,6 +1098,7 @@ body.theme-light.doom-palette-suit-and-tie-light {
   --tab-container-background: var(--doom-base0);
   --tab-background-active: var(--doom-bg);
 
+  --doom-shadow-scale: 1; /* drop-shadow strength; lighter in light mode */
   --background-modifier-hover: rgba(var(--doom-blue-rgb), 0.12);
   --background-modifier-active-hover: rgba(var(--doom-blue-rgb), 0.18);
   --background-modifier-border: var(--doom-border-subtle);
@@ -1362,21 +1363,11 @@ body.theme-light.doom-palette-suit-and-tie-light {
 
 /* Light theme fine-tuning for contrast & subtle parchment borders */
 .theme-light {
-  --text-muted: var(--doom-text-muted);
-  --code-comment: var(--doom-base5);
+  --doom-shadow-scale: 0.45;
   --blockquote-color: var(--doom-base6);
-  --tab-text-color: var(--doom-text-faint);
-  --checklist-done-color: var(--doom-text-faint);
   --text-on-accent: #fafafa;
   --background-modifier-message: var(--doom-base8);
   --tooltip-background: var(--doom-base8);
-  --tooltip-color: #fafafa;
-  --table-border-color: var(--doom-table-border);
-  --table-cell-border-color: var(--doom-table-border);
-  --table-header-border-color: var(--doom-table-border);
-  --table-header-background: var(--doom-table-header-bg);
-  --table-header-background-hover: var(--doom-table-header-bg-hover);
-  --table-row-alt-background: var(--doom-stripe);
   --indentation-guide-color: rgba(var(--doom-blue-rgb), 0.22);
 }
 
@@ -2235,9 +2226,7 @@ body:not(.doom-monochrome-headings) .cm-s-obsidian .HyperMD-list-line-6 .cm-form
 
 /* Active block/line highlight (`hl-line-mode`) - optional, defaults to off */
 body.doom-active-block-highlight .cm-s-obsidian .cm-activeLine,
-body.doom-active-block-highlight .cm-s-obsidian .cm-active.cm-line,
-body.doom-active-line-highlight .cm-s-obsidian .cm-activeLine,
-body.doom-active-line-highlight .cm-s-obsidian .cm-active.cm-line {
+body.doom-active-block-highlight .cm-s-obsidian .cm-active.cm-line {
   background-color: rgba(var(--doom-blue-rgb), 0.06);
 }
 
@@ -2247,13 +2236,7 @@ body.doom-active-block-highlight .cm-s-obsidian .table-wrapper .cm-active.cm-lin
 body.doom-active-block-highlight .cm-s-obsidian .cm-table-widget .cm-activeLine,
 body.doom-active-block-highlight .cm-s-obsidian .cm-table-widget .cm-active.cm-line,
 body.doom-active-block-highlight .cm-s-obsidian .cm-embed-block table .cm-activeLine,
-body.doom-active-block-highlight .cm-s-obsidian .cm-embed-block table .cm-active.cm-line,
-body.doom-active-line-highlight .cm-s-obsidian .table-wrapper .cm-activeLine,
-body.doom-active-line-highlight .cm-s-obsidian .table-wrapper .cm-active.cm-line,
-body.doom-active-line-highlight .cm-s-obsidian .cm-table-widget .cm-activeLine,
-body.doom-active-line-highlight .cm-s-obsidian .cm-table-widget .cm-active.cm-line,
-body.doom-active-line-highlight .cm-s-obsidian .cm-embed-block table .cm-activeLine,
-body.doom-active-line-highlight .cm-s-obsidian .cm-embed-block table .cm-active.cm-line {
+body.doom-active-block-highlight .cm-s-obsidian .cm-embed-block table .cm-active.cm-line {
   background-color: transparent;
 }
 
@@ -2838,7 +2821,7 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
   border-radius: 3px;
   padding: 10px 16px;
   margin: 0.85em 0;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 1px 4px rgb(0 0 0 / calc(0.14 * var(--doom-shadow-scale, 1)));
 }
 
 body.theme-light .internal-embed.markdown-embed,
@@ -2853,250 +2836,43 @@ body.theme-light .file-embed {
   font-size: 0.9em;
 }
 
-/* Hover Preview Popover (Posframe popup feel) */
+/* Hover Preview Popover (Posframe popup feel).
+   The theme only colours the window. Size comes from Obsidian's --popover-width / --popover-height
+   (Style Settings sliders); resizing, maximizing, dragging and sticky behaviour - and the layout
+   rules they need - belong to the DoomEsque Settings plugin. */
 .hover-popover {
-  --popover-height: 100%;
-  --popover-max-height: 100%;
   background-color: var(--doom-bg-alt);
   border: 1px solid var(--doom-blue);
   border-radius: 3px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  overscroll-behavior: contain;
+  box-shadow: 0 10px 28px rgb(0 0 0 / calc(0.5 * var(--doom-shadow-scale, 1)));
 }
 
 body.theme-light .hover-popover {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-/* Maximized preview window cleanly occupies the full expanded viewport */
-.popover.hover-popover.mod-maximized {
-  position: fixed;
-  left: 4vw;
-  top: 5vh;
-  width: 92vw;
-  height: 90vh;
-  max-width: 92vw;
-  max-height: 90vh;
-  margin: 0;
-  resize: none;
-}
-
-/* Ensure content fills 100% width and height of resized hover popovers */
-.popover.hover-popover > * {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-/* Ensure hidden elements (such as inactive editorEl inside embeds) remain strictly hidden */
-.popover.hover-popover [style*="display: none"],
-.popover.hover-popover [style*="display:none"],
-.popover.hover-popover .markdown-embed-content[style*="display: none"],
-.popover.hover-popover .markdown-embed-content[style*="display:none"] {
-  display: none;
-}
-
-/* Force markdown embeds & popover contents to fill full available height all the way to the bottom without height caps */
-body .popover.hover-popover > div:not(.doom-popover-header),
-body .popover.hover-popover > .markdown-embed,
-body .popover.hover-popover .markdown-embed,
-body .popover.hover-popover .popover-content,
-body .popover.hover-popover .bases-embed {
-  width: 100%;
-  max-width: 100%;
-  flex: 1 1 auto;
-  min-height: 0;
-  height: 100%;
-  max-height: none;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  overscroll-behavior: contain;
-  margin: 0;
-  padding: 0;
-  border: none;
-  background: transparent;
-}
-
-/* Only display active (non-hidden) embed content containers, expanding to full available height */
-.popover.hover-popover .markdown-embed-content:not([style*="display: none"]):not([style*="display:none"]) {
-  width: 100%;
-  max-width: 100%;
-  flex: 1 1 auto;
-  min-height: 0;
-  height: 100%;
-  max-height: none;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  overscroll-behavior: contain;
-  background: transparent;
-}
-
-/* Make Reading View scroll seamlessly with momentum and contained scroll chaining */
-.popover.hover-popover .markdown-preview-view {
-  width: 100%;
-  max-width: 100%;
-  flex: 1 1 auto;
-  min-height: 0;
-  height: 100%;
-  max-height: none;
-  box-sizing: border-box;
-  overflow-y: auto;
-  overflow-x: hidden;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-  padding: 0;
-  background-color: var(--doom-bg-alt);
-}
-
-/* In Live Preview, outer containers must NOT scroll so only .cm-scroller handles virtual line scrolling */
-.popover.hover-popover .markdown-source-view.mod-cm6,
-.popover.hover-popover .cm-editor {
-  width: 100%;
-  max-width: 100%;
-  flex: 1 1 auto;
-  min-height: 0;
-  height: 100%;
-  max-height: none;
-  box-sizing: border-box;
-  overflow: hidden;
-  padding: 0;
-  background-color: var(--doom-bg-alt);
-}
-
-.popover.hover-popover .cm-scroller {
-  width: 100%;
-  max-width: 100%;
-  height: 100%;
-  min-height: 100%;
-  max-height: none;
-  box-sizing: border-box;
-  overflow-y: auto;
-  overflow-x: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-  padding: 0;
-  background-color: var(--doom-bg-alt);
-}
-
-/* Ensure note content container expands to the full height of the resized popover window */
-.popover.hover-popover .markdown-preview-sizer {
-  width: 100%;
-  max-width: 100%;
-  min-height: 100%;
-  margin: 0;
-  padding: 16px 20px 24px 20px;
-  padding-bottom: 24px;
-  box-sizing: border-box;
-  background-color: var(--doom-bg-alt);
-}
-
-body .popover.hover-popover .markdown-preview-section,
-.popover.hover-popover .markdown-preview-section {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-/* Hide footers and embedded backlinks inside hover popovers to prevent blank bottom space (pusher retained for virtual scroll calculation) */
-.popover.hover-popover .embedded-backlinks,
-.popover.hover-popover .mod-footer,
-.popover.hover-popover .mod-ui {
-  display: none;
-}
-
-.popover.hover-popover .cm-content {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  padding: 14px 20px;
-}
-
-.popover.hover-popover .cm-line {
-  max-width: 100%;
-}
-
-/* Hover Preview Header & Controls */
+/* DoomEsque Settings hover window header & controls: palette colours only (layout lives in the plugin) */
 .doom-popover-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 5px 8px;
   background-color: var(--doom-base1);
-  border-bottom: 1px solid var(--doom-border-subtle);
-  font-family: var(--font-interface);
-  font-size: 11.5px;
+  border-bottom-color: var(--doom-border-subtle);
   color: var(--doom-fg);
-  user-select: none;
-  cursor: grab;
-  flex-shrink: 0;
-  box-sizing: border-box;
-}
-
-.doom-popover-header:active {
-  cursor: grabbing;
 }
 
 .doom-popover-title {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-weight: 600;
   color: var(--doom-blue-text);
-  cursor: pointer;
-  transition: color 0.12s ease;
 }
 
 .doom-popover-title:hover {
   color: var(--doom-teal-text);
 }
 
-.doom-popover-actions {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
-}
-
 .doom-popover-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  padding: 0;
-  border-radius: 3px;
-  border: 1px solid transparent;
-  background: transparent;
   color: var(--doom-base6);
-  cursor: pointer;
-  font-size: 12px;
-  line-height: 1;
-  transition: background-color 0.12s ease, color 0.12s ease, border-color 0.12s ease;
 }
 
 .doom-popover-btn svg,
 .doom-popover-btn .svg-icon {
-  width: 13px;
-  height: 13px;
   stroke: currentColor;
-  display: block;
-  pointer-events: none;
-}
-
-.doom-popover-btn.mod-pin {
-  font-family: var(--font-monospace-doom, var(--font-monospace));
-  font-weight: 700;
-  font-size: 11px;
-  line-height: 1;
-  letter-spacing: 0.02em;
 }
 
 .doom-popover-btn:hover {
@@ -3163,7 +2939,7 @@ body .popover.hover-popover .markdown-preview-section,
 .popover.hover-popover .markdown-embed-link:hover,
 .popover.hover-popover .file-embed-link:hover {
   color: var(--doom-teal-text);
-  background-color: rgba(77, 181, 189, 0.16);
+  background-color: rgba(var(--doom-teal-rgb), 0.16);
 }
 
 /* Frontmatter YAML Properties in Hover Preview Popovers */
@@ -3415,7 +3191,7 @@ body.doom-table-no-zebra .markdown-rendered tbody tr:nth-child(odd) {
   background-color: var(--doom-bg);
   margin: 1.1em 0;
   overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 1px 4px rgb(0 0 0 / calc(0.18 * var(--doom-shadow-scale, 1)));
 }
 
 /* Reserve comfortable space on the right for CM6 .embed-actions (expose syntax button) */
@@ -3902,7 +3678,7 @@ body.doom-table-header-caps .bases-thead .bases-table-header-label {
 
 .bases-cards-item:hover {
   border-color: var(--doom-base4);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 3px 8px rgb(0 0 0 / calc(0.25 * var(--doom-shadow-scale, 1)));
 }
 
 .bases-kanban-column {
@@ -4011,13 +3787,13 @@ body.theme-dark.doom-palette-retro-terminal .bases-table-active-cell {
 }
 
 body.theme-dark.doom-palette-retro-terminal .bases-table-selection {
-  background-color: rgba(51, 255, 51, 0.18);
+  background-color: rgba(var(--doom-green-rgb), 0.18);
 }
 
 body.theme-dark.doom-palette-retro-terminal .bases-toolbar .text-icon-button.is-active,
 body.theme-dark.doom-palette-retro-terminal .bases-toolbar .bases-toolbar-views-menu .text-icon-button {
   border-color: var(--doom-fg);
-  background-color: rgba(51, 255, 51, 0.15);
+  background-color: rgba(var(--doom-green-rgb), 0.15);
   color: var(--doom-fg);
 }
 
@@ -4063,7 +3839,7 @@ body.theme-dark.doom-palette-retro-terminal .metadata-container .metadata-proper
 
 body.theme-dark.doom-palette-retro-terminal .metadata-container .metadata-property-key:focus-within {
   border-color: var(--doom-fg);
-  box-shadow: 0 0 0 2px rgba(51, 255, 51, 0.25);
+  box-shadow: 0 0 0 2px rgba(var(--doom-green-rgb), 0.25);
 }
 
 body.theme-dark.doom-palette-retro-terminal .metadata-property-icon,
@@ -4081,15 +3857,15 @@ body.theme-dark.doom-palette-retro-terminal .metadata-container .metadata-proper
 
 body.theme-dark.doom-palette-retro-terminal .metadata-container .metadata-property-value:focus-within {
   border-color: var(--doom-fg);
-  box-shadow: 0 0 0 2px rgba(51, 255, 51, 0.25);
+  box-shadow: 0 0 0 2px rgba(var(--doom-green-rgb), 0.25);
 }
 
 body.theme-dark.doom-palette-retro-terminal .metadata-container .multi-select-pill,
 body.theme-dark.doom-palette-retro-terminal .metadata-container .metadata-property[data-property-key="tags"] .multi-select-pill,
 body.theme-dark.doom-palette-retro-terminal .bases-table-cell .multi-select-pill {
   color: var(--doom-fg);
-  background-color: rgba(51, 255, 51, 0.12);
-  border: 1px solid rgba(51, 255, 51, 0.35);
+  background-color: rgba(var(--doom-green-rgb), 0.12);
+  border: 1px solid rgba(var(--doom-green-rgb), 0.35);
 }
 
 body.theme-dark.doom-palette-retro-terminal .metadata-add-button,
@@ -4111,8 +3887,8 @@ body.theme-dark.doom-palette-retro-terminal .cm-s-obsidian span.cm-hashtag,
 body.theme-dark.doom-palette-retro-terminal .cm-s-obsidian span.cm-hashtag-begin,
 body.theme-dark.doom-palette-retro-terminal .cm-s-obsidian span.cm-hashtag-end {
   color: var(--doom-fg);
-  background-color: rgba(51, 255, 51, 0.12);
-  border-color: rgba(51, 255, 51, 0.32);
+  background-color: rgba(var(--doom-green-rgb), 0.12);
+  border-color: rgba(var(--doom-green-rgb), 0.32);
 }
 
 /* stylelint-disable plugin/no-unsupported-browser-features -- text-decoration-color supported in Chrome 57+ (Obsidian 1.4.5 is Chrome 114) */
@@ -4131,9 +3907,9 @@ body.theme-dark.doom-palette-retro-terminal .markdown-rendered a.external-link:h
 }
 
 body.theme-dark.doom-palette-retro-terminal .callout {
-  border-color: rgba(51, 255, 51, 0.35);
+  border-color: rgba(var(--doom-green-rgb), 0.35);
   border-left-color: var(--doom-fg);
-  background-color: rgba(51, 255, 51, 0.07);
+  background-color: rgba(var(--doom-green-rgb), 0.07);
 }
 
 body.theme-dark.doom-palette-retro-terminal .callout-title,
@@ -4152,7 +3928,7 @@ body.theme-dark.doom-palette-retro-terminal .doom-popover-btn .svg-icon {
 }
 
 body.theme-dark.doom-palette-retro-terminal .doom-popover-btn:hover {
-  background-color: rgba(51, 255, 51, 0.18);
+  background-color: rgba(var(--doom-green-rgb), 0.18);
   border-color: var(--doom-fg);
   color: var(--doom-fg);
 }
@@ -4160,7 +3936,7 @@ body.theme-dark.doom-palette-retro-terminal .doom-popover-btn:hover {
 body.theme-dark.doom-palette-retro-terminal .doom-popover-btn.is-active,
 body.theme-dark.doom-palette-retro-terminal .doom-popover-btn.mod-pin.is-active {
   color: var(--doom-fg);
-  background-color: rgba(51, 255, 51, 0.28);
+  background-color: rgba(var(--doom-green-rgb), 0.28);
   border-color: var(--doom-fg);
 }
 
@@ -4222,9 +3998,7 @@ body.theme-light.doom-palette-suit-and-tie-light code:not(pre code) {
 
 /* Subtle tailored active block highlight */
 body.theme-dark.doom-palette-suit-and-tie.doom-active-block-highlight .cm-active,
-body.theme-dark.doom-palette-suit-and-tie.doom-active-line-highlight .cm-active,
-body.theme-light.doom-palette-suit-and-tie-light.doom-active-block-highlight .cm-active,
-body.theme-light.doom-palette-suit-and-tie-light.doom-active-line-highlight .cm-active {
+body.theme-light.doom-palette-suit-and-tie-light.doom-active-block-highlight .cm-active {
   background-color: rgba(var(--doom-blue-rgb), 0.065);
 }
 
@@ -4646,7 +4420,7 @@ body:not(.doom-mono-indent-guides) .tree-item-children > .tree-item > .tree-item
   background-color: var(--doom-bg-alt);
   border: 1px solid var(--doom-blue);
   border-radius: 3px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 12px 32px rgb(0 0 0 / calc(0.55 * var(--doom-shadow-scale, 1)));
   font-family: var(--font-interface);
   overflow: hidden;
 }
@@ -4810,14 +4584,14 @@ kbd {
   margin-bottom: 8px;
   align-items: center;
   gap: 16px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 3px rgb(0 0 0 / calc(0.12 * var(--doom-shadow-scale, 1)));
   transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .setting-item:not(.setting-item-heading):hover {
   background-color: var(--doom-base0);
   border-color: var(--doom-base4);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgb(0 0 0 / calc(0.2 * var(--doom-shadow-scale, 1)));
 }
 
 .theme-light .setting-item:not(.setting-item-heading):hover {
@@ -4833,7 +4607,7 @@ kbd {
   overflow: hidden;
   margin-bottom: 14px;
   padding: 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 3px rgb(0 0 0 / calc(0.12 * var(--doom-shadow-scale, 1)));
 }
 
 .setting-items > .setting-item:not(.setting-item-heading) {
@@ -4912,7 +4686,7 @@ kbd {
   font-family: var(--font-monospace-doom);
   font-size: 11px;
   padding: 2px 7px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 2px rgb(0 0 0 / calc(0.15 * var(--doom-shadow-scale, 1)));
 }
 
 /* Square Retro Toggle Switches */
@@ -4941,7 +4715,7 @@ kbd {
 .checkbox-container::after {
   border-radius: 2px;
   background-color: #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 1px 3px rgb(0 0 0 / calc(0.35 * var(--doom-shadow-scale, 1)));
   transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1),
               background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
               box-shadow 0.18s cubic-bezier(0.4, 0, 0.2, 1),
@@ -4962,7 +4736,7 @@ kbd {
 
 .checkbox-container.is-enabled::after {
   background-color: #ffffff;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 4px rgb(0 0 0 / calc(0.25 * var(--doom-shadow-scale, 1)));
 }
 
 /* Prevent native Obsidian thumb bulging and vertical jump on press */
@@ -5133,7 +4907,7 @@ button.mod-warning {
   background-color: var(--doom-bg-alt);
   border: 1px solid var(--doom-border-subtle);
   border-radius: 3px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 6px 20px rgb(0 0 0 / calc(0.35 * var(--doom-shadow-scale, 1)));
 }
 
 .canvas-control-group {
@@ -5151,13 +4925,13 @@ button.mod-warning {
   background-color: var(--doom-base0);
   border: 1px solid var(--doom-border-subtle);
   border-radius: var(--radius-m);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 14px rgb(0 0 0 / calc(0.25 * var(--doom-shadow-scale, 1)));
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .canvas-node.is-focused .canvas-node-container {
   border-color: var(--doom-blue);
-  box-shadow: 0 0 0 2px rgba(var(--doom-blue-rgb), 0.25), 0 8px 24px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 0 2px rgba(var(--doom-blue-rgb), 0.25), 0 8px 24px rgb(0 0 0 / calc(0.35 * var(--doom-shadow-scale, 1)));
 }
 
 .canvas-group-label {
@@ -5201,7 +4975,7 @@ button.mod-warning {
   background-color: rgba(var(--callout-color), 0.065);
   padding: 12px 16px;
   margin: 1.15em 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 3px rgb(0 0 0 / calc(0.12 * var(--doom-shadow-scale, 1)));
 }
 
 body.theme-light .callout {
@@ -5376,7 +5150,7 @@ body.is-phone .view-header {
   z-index: 25;
   background-color: var(--doom-bg);
   border-bottom: 1px solid var(--doom-hairline);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 10px rgb(0 0 0 / calc(0.35 * var(--doom-shadow-scale, 1)));
   height: auto;
   min-height: calc(max(var(--view-header-top-offset, 0px), var(--safe-area-inset-top, 0px), env(safe-area-inset-top, 0px), 20px) + var(--view-header-height, 44px));
   max-height: none;
@@ -5922,11 +5696,6 @@ settings:
     max: 1000
     step: 20
     format: px
-  - id: doom-sticky-hover-enabled
-    title: Sticky Hover Previews
-    description: Keep preview popovers open until explicitly closed.
-    type: class-toggle
-    default: false
   - id: doom-popover-properties
     title: Show Properties in Hover Previews
     description: Display frontmatter YAML properties (:PROPERTIES: drawer) at the top of note preview popovers.
