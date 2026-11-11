@@ -55,7 +55,7 @@ cp manifest.json theme.css "/path/to/vault/.obsidian/themes/DoomEsque/"
 
 ## 🎨 Editing Palettes
 
-Each palette block defines raw Doom colors (`--doom-bg`, `--doom-base0`–`8`, accents). The theme paints with **derived tokens** (`--doom-text-faint`, `--doom-text-muted`, `--doom-hairline`, `--doom-border-subtle`, `--doom-border-strong`, `--doom-stripe`, and readable `--doom-<accent>-text` variants) that are generated to meet contrast targets on every palette.
+Each palette block defines raw Doom colors (`--doom-bg`, `--doom-base0`–`8`, accents). The theme paints with **derived tokens** (`--doom-text-faint`, `--doom-text-muted`, `--doom-hairline`, `--doom-border-subtle`, `--doom-border-strong`, `--doom-stripe`, table header/border tokens `--doom-table-header-bg`, `--doom-table-header-text`, `--doom-table-border`, and readable `--doom-<accent>-text` variants) that are generated to meet contrast targets on every palette.
 
 After changing or adding a palette:
 

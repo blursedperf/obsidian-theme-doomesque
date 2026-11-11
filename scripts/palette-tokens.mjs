@@ -33,8 +33,11 @@ export const TARGETS = {
 	hairline: 1.2, // decorative dividers (h2 rule, tab dividers)
 	borderSubtle: 1.45, // container edges (cards, drawers, settings rows)
 	borderStrong: 2.2, // table grid, scrollbar thumb, hover borders
-	stripeMin: 1.06, // zebra rows must be visible ...
-	stripeMax: 1.16, // ... but not louder than content
+	stripeMin: 1.12, // zebra rows must be clearly visible ...
+	stripeMax: 1.2, // ... but not louder than content
+	tableBorder: 3.0, // table grid vs body and striped rows (WCAG 1.4.11 non-text contrast)
+	tableHeader: 1.3, // header row background vs body background
+	tableHeaderHover: 1.45, // hovered header cell vs body background
 };
 
 /* ---------- color math (sRGB, matches CSS color-mix(in srgb)) ---------- */
@@ -116,18 +119,35 @@ export function derive(p) {
 	t["border-subtle"] = nudge(v.base3, ink, (c) => minContrast(c, surfaces) >= TARGETS.borderSubtle);
 	t["border-strong"] = nudge(v.base5, ink, (c) => minContrast(c, surfaces) >= TARGETS.borderStrong);
 
-	// Zebra stripe relative to bg.
+	// Zebra stripe relative to bg, shaded in the same direction as bg-alt (darker in every palette).
 	const alt = v["bg-alt"];
 	const altC = contrast(alt, bg);
+	const shade = p.mode === "dark" ? "#000000" : ink;
 	if (altC >= TARGETS.stripeMin && altC <= TARGETS.stripeMax) t.stripe = alt;
 	else if (altC > TARGETS.stripeMax) t.stripe = nudge(alt, bg, (c) => contrast(c, bg) <= TARGETS.stripeMax);
-	else t.stripe = nudge(bg, ink, (c) => contrast(c, bg) >= TARGETS.stripeMin + 0.02);
+	else t.stripe = nudge(bg, shade, (c) => contrast(c, bg) >= TARGETS.stripeMin + 0.01) ?? nudge(bg, ink, (c) => contrast(c, bg) >= TARGETS.stripeMin + 0.01);
+
+	// Table header row: background tinted with the palette's primary accent, clearly set apart from the body.
+	t["table-header-bg"] = nudge(bg, v.blue, (c) => contrast(c, bg) >= TARGETS.tableHeader);
+	t["table-header-bg-hover"] = nudge(bg, v.blue, (c) => contrast(c, bg) >= TARGETS.tableHeaderHover);
+
+	// Table grid: readable against plain rows, striped rows and the header.
+	const tableRows = [v.bg, t.stripe];
+	t["table-border"] = nudge(v.base5, ink, (c) => minContrast(c, tableRows) >= TARGETS.tableBorder) ?? ink;
+
+	// Header label colour: the primary accent, adjusted only as far as the tinted header requires.
+	const headerSurfaces = [t["table-header-bg"], t["table-header-bg-hover"]];
+	t["table-header-text"] =
+		nudge(v.blue, ink, (c) => minContrast(c, headerSurfaces) >= TARGETS.accentText) ??
+		nudge(v.blue, pure, (c) => minContrast(c, headerSurfaces) >= TARGETS.accentText) ??
+		pure;
 
 	// Readable accent text variants.
 	for (const a of ACCENTS) {
 		const raw = v[a];
 		if (!raw) continue;
-		const ok = (c) => minContrast(c, textSurfaces) >= TARGETS.accentText;
+		const surfacesWithTables = [...textSurfaces, t.stripe];
+		const ok = (c) => minContrast(c, surfacesWithTables) >= TARGETS.accentText;
 		t[`${a}-text`] = nudge(raw, ink, ok) ?? nudge(raw, pure, ok) ?? pure;
 	}
 	return { tokens: t, warnings };
@@ -151,8 +171,14 @@ export function verify(p, tokens) {
 	const s = contrast(tokens.stripe, v.bg);
 	if (s + 1e-9 < TARGETS.stripeMin || s - 1e-9 > TARGETS.stripeMax)
 		fails.push(`stripe ${s.toFixed(3)} outside [${TARGETS.stripeMin}, ${TARGETS.stripeMax}]`);
+	need("table-border", minContrast(tokens["table-border"], [v.bg, tokens.stripe]), TARGETS.tableBorder);
+	need("table-header-bg", contrast(tokens["table-header-bg"], v.bg), TARGETS.tableHeader);
+	need("table-header-bg-hover", contrast(tokens["table-header-bg-hover"], v.bg), TARGETS.tableHeaderHover);
+	need("fg on table-header-bg", contrast(v.fg, tokens["table-header-bg"]), TARGETS.textFaint);
+	need("table-header-text", minContrast(tokens["table-header-text"], [tokens["table-header-bg"], tokens["table-header-bg-hover"]]), TARGETS.accentText);
+	const tableSurfaces = [...textSurfaces, tokens.stripe];
 	for (const a of ACCENTS) {
-		if (tokens[`${a}-text`]) need(`${a}-text`, minContrast(tokens[`${a}-text`], textSurfaces), TARGETS.accentText);
+		if (tokens[`${a}-text`]) need(`${a}-text`, minContrast(tokens[`${a}-text`], tableSurfaces), TARGETS.accentText);
 	}
 	return fails;
 }

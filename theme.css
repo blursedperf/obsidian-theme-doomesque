@@ -151,7 +151,11 @@ body.theme-dark.doom-palette-one {
   --doom-hairline: #373a3e;
   --doom-border-subtle: #43464c;
   --doom-border-strong: #5b6268;
-  --doom-stripe: #21242b;
+  --doom-stripe: #1f2229;
+  --doom-table-header-bg: #2e4050;
+  --doom-table-header-bg-hover: #31485b;
+  --doom-table-border: #6f757a;
+  --doom-table-header-text: #73bbeb;
   --doom-red-text: #ff6c6b;
   --doom-orange-text: #da8548;
   --doom-yellow-text: #ecbe7b;
@@ -210,7 +214,11 @@ body.theme-dark.doom-palette-vibrant {
   --doom-hairline: #30363b;
   --doom-border-subtle: #3d4147;
   --doom-border-strong: #62686e;
-  --doom-stripe: #1c1f24;
+  --doom-stripe: #1a1c23;
+  --doom-table-header-bg: #2b3b4d;
+  --doom-table-header-bg-hover: #2d4458;
+  --doom-table-border: #6c7277;
+  --doom-table-header-text: #63b5ed;
   --doom-red-text: #ff665c;
   --doom-orange-text: #e69055;
   --doom-yellow-text: #fccb7e;
@@ -270,6 +278,10 @@ body.theme-dark.doom-palette-dracula {
   --doom-border-subtle: #44475a;
   --doom-border-strong: #6272a4;
   --doom-stripe: #1e2029;
+  --doom-table-header-bg: #3e3a53;
+  --doom-table-header-bg-hover: #47405f;
+  --doom-table-border: #6272a4;
+  --doom-table-header-text: #c5a0f8;
   --doom-red-text: #ff5555;
   --doom-orange-text: #ffb86c;
   --doom-yellow-text: #f1fa8c;
@@ -328,7 +340,11 @@ body.theme-dark.doom-palette-tokyo-night {
   --doom-hairline: #252a3d;
   --doom-border-subtle: #32374c;
   --doom-border-strong: #565f89;
-  --doom-stripe: #21222e;
+  --doom-stripe: #0d0d13;
+  --doom-table-header-bg: #293147;
+  --doom-table-header-bg-hover: #2e3752;
+  --doom-table-border: #5c658f;
+  --doom-table-header-text: #7aa2f7;
   --doom-red-text: #f7768e;
   --doom-orange-text: #ff9e64;
   --doom-yellow-text: #e0af68;
@@ -387,7 +403,11 @@ body.theme-dark.doom-palette-gruvbox {
   --doom-hairline: #363532;
   --doom-border-subtle: #47423d;
   --doom-border-strong: #665c54;
-  --doom-stripe: #1d2021;
+  --doom-stripe: #1e1e1e;
+  --doom-table-header-bg: #373c3a;
+  --doom-table-header-bg-hover: #3c4441;
+  --doom-table-border: #7a6f62;
+  --doom-table-header-text: #9fb49f;
   --doom-red-text: #fa553e;
   --doom-orange-text: #fe8019;
   --doom-yellow-text: #fabd2f;
@@ -449,15 +469,19 @@ body.theme-dark.doom-palette-cyberpunk {
   --doom-hairline: #23252f;
   --doom-border-subtle: #303440;
   --doom-border-strong: #5c6480;
-  --doom-stripe: #191b1f;
-  --doom-red-text: #ff003c;
+  --doom-stripe: #1d1f24;
+  --doom-table-header-bg: #0e2f34;
+  --doom-table-header-bg-hover: #0d383e;
+  --doom-table-border: #626a85;
+  --doom-table-header-text: #00f0ff;
+  --doom-red-text: #fc3061;
   --doom-orange-text: #ff7700;
   --doom-yellow-text: #fcee0a;
   --doom-green-text: #00ff9f;
   --doom-teal-text: #05d9e8;
   --doom-blue-text: #00f0ff;
   --doom-magenta-text: #ff2a6d;
-  --doom-violet-text: #9b5de5;
+  --doom-violet-text: #a26ae7;
   --doom-cyan-text: #00f0ff;
   /* @derived-tokens:end */
 }
@@ -542,7 +566,11 @@ body.theme-dark.doom-palette-retro-terminal {
   --doom-hairline: #162516;
   --doom-border-subtle: #203520;
   --doom-border-strong: #2e542e;
-  --doom-stripe: #101910;
+  --doom-stripe: #131e13;
+  --doom-table-header-bg: #0e2f0e;
+  --doom-table-header-bg-hover: #0f360f;
+  --doom-table-border: #437143;
+  --doom-table-header-text: #33ff33;
   --doom-red-text: #a8ffa8;
   --doom-orange-text: #77ff55;
   --doom-yellow-text: #66ff33;
@@ -605,7 +633,11 @@ body.theme-dark.doom-palette-suit-and-tie {
   --doom-hairline: #282b32;
   --doom-border-subtle: #353944;
   --doom-border-strong: #565f73;
-  --doom-stripe: #14161b;
+  --doom-stripe: #0d0e11;
+  --doom-table-header-bg: #223245;
+  --doom-table-header-bg-hover: #263b53;
+  --doom-table-border: #5f687b;
+  --doom-table-header-text: #6aa7e9;
   --doom-red-text: #e2515e;
   --doom-orange-text: #df7d45;
   --doom-yellow-text: #ebb15b;
@@ -674,7 +706,11 @@ body.theme-light.doom-palette-one-light {
   --doom-hairline: #dbdbdb;
   --doom-border-subtle: #c6c7c7;
   --doom-border-strong: #7f848e;
-  --doom-stripe: #f0f0f0;
+  --doom-stripe: #eaebeb;
+  --doom-table-header-bg: #d1ddf8;
+  --doom-table-header-bg-hover: #c0d2f8;
+  --doom-table-border: #7f848e;
+  --doom-table-header-text: #3257a6;
   --doom-red-text: #ac4740;
   --doom-orange-text: #8c5c3b;
   --doom-yellow-text: #8a6005;
@@ -739,16 +775,20 @@ body.theme-light.doom-palette-nord-light {
   --doom-hairline: #c5cbd6;
   --doom-border-subtle: #adbad0;
   --doom-border-strong: #64738c;
-  --doom-stripe: #d8dee9;
+  --doom-stripe: #d6dbe2;
+  --doom-table-header-bg: #c0cee0;
+  --doom-table-header-bg-hover: #b2c4da;
+  --doom-table-border: #64738c;
+  --doom-table-header-text: #355276;
   --doom-red-text: #99324b;
-  --doom-orange-text: #a64327;
-  --doom-yellow-text: #766015;
-  --doom-green-text: #436b48;
-  --doom-teal-text: #2b6a74;
-  --doom-blue-text: #396496;
+  --doom-orange-text: #a14328;
+  --doom-yellow-text: #735e17;
+  --doom-green-text: #426947;
+  --doom-teal-text: #2b6873;
+  --doom-blue-text: #386293;
   --doom-magenta-text: #97365b;
   --doom-violet-text: #842879;
-  --doom-cyan-text: #34687f;
+  --doom-cyan-text: #34667c;
   /* @derived-tokens:end */
 }
 
@@ -804,7 +844,11 @@ body.theme-light.doom-palette-gruvbox-light {
   --doom-hairline: #d5c4a1;
   --doom-border-subtle: #bdae93;
   --doom-border-strong: #928374;
-  --doom-stripe: #eee0b6;
+  --doom-stripe: #ecdcb3;
+  --doom-table-header-bg: #cfd8b9;
+  --doom-table-header-bg-hover: #beceb3;
+  --doom-table-border: #897b6d;
+  --doom-table-header-text: #0a5d6d;
   --doom-red-text: #bb241d;
   --doom-orange-text: #9b4914;
   --doom-yellow-text: #815918;
@@ -870,6 +914,10 @@ body.theme-light.doom-palette-solarized-light {
   --doom-border-subtle: #c8c2b0;
   --doom-border-strong: #92a0a0;
   --doom-stripe: #eee8d5;
+  --doom-table-header-bg: #c9dcdf;
+  --doom-table-header-bg-hover: #b6d3dd;
+  --doom-table-border: #74898c;
+  --doom-table-header-text: #155d84;
   --doom-red-text: #c23231;
   --doom-orange-text: #b0481c;
   --doom-yellow-text: #736919;
@@ -934,16 +982,20 @@ body.theme-light.doom-palette-tomorrow-day {
   --doom-hairline: #dedede;
   --doom-border-subtle: #c9c9c9;
   --doom-border-strong: #8e908c;
-  --doom-stripe: #f2f2f2;
+  --doom-stripe: #efefef;
+  --doom-table-header-bg: #d7e1ee;
+  --doom-table-header-bg-hover: #cad7e8;
+  --doom-table-border: #888a87;
+  --doom-table-header-text: #395e8e;
   --doom-red-text: #c82829;
-  --doom-orange-text: #a15e20;
-  --doom-yellow-text: #846b11;
-  --doom-green-text: #617706;
-  --doom-teal-text: #35787d;
-  --doom-blue-text: #4270ad;
-  --doom-magenta-text: #8e5b9f;
+  --doom-orange-text: #9c5c20;
+  --doom-yellow-text: #816911;
+  --doom-green-text: #5f7507;
+  --doom-teal-text: #34767a;
+  --doom-blue-text: #416ea8;
+  --doom-magenta-text: #8b599b;
   --doom-violet-text: #8959a8;
-  --doom-cyan-text: #35787d;
+  --doom-cyan-text: #34767a;
   /* @derived-tokens:end */
 }
 
@@ -997,7 +1049,11 @@ body.theme-light.doom-palette-suit-and-tie-light {
   --doom-hairline: #d8dde6;
   --doom-border-subtle: #c2c9d6;
   --doom-border-strong: #7d899d;
-  --doom-stripe: #edf1f6;
+  --doom-stripe: #e6e9ec;
+  --doom-table-header-bg: #cbdbef;
+  --doom-table-header-bg-hover: #bdd2eb;
+  --doom-table-border: #7a8699;
+  --doom-table-header-text: #255a9b;
   --doom-red-text: #bf3243;
   --doom-orange-text: #a35226;
   --doom-yellow-text: #85621d;
@@ -1190,13 +1246,13 @@ body.theme-light.doom-palette-suit-and-tie-light {
   --table-column-first-border-width: 1px;
   --table-column-last-border-width: 1px;
   --table-row-last-border-width: 1px;
-  --table-border-color: var(--doom-border-strong);
-  --table-cell-border-color: var(--doom-border-strong);
+  --table-border-color: var(--doom-table-border);
+  --table-cell-border-color: var(--doom-table-border);
   --table-header-border-width: 1px;
-  --table-header-border-color: var(--doom-border-strong);
-  --table-header-background: var(--doom-base0);
-  --table-header-background-hover: var(--doom-base1);
-  --table-header-color: var(--doom-blue-text);
+  --table-header-border-color: var(--doom-table-border);
+  --table-header-background: var(--doom-table-header-bg);
+  --table-header-background-hover: var(--doom-table-header-bg-hover);
+  --table-header-color: var(--doom-table-header-text);
   --table-header-weight: 700;
   --table-text-color: var(--doom-fg);
   --table-row-alt-background: var(--doom-stripe);
@@ -1310,11 +1366,11 @@ body.theme-light.doom-palette-suit-and-tie-light {
   --background-modifier-message: var(--doom-base8);
   --tooltip-background: var(--doom-base8);
   --tooltip-color: #fafafa;
-  --table-border-color: var(--doom-border-strong);
-  --table-cell-border-color: var(--doom-border-strong);
-  --table-header-border-color: var(--doom-border-strong);
-  --table-header-background: var(--doom-base1);
-  --table-header-background-hover: var(--doom-base2);
+  --table-border-color: var(--doom-table-border);
+  --table-cell-border-color: var(--doom-table-border);
+  --table-header-border-color: var(--doom-table-border);
+  --table-header-background: var(--doom-table-header-bg);
+  --table-header-background-hover: var(--doom-table-header-bg-hover);
   --table-row-alt-background: var(--doom-stripe);
   --indentation-guide-color: rgba(var(--doom-blue-rgb), 0.22);
 }
