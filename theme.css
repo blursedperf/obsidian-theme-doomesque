@@ -3051,6 +3051,13 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   box-sizing: border-box;
 }
 
+/* Provide a safe internal gutter for table cell text so retro caret blooms and borders are fully visible at position 0 without clipping against the scroller boundary */
+.markdown-source-view.mod-cm6 .cm-table-widget .cm-content,
+.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) .cm-content {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
 /* Remove active cell highlight border / outline completely */
 .cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(th, td, .table-cell-wrapper, .cm-editor, .cm-scroller, .cm-content, .cm-line):is(:focus, :focus-within, .mod-focused, .is-focused) {
   outline: none;
