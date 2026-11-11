@@ -955,11 +955,11 @@ body.theme-light.doom-palette-suit-and-tie {
   --table-row-alt-background: var(--doom-bg-alt);
   --table-row-alt-background-hover: rgba(var(--doom-blue-rgb), 0.09);
   --table-row-background-hover: rgba(var(--doom-blue-rgb), 0.09);
-  --table-selection: rgba(var(--doom-blue-rgb), 0.12);
+  --table-selection: rgba(var(--doom-blue-rgb), 0.15);
   --table-selection-blend-mode: normal;
-  --table-selection-border-color: transparent;
-  --table-selection-border-width: 0px;
-  --table-selection-border-radius: 0px;
+  --table-selection-border-color: var(--doom-blue);
+  --table-selection-border-width: 1.5px;
+  --table-selection-border-radius: 2px;
   --table-drag-handle-background: transparent;
   --table-drag-handle-background-active: rgba(var(--doom-blue-rgb), 0.16);
   --table-drag-handle-color: var(--doom-base5);
@@ -2942,8 +2942,7 @@ body.doom-popover-properties .popover.hover-popover .metadata-container[data-pro
 
 /* Tables (Stable, zero-shift Live Preview & Reading View Org-table aesthetic with Zebra Shading) */
 .markdown-rendered table,
-.cm-s-obsidian .cm-embed-block table,
-.cm-s-obsidian .table-wrapper table.table-editor {
+.cm-s-obsidian .cm-embed-block:not(.cm-table-widget) table {
   margin: 1.2em 0;
   border-collapse: collapse;
   border: 1px solid var(--table-border-color);
@@ -2954,7 +2953,26 @@ body.doom-popover-properties .popover.hover-popover .metadata-container[data-pro
 }
 
 body.theme-light .markdown-rendered table,
-body.theme-light .cm-s-obsidian .cm-embed-block table,
+body.theme-light .cm-s-obsidian .cm-embed-block:not(.cm-table-widget) table {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Live Preview table widget maintains zero margin to preserve drag handle & add button alignment */
+.markdown-source-view.mod-cm6 .cm-table-widget table,
+.cm-s-obsidian .cm-table-widget table,
+.cm-s-obsidian .table-wrapper table.table-editor {
+  margin-top: 0;
+  margin-bottom: 0;
+  border-collapse: collapse;
+  border: 1px solid var(--table-border-color);
+  background-color: var(--table-background, var(--doom-bg));
+  font-size: var(--table-text-size, 0.95em);
+  line-height: var(--table-line-height, 1.5);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.14);
+}
+
+body.theme-light .markdown-source-view.mod-cm6 .cm-table-widget table,
+body.theme-light .cm-s-obsidian .cm-table-widget table,
 body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
@@ -2982,6 +3000,7 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
 .cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) table.table-editor th,
 .cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) table.table-editor td {
   padding: 0;
+  height: inherit;
   min-width: var(--table-column-min-width, 70px);
 }
 
@@ -2991,6 +3010,7 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
 
 .markdown-source-view.mod-cm6 .cm-table-widget .table-cell-wrapper,
 .cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) .table-cell-wrapper {
+  height: 100%;
   padding: 8px 13px;
   margin: 0;
   border: none;
@@ -3000,7 +3020,6 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   font-size: inherit;
   line-height: var(--table-line-height, 1.5);
   box-sizing: border-box;
-  max-width: 100%;
 }
 
 /* Lock nested CodeMirror 6 elements inside focused table cells (`th` and `td`) so there is zero movement when clicking between heading and body cells */
@@ -3020,48 +3039,42 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   box-sizing: border-box;
 }
 
-/* Prevent text field from extending beyond the cell boundaries when typing and focused */
-.markdown-source-view.mod-cm6 .cm-table-widget :is(.cm-editor, .cm-scroller),
-.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.cm-editor, .cm-scroller) {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  overflow-x: hidden;
-  box-sizing: border-box;
+/* Suppress horizontal scrollbars cleanly on table cell editors without clipping carets or breaking vertical height */
+.markdown-source-view.mod-cm6 .cm-table-widget :is(.cm-scroller, .cm-editor),
+.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.cm-scroller, .cm-editor) {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-/* Prevent horizontal scrollbars inside table cell editors when typing reaches right edge */
-.markdown-source-view.mod-cm6 .cm-table-widget :is(.cm-editor, .cm-scroller)::-webkit-scrollbar,
-.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.cm-editor, .cm-scroller)::-webkit-scrollbar {
+.markdown-source-view.mod-cm6 .cm-table-widget :is(.cm-scroller, .cm-editor)::-webkit-scrollbar,
+.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.cm-scroller, .cm-editor)::-webkit-scrollbar {
   display: none;
   width: 0;
   height: 0;
 }
 
-/* Ensure text in table cells wraps naturally at the right edge without horizontal overflow */
-.markdown-source-view.mod-cm6 .cm-table-widget .cm-content.cm-lineWrapping,
-.markdown-source-view.mod-cm6 .cm-table-widget :is(.cm-content, .cm-line),
+/* Ensure natural text wrapping and CodeMirror coordinate stability matching default Obsidian */
+.markdown-source-view.mod-cm6 .cm-table-widget .cm-content,
+.markdown-source-view.mod-cm6 .cm-table-widget .cm-line,
 .cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.cm-content, .cm-line) {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  box-sizing: border-box;
+  max-width: none;
 }
 
-/* Provide a safe internal gutter for table cell text so retro caret blooms and borders are fully visible at position 0 without clipping against the scroller boundary */
 .markdown-source-view.mod-cm6 .cm-table-widget .cm-content,
 .cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) .cm-content {
-  padding-left: 2px;
-  padding-right: 2px;
+  width: auto;
 }
 
-/* Remove active cell highlight border / outline completely */
-.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(th, td, .table-cell-wrapper, .cm-editor, .cm-scroller, .cm-content, .cm-line):is(:focus, :focus-within, .mod-focused, .is-focused) {
+.markdown-source-view.mod-cm6 .cm-table-widget .cm-content.cm-lineWrapping,
+.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) .cm-content.cm-lineWrapping {
+  overflow-wrap: normal;
+  white-space: var(--table-white-space, break-spaces);
+  word-break: normal;
+}
+
+/* Remove unwanted focus outlines while letting Obsidian native cell selection (:after) shine */
+.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.table-cell-wrapper, .cm-editor):focus-visible {
   outline: none;
-  box-shadow: none;
 }
 
 /* Table Header Row (`thead`) */
