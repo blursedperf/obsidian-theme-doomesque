@@ -1242,6 +1242,9 @@ body.theme-light.doom-palette-suit-and-tie-light {
 
   /* Tables (Org-table style) */
   --table-background: var(--doom-bg);
+  /* Obsidian shades every second column with this (default: --table-background). With an opaque
+     table background that painted solid cells over the row stripes and the header tint. */
+  --table-column-alt-background: transparent;
   --table-border-width: 1px;
   --table-column-first-border-width: 1px;
   --table-column-last-border-width: 1px;
@@ -3282,7 +3285,14 @@ body .markdown-source-view.mod-cm6 .cm-table-widget .cm-cursorLayer .cm-cursor {
   border-bottom: 2px solid var(--doom-blue);
 }
 
-/* Zebra Shading & Row Hover Colors */
+/* Header row: one uniform background, never part of the zebra pattern.
+   :nth-child(n) matches Obsidian's even-column rule (thead tr > th:nth-child(2n+2)) in specificity. */
+.markdown-rendered thead tr > th:nth-child(n),
+.cm-s-obsidian .cm-embed-block table thead tr > th:nth-child(n) {
+  background-color: var(--table-header-background);
+}
+
+/* Zebra Shading & Row Hover Colors (body rows only) */
 .markdown-rendered tbody tr:nth-child(odd) {
   background-color: var(--table-row-alt-background, var(--doom-bg-alt));
 }
