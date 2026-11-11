@@ -3200,14 +3200,19 @@ body.doom-popover-properties .popover.hover-popover .metadata-container[data-pro
   padding-bottom: 0;
 }
 
-/* The drawn caret (DoomEsque Settings registers drawSelection) is 1.2px wide; CodeMirror centres it
-   on the caret position (margin -0.6px). At the end of a cell's text that is also the cell's right
-   edge, so the extra 0.6px overflowed the cell editor's scroller and, with the fractional widths
-   of auto-sized table columns, flashed a horizontal scrollbar on most keystrokes. Draw it fully
-   inside the position instead. */
+/* The drawn caret (DoomEsque Settings registers drawSelection) is 1.2px wide and centred on the caret
+   position (CodeMirror's margin -0.6px), so half of it sits outside the text at either end of a line.
+   The cell editor's scroller clipped the left half and, at the right edge, scrolled the right half:
+   with the fractional widths of auto-sized columns that flashed a horizontal scrollbar on most
+   keystrokes. Cell editors grow with their text and never need to scroll, so let the scroller show
+   that half pixel instead; the cell wrapper's own padding leaves room for it. */
+.markdown-source-view.mod-cm6 .cm-table-widget .cm-scroller {
+  overflow: visible;
+}
+
 body .markdown-source-view.mod-cm6 .cm-table-widget .cm-cursorLayer .cm-cursor {
   width: 0;
-  margin-left: -1.2px;
+  margin-left: -0.6px;
   border-left: 1.2px solid var(--text-accent, var(--doom-blue));
   border-bottom: none;
   border-radius: 0;
