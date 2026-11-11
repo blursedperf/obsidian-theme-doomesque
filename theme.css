@@ -1296,6 +1296,7 @@ body.theme-light.doom-palette-suit-and-tie-light {
   --bases-table-container-border-width: 1px;
   --bases-table-container-border-radius: var(--radius-m);
   --bases-table-group-background: var(--doom-bg-alt);
+  --bases-table-group-gap: 0px; /* read by Bases when laying out rows; groups are separated by their heading bar */
   --bases-embed-border-color: var(--table-border-color);
   --bases-embed-border-radius: var(--radius-m);
   --bases-embed-border-width: 0px; /* outer card is drawn on .bases-embed; avoid a second native border on .bases-view */
@@ -3492,6 +3493,10 @@ body.doom-table-no-zebra .markdown-rendered tbody tr:nth-child(odd) {
   max-width: 100%;
   overflow-x: auto;
   gap: 3px;
+  /* The header has a fixed height, so the toolbar scrolls sideways when narrow; fade its trailing
+     edge so buttons running under the embed actions read as "more" rather than as cut off. */
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
 }
 
 .bases-toolbar::-webkit-scrollbar {
@@ -3604,9 +3609,21 @@ body.doom-table-no-zebra .markdown-rendered tbody tr:nth-child(odd) {
   box-shadow: inset 0 -2px 0 var(--doom-blue);
 }
 
+
+/* The header cells paint an opaque background over the row's own underline, so they carry the
+   2px accent rule themselves (matching Markdown table headers). */
 .bases-thead .bases-td {
   background-color: var(--table-header-background);
-  box-shadow: calc(var(--bases-table-column-border-width, 1px) * -1) 0 0 var(--table-border-color);
+  box-shadow: calc(var(--bases-table-column-border-width, 1px) * -1) 0 0 var(--table-border-color), inset 0 -2px 0 var(--doom-blue);
+}
+
+/* Embedded table views: Obsidian sets --bases-embed-border-width on the view element itself, which
+   drew a second frame inside the theme's card (and a doubled line under the toolbar). The stable
+   scrollbar gutter left an untinted strip on the right of the header and footer. */
+.bases-embed .bases-view[data-view-type="table"],
+.block-language-base .bases-view[data-view-type="table"] {
+  --bases-embed-border-width: 0px;
+  scrollbar-gutter: auto;
 }
 
 .bases-thead .bases-td:hover,
@@ -3797,7 +3814,7 @@ body.doom-table-header-caps .bases-thead .bases-table-header-label {
 .bases-table-footer {
   background-color: var(--table-header-background);
   border-top: none;
-  box-shadow: inset 0 2px 0 var(--doom-border-strong);
+  box-shadow: inset 0 2px 0 var(--doom-table-border);
 }
 
 .bases-table-footer .bases-td {
@@ -3810,30 +3827,31 @@ body.doom-table-header-caps .bases-thead .bases-table-header-label {
 }
 
 .bases-table-summary-cell .summary-function-name {
-  color: var(--doom-cyan-text);
-  font-weight: 700;
+  color: var(--text-muted);
+  font-weight: 400;
 }
 
 .bases-table-summary-cell .summary-content {
-  color: var(--doom-green-text);
+  color: var(--text-normal);
   font-weight: 700;
   font-family: var(--font-monospace-doom);
 }
 
 /* Group Headings */
 .bases-table .bases-group-heading {
-  background-color: var(--doom-base1);
+  background-color: var(--doom-stripe);
   border-top: 1px solid var(--table-border-color);
   border-bottom: 1px solid var(--table-border-color);
-  border-left: 3px solid var(--doom-violet);
+  border-left: 3px solid var(--doom-blue);
   font-family: var(--font-monospace-doom);
 }
 
 .bases-group-property {
-  color: var(--doom-violet-text);
-  font-weight: 700;
+  color: var(--text-muted);
+  font-weight: 600;
   font-size: 0.85em;
   text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .bases-group-value {
@@ -4489,84 +4507,85 @@ body.doom-indent-style-solid .markdown-rendered.show-indentation-guide li > ol:b
   border-inline-end-style: solid;
 }
 
-/* Rainbow Indentation Guides (highlight-indent-guides rainbow level colors) */
+/* Rainbow Indentation Guides (highlight-indent-guides rainbow level colors).
+   On by default; .doom-mono-indent-guides switches back to single-colour guides. */
 /* Live Preview (CodeMirror 6) */
-body.doom-rainbow-indent-guides .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(6n + 1):before {
+body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(6n + 1):before {
   border-inline-end-color: var(--doom-blue);
 }
 
-body.doom-rainbow-indent-guides .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(6n + 2):before {
+body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(6n + 2):before {
   border-inline-end-color: var(--doom-magenta);
 }
 
-body.doom-rainbow-indent-guides .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(6n + 3):before {
+body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(6n + 3):before {
   border-inline-end-color: var(--doom-violet);
 }
 
-body.doom-rainbow-indent-guides .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(6n + 4):before {
+body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(6n + 4):before {
   border-inline-end-color: var(--doom-orange);
 }
 
-body.doom-rainbow-indent-guides .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(6n + 5):before {
+body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(6n + 5):before {
   border-inline-end-color: var(--doom-green);
 }
 
-body.doom-rainbow-indent-guides .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(6n + 6):before {
+body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(6n + 6):before {
   border-inline-end-color: var(--doom-cyan);
 }
 
 /* Reading View */
-body.doom-rainbow-indent-guides .markdown-rendered.show-indentation-guide :is(ul, ol) > li > :is(ul, ol):before {
+body:not(.doom-mono-indent-guides) .markdown-rendered.show-indentation-guide :is(ul, ol) > li > :is(ul, ol):before {
   border-inline-end-color: var(--doom-blue);
 }
 
-body.doom-rainbow-indent-guides .markdown-rendered.show-indentation-guide :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol):before {
+body:not(.doom-mono-indent-guides) .markdown-rendered.show-indentation-guide :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol):before {
   border-inline-end-color: var(--doom-magenta);
 }
 
-body.doom-rainbow-indent-guides .markdown-rendered.show-indentation-guide :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol):before {
+body:not(.doom-mono-indent-guides) .markdown-rendered.show-indentation-guide :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol):before {
   border-inline-end-color: var(--doom-violet);
 }
 
-body.doom-rainbow-indent-guides .markdown-rendered.show-indentation-guide :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol):before {
+body:not(.doom-mono-indent-guides) .markdown-rendered.show-indentation-guide :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol):before {
   border-inline-end-color: var(--doom-orange);
 }
 
-body.doom-rainbow-indent-guides .markdown-rendered.show-indentation-guide :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol):before {
+body:not(.doom-mono-indent-guides) .markdown-rendered.show-indentation-guide :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol):before {
   border-inline-end-color: var(--doom-green);
 }
 
-body.doom-rainbow-indent-guides .markdown-rendered.show-indentation-guide :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol):before {
+body:not(.doom-mono-indent-guides) .markdown-rendered.show-indentation-guide :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol) > li > :is(ul, ol):before {
   border-inline-end-color: var(--doom-cyan);
 }
 
 /* File Tree Rainbow Indentation Guides */
-body.doom-rainbow-indent-guides .tree-item-children {
+body:not(.doom-mono-indent-guides) .tree-item-children {
   border-inline-start-color: var(--doom-blue);
   border-left-color: var(--doom-blue);
 }
 
-body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children {
+body:not(.doom-mono-indent-guides) .tree-item-children > .tree-item > .tree-item-children {
   border-inline-start-color: var(--doom-magenta);
   border-left-color: var(--doom-magenta);
 }
 
-body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
+body:not(.doom-mono-indent-guides) .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
   border-inline-start-color: var(--doom-violet);
   border-left-color: var(--doom-violet);
 }
 
-body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
+body:not(.doom-mono-indent-guides) .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
   border-inline-start-color: var(--doom-orange);
   border-left-color: var(--doom-orange);
 }
 
-body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
+body:not(.doom-mono-indent-guides) .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
   border-inline-start-color: var(--doom-green);
   border-left-color: var(--doom-green);
 }
 
-body.doom-rainbow-indent-guides .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
+body:not(.doom-mono-indent-guides) .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children > .tree-item > .tree-item-children {
   border-inline-start-color: var(--doom-cyan);
   border-left-color: var(--doom-cyan);
 }
@@ -5728,9 +5747,9 @@ settings:
     max: 4
     step: 0.5
     format: px
-  - id: doom-rainbow-indent-guides
-    title: Rainbow Indent Guides
-    description: Color nested indentation guides with alternating Doom palette colors.
+  - id: doom-mono-indent-guides
+    title: Single-colour Indent Guides
+    description: Rainbow indentation guides (alternating Doom palette colors per nesting level) are the default. Turn this on for single-colour guides.
     type: class-toggle
     default: false
   - id: doom-legal-outline

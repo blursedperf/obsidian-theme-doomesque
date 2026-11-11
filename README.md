@@ -16,7 +16,7 @@ An authentic, distraction-free **Doom Emacs** inspired theme for Obsidian, bring
   - Legal outline numbering (`I.` → `A.` → `1.` → `a.` → `i.`) for nested ordered lists.
 - **🔲 Retro Text Cursors & Buffer Aesthetics**:
   - Five distinct cursor styles: Modern Bar, Retro Block, Phosphor Glow, Hollow Box, and Underline.
-  - Rainbow indentation guides alternating theme accents per nesting depth.
+  - Rainbow indentation guides alternating theme accents per nesting depth (default; single-colour option available).
   - Monospace buffer option for a focused hacker aesthetic.
 - **🔍 Unconstrained Hover Previews**:
   - Expanded viewports that eliminate artificial column caps.
