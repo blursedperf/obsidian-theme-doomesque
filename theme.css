@@ -3239,7 +3239,7 @@ body:not(.doom-bases-toolbar-labels) .bases-toolbar .bases-toolbar-item:not(.bas
   padding: 0;
   border: 0;
   overflow: hidden;
-  clip-path: inset(50%);
+  clip: rect(0 0 0 0);
   white-space: nowrap;
 }
 
@@ -3256,6 +3256,21 @@ body.doom-bases-toolbar-labels {
   padding-inline-end: var(--bases-header-padding-end, 56px);
   min-height: 36px;
   box-sizing: border-box;
+  position: relative;
+}
+
+/* The header has a fixed height, so the toolbar scrolls sideways when narrow: fade its trailing
+   edge (where it runs under the embed actions) so buttons read as "more" rather than cut off.
+   A gradient overlay in the header colour rather than a CSS mask, for older Obsidian versions. */
+.bases-header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline-end: var(--bases-header-padding-end, 56px);
+  width: 20px;
+  background: linear-gradient(to right, transparent, var(--doom-bg-alt));
+  pointer-events: none;
 }
 
 /* Expose Syntax / Edit Block Button in Bases Embed Header */
@@ -3306,10 +3321,6 @@ body.doom-bases-toolbar-labels {
   max-width: 100%;
   overflow-x: auto;
   gap: 3px;
-  /* The header has a fixed height, so the toolbar scrolls sideways when narrow; fade its trailing
-     edge so buttons running under the embed actions read as "more" rather than as cut off. */
-  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
-  mask-image: linear-gradient(to right, #000 calc(100% - 20px), transparent);
 }
 
 .bases-toolbar::-webkit-scrollbar {
