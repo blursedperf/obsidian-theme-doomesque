@@ -3001,7 +3001,6 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   line-height: var(--table-line-height, 1.5);
   box-sizing: border-box;
   max-width: 100%;
-  overflow-x: hidden;
 }
 
 /* Lock nested CodeMirror 6 elements inside focused table cells (`th` and `td`) so there is zero movement when clicking between heading and body cells */
@@ -3023,7 +3022,7 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
 
 /* Prevent text field from extending beyond the cell boundaries when typing and focused */
 .markdown-source-view.mod-cm6 .cm-table-widget :is(.cm-editor, .cm-scroller),
-.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.table-cell-wrapper, .cm-editor, .cm-scroller) {
+.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.cm-editor, .cm-scroller) {
   width: 100%;
   max-width: 100%;
   min-width: 0;
@@ -3032,8 +3031,8 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
 }
 
 /* Prevent horizontal scrollbars inside table cell editors when typing reaches right edge */
-.markdown-source-view.mod-cm6 .cm-table-widget :is(.table-cell-wrapper, .cm-editor, .cm-scroller)::-webkit-scrollbar,
-.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.table-cell-wrapper, .cm-editor, .cm-scroller)::-webkit-scrollbar {
+.markdown-source-view.mod-cm6 .cm-table-widget :is(.cm-editor, .cm-scroller)::-webkit-scrollbar,
+.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.cm-editor, .cm-scroller)::-webkit-scrollbar {
   display: none;
   width: 0;
   height: 0;
@@ -3451,7 +3450,6 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
   min-height: var(--bases-table-row-height, 30px);
   height: 100%;
   width: 100%;
-  overflow-x: hidden;
   box-sizing: border-box;
 }
 
