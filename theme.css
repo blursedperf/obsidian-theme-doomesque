@@ -946,11 +946,11 @@ body.theme-light.doom-palette-suit-and-tie {
   --table-header-background: var(--doom-base0);
   --table-header-background-hover: var(--doom-base1);
   --table-header-font: var(--font-heading);
-  --table-text-size: 0.95em;
-  --table-header-size: 0.95em;
+  --table-text-size: var(--font-text-size);
+  --table-header-size: var(--font-text-size);
   --table-header-color: var(--doom-blue);
   --table-header-weight: 700;
-  --table-line-height: 1.5;
+  --table-line-height: var(--line-height-normal);
   --table-text-color: var(--doom-fg);
   --table-row-alt-background: var(--doom-bg-alt);
   --table-row-alt-background-hover: rgba(var(--doom-blue-rgb), 0.09);
@@ -2940,231 +2940,43 @@ body.doom-popover-properties .popover.hover-popover .metadata-container[data-pro
 
 
 
-/* Tables (Stable, zero-shift Live Preview & Reading View Org-table aesthetic with Zebra Shading) */
-.markdown-rendered table,
-.cm-s-obsidian .cm-embed-block:not(.cm-table-widget) table {
-  margin: 1.2em 0;
-  border-collapse: collapse;
-  border: 1px solid var(--table-border-color);
-  background-color: var(--table-background, var(--doom-bg));
-  font-size: var(--table-text-size, 0.95em);
-  line-height: var(--table-line-height, 1.5);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.14);
-}
-
-body.theme-light .markdown-rendered table,
-body.theme-light .cm-s-obsidian .cm-embed-block:not(.cm-table-widget) table {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-/* Live Preview table widget maintains zero margin to preserve drag handle & add button alignment */
-.markdown-source-view.mod-cm6 .cm-table-widget table,
-.cm-s-obsidian .cm-table-widget table,
-.cm-s-obsidian .table-wrapper table.table-editor {
-  margin-top: 0;
-  margin-bottom: 0;
-  border-collapse: collapse;
-  border: 1px solid var(--table-border-color);
-  background-color: var(--table-background, var(--doom-bg));
-  font-size: var(--table-text-size, 0.95em);
-  line-height: var(--table-line-height, 1.5);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.14);
-}
-
-body.theme-light .markdown-source-view.mod-cm6 .cm-table-widget table,
-body.theme-light .cm-s-obsidian .cm-table-widget table,
-body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-/* Inner cell grid lines */
-.markdown-rendered th,
-.markdown-rendered td,
-.cm-s-obsidian .cm-embed-block table th,
-.cm-s-obsidian .cm-embed-block table td,
-.cm-s-obsidian .table-wrapper table.table-editor th,
-.cm-s-obsidian .table-wrapper table.table-editor td {
-  font-size: var(--table-text-size, 0.95em);
-  line-height: var(--table-line-height, 1.5);
-  vertical-align: top;
-  border: 1px solid var(--table-cell-border-color, var(--table-border-color));
-  box-sizing: border-box;
-}
-
-/* Reading View cell padding vs Live Preview .table-cell-wrapper padding (prevents double padding) */
-.markdown-rendered table:not(.table-editor) th,
-.markdown-rendered table:not(.table-editor) td {
-  padding: 8px 13px;
-}
-
-.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) table.table-editor th,
-.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) table.table-editor td {
-  padding: 0;
-  height: inherit;
-  min-width: var(--table-column-min-width, 70px);
-}
-
-.markdown-rendered :is(th, td) {
-  min-width: var(--table-column-min-width, 70px);
-}
-
-.markdown-source-view.mod-cm6 .cm-table-widget .table-cell-wrapper,
-.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) .table-cell-wrapper {
-  height: 100%;
-  padding: 8px 13px;
-  margin: 0;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  background-color: transparent;
-  font-size: inherit;
-  line-height: var(--table-line-height, 1.5);
-  box-sizing: border-box;
-}
-
-/* Lock nested CodeMirror 6 elements inside focused table cells (`th` and `td`) so there is zero movement when clicking between heading and body cells */
-.markdown-source-view.mod-cm6 .cm-table-widget :is(.cm-editor, .cm-scroller, .cm-sizer, .cm-content, .cm-line),
-.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.cm-editor, .cm-scroller, .cm-sizer, .cm-content, .cm-line) {
-  padding: 0;
-  margin: 0;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  min-height: 0;
-  background-color: transparent;
-  font-family: inherit;
-  font-size: inherit;
-  line-height: var(--table-line-height, 1.5);
-  letter-spacing: inherit;
-  box-sizing: border-box;
-}
-
-/* Suppress horizontal scrollbars cleanly on table cell editors without clipping carets or breaking vertical height */
-.markdown-source-view.mod-cm6 .cm-table-widget :is(.cm-scroller, .cm-editor),
-.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.cm-scroller, .cm-editor) {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.markdown-source-view.mod-cm6 .cm-table-widget :is(.cm-scroller, .cm-editor)::-webkit-scrollbar,
-.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.cm-scroller, .cm-editor)::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  height: 0;
-}
-
-/* Ensure natural text wrapping and CodeMirror coordinate stability matching default Obsidian */
-.markdown-source-view.mod-cm6 .cm-table-widget .cm-content,
-.markdown-source-view.mod-cm6 .cm-table-widget .cm-line,
-.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.cm-content, .cm-line) {
-  max-width: none;
-}
-
-.markdown-source-view.mod-cm6 .cm-table-widget .cm-content,
-.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) .cm-content {
-  width: auto;
-}
-
-.markdown-source-view.mod-cm6 .cm-table-widget .cm-content.cm-lineWrapping,
-.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) .cm-content.cm-lineWrapping {
-  overflow-wrap: normal;
-  white-space: var(--table-white-space, break-spaces);
-  word-break: normal;
-}
-
-/* Remove unwanted focus outlines while letting Obsidian native cell selection (:after) shine */
-.cm-s-obsidian :is(.table-wrapper, .cm-table-widget, .cm-embed-block) :is(.table-cell-wrapper, .cm-editor):focus-visible {
-  outline: none;
-}
-
-/* Table Header Row (`thead`) */
+/* Tables: Org-table Doom Color Aesthetic (Functionality and layout 100% native) */
 .markdown-rendered thead tr > th,
-.cm-s-obsidian .cm-embed-block table thead tr > th,
-.cm-s-obsidian .table-wrapper thead tr > th {
-  background-color: var(--table-header-background);
-  color: var(--table-header-color);
-  font-family: var(--table-header-font);
-  font-size: var(--table-header-size, 0.95em);
-  font-weight: var(--table-header-weight, 700);
-  line-height: var(--table-line-height, 1.5);
-  letter-spacing: normal;
+.cm-s-obsidian .cm-embed-block table thead tr > th {
   border-bottom: 2px solid var(--doom-blue);
 }
 
-/* Ensure focused Live Preview table headers (`th` containing nested `.cm-editor`) match unfocused `th` identically */
-.cm-s-obsidian .cm-embed-block table thead tr > th :is(.table-cell-wrapper, .cm-editor, .cm-scroller, .cm-sizer, .cm-content, .cm-line),
-.cm-s-obsidian .table-wrapper thead tr > th :is(.table-cell-wrapper, .cm-editor, .cm-scroller, .cm-sizer, .cm-content, .cm-line) {
-  font-family: var(--table-header-font);
-  font-size: inherit;
-  font-weight: var(--table-header-weight, 700);
-  color: var(--table-header-color);
-  line-height: var(--table-line-height, 1.5);
-  letter-spacing: normal;
-}
-
-/* Zebra Shading & Row Hover (Odd vs Even rows in both Reading View & Live Preview) */
-.markdown-rendered tbody tr:nth-child(odd),
-.markdown-rendered tbody tr:nth-child(odd) > td,
-.cm-s-obsidian .cm-embed-block table tbody tr:nth-child(odd),
-.cm-s-obsidian .cm-embed-block table tbody tr:nth-child(odd) > td,
-.cm-s-obsidian .table-wrapper tbody tr:nth-child(odd),
-.cm-s-obsidian .table-wrapper tbody tr:nth-child(odd) > td {
-  background-color: var(--table-background, var(--doom-bg));
-}
-
-.markdown-rendered tbody tr:nth-child(even),
-.markdown-rendered tbody tr:nth-child(even) > td,
-.cm-s-obsidian .cm-embed-block table tbody tr:nth-child(even),
-.cm-s-obsidian .cm-embed-block table tbody tr:nth-child(even) > td,
-.cm-s-obsidian .table-wrapper tbody tr:nth-child(even),
-.cm-s-obsidian .table-wrapper tbody tr:nth-child(even) > td {
+/* Zebra Shading & Row Hover Colors */
+.markdown-rendered tbody tr:nth-child(odd) {
   background-color: var(--table-row-alt-background, var(--doom-bg-alt));
 }
 
-.markdown-rendered tbody tr:hover,
-.markdown-rendered tbody tr:hover > td,
-.cm-s-obsidian .cm-embed-block table tbody tr:hover,
-.cm-s-obsidian .cm-embed-block table tbody tr:hover > td,
-.cm-s-obsidian .table-wrapper tbody tr:hover,
-.cm-s-obsidian .table-wrapper tbody tr:hover > td {
+.markdown-rendered tbody tr:nth-child(even) {
+  background-color: var(--table-background, var(--doom-bg));
+}
+
+.markdown-rendered tbody tr:hover {
   background-color: var(--table-row-background-hover, rgba(var(--doom-blue-rgb), 0.09));
 }
 
 /* Compact lists & zeroed outer margins on multi-element content inside table cells */
-.markdown-rendered :is(th, td) > :first-child,
-.cm-s-obsidian .table-wrapper .table-cell-wrapper > :first-child {
+.markdown-rendered :is(th, td) > :first-child {
   margin-top: 0;
 }
 
-.markdown-rendered :is(th, td) > :last-child,
-.cm-s-obsidian .table-wrapper .table-cell-wrapper > :last-child {
+.markdown-rendered :is(th, td) > :last-child {
   margin-bottom: 0;
 }
 
-.markdown-rendered :is(th, td) :is(ul, ol),
-.cm-s-obsidian .table-wrapper .table-cell-wrapper :is(ul, ol) {
+.markdown-rendered :is(th, td) :is(ul, ol) {
   margin: 0.2em 0;
   padding-inline-start: 1.25em;
 }
 
-/* Live Preview Table Row/Column Drag Handles & Add Row/Column Buttons */
-.cm-s-obsidian .table-wrapper :is(.table-row-drag-handle, .table-col-drag-handle) {
-  color: var(--doom-base5);
-  border-radius: 3px;
-  transition: color 0.12s ease, background-color 0.12s ease, opacity 0.12s ease;
-}
-
+/* Live Preview Table Row/Column Drag Handles & Add Row/Column Buttons (Color differences only) */
 .cm-s-obsidian .table-wrapper :is(.table-row-drag-handle, .table-col-drag-handle):hover {
   color: var(--doom-blue);
   background-color: rgba(var(--doom-blue-rgb), 0.14);
-}
-
-.cm-s-obsidian .table-wrapper :is(.table-row-btn, .table-col-btn) {
-  background-color: var(--doom-bg-alt);
-  border-color: var(--doom-base3);
-  color: var(--doom-base5);
-  border-radius: 4px;
-  transition: color 0.12s ease, background-color 0.12s ease, border-color 0.12s ease;
 }
 
 .cm-s-obsidian .table-wrapper :is(.table-row-btn, .table-col-btn):hover {
@@ -3174,9 +2986,7 @@ body.theme-light .cm-s-obsidian .table-wrapper table.table-editor {
 }
 
 .markdown-rendered td[align="right"],
-.markdown-rendered td[align="center"],
-.cm-s-obsidian .cm-embed-block table td[align="right"],
-.cm-s-obsidian .cm-embed-block table td[align="center"] {
+.markdown-rendered td[align="center"] {
   font-variant-numeric: tabular-nums;
 }
 
