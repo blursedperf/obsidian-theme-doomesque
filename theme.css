@@ -4401,10 +4401,10 @@ body:not(.doom-mono-indent-guides) .markdown-rendered.show-indentation-guide :is
   border-inline-end-color: var(--doom-cyan);
 }
 
-/* Guides start right under a wrapped parent's marker.
-   Reading view: the child list's guide is positioned against the parent <li> (not the child list),
-   so it starts below the parent's FIRST line (list-spacing + one 1.6 line + list-spacing, the same
-   offset a single-line parent gets) instead of below its last wrapped line. */
+/* Reading view: guides start right under a wrapped parent's marker. The child list's guide is
+   positioned against the parent <li> (not the child list), so it starts below the parent's FIRST
+   line (list-spacing + one 1.6 line + list-spacing, the same offset a single-line parent gets)
+   instead of below its last wrapped line. Live Preview keeps Obsidian's default guides. */
 body .markdown-rendered.show-indentation-guide li > :is(ul, ol) {
   position: static;
 }
@@ -4412,136 +4412,6 @@ body .markdown-rendered.show-indentation-guide li > :is(ul, ol) {
 body .markdown-rendered.show-indentation-guide li > :is(ul, ol)::before {
   top: calc(var(--list-spacing, 0.22em) * 2 + 1.6em);
   bottom: calc(var(--list-spacing, 0.22em) * 2);
-}
-
-/* Live Preview / Source: a parent line whose children are visible draws its own segment of the
-   child guide from the bottom of its first row (1px line padding + one row + 1px) to the bottom of
-   the line, where the child lines' guides continue. The DoomEsque Settings plugin marks such lines
-   with .doom-list-parent (only while "Show indentation guides" is on and the parent is not folded);
-   without the plugin, guides keep Obsidian's default start below the parent's last row. The segment
-   is anchored on the parent's indentation (line start at level 1, the end of .cm-hmd-list-indent
-   deeper down), which is exactly where the child's guide is drawn from, whatever the tab width or
-   marker (bullet, number, task). */
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1.doom-list-parent::before,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2.doom-list-parent > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3.doom-list-parent > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4.doom-list-parent > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5.doom-list-parent > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6.doom-list-parent > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7.doom-list-parent > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8.doom-list-parent > .cm-hmd-list-indent::after {
-  content: "\200b";
-  position: absolute;
-  /* inline, so the box sits where the marker starts (first row, after text-indent / indentation);
-     display: block would place it at the line's padding edge instead */
-  display: inline;
-  width: 1px;
-  color: transparent;
-  pointer-events: none;
-  top: calc(var(--line-height-normal, 1.65) * 1em + 2px);
-  bottom: 0;
-  margin-inline-start: var(--indentation-guide-source-indent, 0.25em);
-  border-inline-end: var(--indentation-guide-width, 1px) solid var(--indentation-guide-color);
-}
-
-.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-1.doom-list-parent::before,
-.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-2.doom-list-parent > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-3.doom-list-parent > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-4.doom-list-parent > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-5.doom-list-parent > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-6.doom-list-parent > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-7.doom-list-parent > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-8.doom-list-parent > .cm-hmd-list-indent::after {
-  margin-inline-start: var(--indentation-guide-editing-indent, 0.85em);
-}
-
-body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1.doom-list-parent::before,
-body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8.doom-list-parent > .cm-hmd-list-indent::after {
-  border-inline-end-style: dashed;
-}
-
-body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1.doom-list-parent::before,
-body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8.doom-list-parent > .cm-hmd-list-indent::after {
-  border-inline-end-style: dotted;
-}
-
-body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1.doom-list-parent::before,
-body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8.doom-list-parent > .cm-hmd-list-indent::after {
-  border-inline-end-style: double;
-  border-inline-end-width: max(3px, calc(var(--indentation-guide-width, 1px) * 2));
-}
-
-body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1.doom-list-parent::before,
-body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8.doom-list-parent > .cm-hmd-list-indent::after {
-  border-inline-end-style: solid;
-}
-
-body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1.doom-list-parent::before,
-body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7.doom-list-parent > .cm-hmd-list-indent::after,
-body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8.doom-list-parent > .cm-hmd-list-indent::after {
-  display: none;
-}
-
-/* Rainbow: the segment takes its level's colour, matching .cm-indent:nth-of-type(k). */
-body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1.doom-list-parent::before {
-  border-inline-end-color: var(--doom-blue);
-}
-
-body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2.doom-list-parent > .cm-hmd-list-indent::after {
-  border-inline-end-color: var(--doom-magenta);
-}
-
-body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3.doom-list-parent > .cm-hmd-list-indent::after {
-  border-inline-end-color: var(--doom-violet);
-}
-
-body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4.doom-list-parent > .cm-hmd-list-indent::after {
-  border-inline-end-color: var(--doom-orange);
-}
-
-body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5.doom-list-parent > .cm-hmd-list-indent::after {
-  border-inline-end-color: var(--doom-green);
-}
-
-body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6.doom-list-parent > .cm-hmd-list-indent::after {
-  border-inline-end-color: var(--doom-cyan);
-}
-
-body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7.doom-list-parent > .cm-hmd-list-indent::after {
-  border-inline-end-color: var(--doom-blue);
-}
-
-body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8.doom-list-parent > .cm-hmd-list-indent::after {
-  border-inline-end-color: var(--doom-magenta);
 }
 
 /* File Tree Rainbow Indentation Guides */
