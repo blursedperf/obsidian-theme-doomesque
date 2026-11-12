@@ -1,64 +1,32 @@
 # DoomEsque Theme for Obsidian
 
-An authentic, distraction-free **Doom Emacs** inspired theme for Obsidian, bringing classic Emacs buffer aesthetics, Org-mode typography, and iconic color schemes to your vault.
+A Doom Emacs inspired theme for Obsidian: Emacs buffer aesthetics, Org-mode typography and Doom colour schemes.
 
----
+## Features
 
-## ✨ Core Features
+- **14 palettes.** Dark: `doom-one` (default), `doom-vibrant`, `doom-dracula`, `doom-tokyo-night`, `doom-gruvbox`, `doom-cyberpunk`, `doom-retro-terminal`, `doom-suit-and-tie`. Light: `doom-one-light` (default), `doom-nord-light`, `doom-gruvbox-light`, `doom-solarized-light`, `doom-tomorrow-day`, `doom-suit-and-tie-light`.
+- **Org-mode typography.** Rainbow heading levels (or monochrome), optional `TODO`/`DONE` task badges, a `:PROPERTIES:` style frontmatter drawer and legal outline numbering (`I.` → `A.` → `1.` → `a.` → `i.`).
+- **Editor.** Five cursor styles (bar, block, glow, hollow, underline), rainbow or single-colour indent guides and an optional monospace buffer.
+- **Tables and Bases.** A stable grid that does not shift on edit, with density, gridline and zebra striping options.
+- **Hover previews.** Doom-styled preview windows with configurable size and an optional properties drawer.
+- **Offline.** No network requests or `@import` rules; uses locally installed fonts.
 
-- **🎨 14 Authentic Color Palettes**:
-  - **Dark (8)**: `doom-one` (default), `doom-vibrant`, `doom-dracula`, `doom-tokyo-night`, `doom-gruvbox`, `doom-cyberpunk`, `doom-retro-terminal`, `doom-suit-and-tie`.
-  - **Light (6)**: `doom-one-light` (default), `doom-nord-light`, `doom-gruvbox-light`, `doom-solarized-light`, `doom-tomorrow-day`, `doom-suit-and-tie-light`.
-- **📜 Org-Mode Typography**:
-  - 6-level rainbow heading hierarchy (with optional monochrome blue mode).
-  - Optional `TODO` and `DONE` task badges beside checkboxes.
-  - `:PROPERTIES:` style frontmatter drawer with violet accent styling.
-  - Legal outline numbering (`I.` → `A.` → `1.` → `a.` → `i.`) for nested ordered lists.
-- **🔲 Retro Text Cursors & Buffer Aesthetics**:
-  - Five distinct cursor styles: Modern Bar, Retro Block, Phosphor Glow, Hollow Box, and Underline.
-  - Rainbow indentation guides alternating theme accents per nesting depth (default; single-colour option available).
-  - Monospace buffer option for a focused hacker aesthetic.
-- **🔍 Hover Previews**:
-  - Doom-styled preview windows with configurable width and height (Style Settings).
-  - Optional frontmatter properties drawer inside previews.
-  - Resizable, draggable, maximizable and sticky preview windows come with the companion plugin.
-- **📊 Obsidian Bases & Tables**:
-  - Stable, zero-shift table grid layout on click and edit.
-  - Uniform cell heights, padding, and vertical alignment.
-  - Table density (compact / normal / comfortable), gridline style, and zebra striping options.
-- **🔒 100% Offline & Private**:
-  - Zero network calls, zero `@import` rules, and no remote telemetry.
-  - Uses locally installed system fonts.
+## Configuration
 
----
+Adjust the theme with either plugin:
 
-## ⚙️ Configuration
+- **[Style Settings](https://github.com/mgmeyers/obsidian-style-settings)** (third party). Find DoomEsque under Settings → Style Settings: palettes, spacing, indentation, typography, tables and Bases, hover preview size and the settings window style.
+- **[DoomEsque Settings](https://github.com/blursedperf/obsidian-doomesque-settings)** (companion plugin). The same options plus extra controls, commands, and resizable, draggable, sticky hover preview windows. When Style Settings is also enabled, Style Settings controls the options both plugins share.
 
-Customize palettes, spacing, typography, and cursor styles using the companion plugin **[DoomEsque Settings](https://github.com/blursedperf/obsidian-doomesque-settings)**, which adds live sliders, keyboard shortcuts, sticky popover controls, and a fixed 1ch retro block cursor engine.
+## Installation
 
----
+From Obsidian: **Settings → Appearance → Themes → Manage**, search for **DoomEsque**, then **Install and use**.
 
-## 📦 Installation
+Manually: copy `manifest.json` and `theme.css` into `<vault>/.obsidian/themes/DoomEsque/`.
 
-### From Obsidian Community Themes
-1. Open **Settings → Appearance → Themes → Manage**.
-2. Search for **DoomEsque** and click **Install and use**.
+## Editing palettes
 
-### Manual Installation
-Copy [`manifest.json`](./manifest.json) and [`theme.css`](./theme.css) into your vault:
-
-```bash
-mkdir -p "/path/to/vault/.obsidian/themes/DoomEsque"
-cp manifest.json theme.css "/path/to/vault/.obsidian/themes/DoomEsque/"
-```
-
----
-
-## 🎨 Editing Palettes
-
-Each palette block defines raw Doom colors (`--doom-bg`, `--doom-base0`–`8`, accents). The theme paints with **derived tokens** (`--doom-text-faint`, `--doom-text-muted`, `--doom-hairline`, `--doom-border-subtle`, `--doom-border-strong`, `--doom-stripe`, table header/border tokens `--doom-table-header-bg`, `--doom-table-header-text`, `--doom-table-border`, and readable `--doom-<accent>-text` variants) that are generated to meet contrast targets on every palette.
-
-After changing or adding a palette:
+Each palette defines raw Doom colours (`--doom-bg`, `--doom-base0`–`8`, accents). Text, borders and table colours use derived tokens (such as `--doom-text-muted`, `--doom-border-subtle` and the `--doom-<accent>-text` variants) generated to meet contrast targets on every palette. After changing a palette:
 
 ```bash
 node scripts/palette-tokens.mjs           # contrast report per palette
@@ -66,10 +34,6 @@ node scripts/palette-tokens.mjs --write   # regenerate derived tokens
 node scripts/palette-tokens.mjs --check   # what CI runs
 ```
 
-Raw accents are still used for fills, bars and borders; only text uses the `-text` variants.
+## License
 
----
-
-## 📄 License
-
-[MIT License](./LICENSE) © 2026 blursedperf
+[MIT](./LICENSE) © 2026 blursedperf
