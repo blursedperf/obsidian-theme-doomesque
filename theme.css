@@ -3161,6 +3161,16 @@ body.doom-table-density-comfortable .markdown-rendered :is(td, th) {
   padding: 8px 14px;
 }
 
+/* Live Preview tables pad an inner .table-cell-wrapper (the cell itself has padding: 0, set by
+   Obsidian with higher specificity than the rules above), so apply the same padding there. */
+body.doom-table-density-compact .markdown-source-view.mod-cm6 .cm-table-widget .table-cell-wrapper {
+  padding: 2px 8px;
+}
+
+body.doom-table-density-comfortable .markdown-source-view.mod-cm6 .cm-table-widget .table-cell-wrapper {
+  padding: 8px 14px;
+}
+
 /* Gridlines: horizontal rules only */
 body.doom-table-grid-horizontal .markdown-rendered :is(td, th) {
   border-inline-width: 0;
@@ -3168,6 +3178,9 @@ body.doom-table-grid-horizontal .markdown-rendered :is(td, th) {
 
 body.doom-table-grid-horizontal {
   --bases-table-column-border-width: 0px;
+  /* Obsidian draws the outer left/right edges via these (more specific first/last-child rules) */
+  --table-column-first-border-width: 0px;
+  --table-column-last-border-width: 0px;
 }
 
 /* Gridlines: none (header underline and hover remain) */
@@ -3182,6 +3195,8 @@ body.doom-table-grid-none .markdown-rendered thead tr > th {
 body.doom-table-grid-none {
   --bases-table-column-border-width: 0px;
   --bases-table-row-border-width: 0px;
+  --table-column-first-border-width: 0px;
+  --table-column-last-border-width: 0px;
 }
 
 /* Disable zebra striping in Markdown tables */
