@@ -4414,21 +4414,22 @@ body .markdown-rendered.show-indentation-guide li > :is(ul, ol)::before {
   bottom: calc(var(--list-spacing, 0.22em) * 2);
 }
 
-/* Live Preview / Source: a parent line followed by a deeper line draws its own segment of the
+/* Live Preview / Source: a parent line whose children are visible draws its own segment of the
    child guide from the bottom of its first row (1px line padding + one row + 1px) to the bottom of
-   the line, where the child lines' guides continue. It is anchored on the parent's indentation
-   (line start at level 1, the end of .cm-hmd-list-indent deeper down), which is exactly where the
-   child's guide is drawn from, whatever the tab width or marker (bullet, number, task). It is only
-   drawn when the next line has an indent guide (.cm-indent), so it follows Obsidian's "Show
-   indentation guides" setting and disappears when the parent is folded. */
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1:has(+ .HyperMD-list-line-2 .cm-indent, + .HyperMD-list-line-3 .cm-indent)::before,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2:has(+ .HyperMD-list-line-3 .cm-indent, + .HyperMD-list-line-4 .cm-indent) > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3:has(+ .HyperMD-list-line-4 .cm-indent, + .HyperMD-list-line-5 .cm-indent) > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4:has(+ .HyperMD-list-line-5 .cm-indent, + .HyperMD-list-line-6 .cm-indent) > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5:has(+ .HyperMD-list-line-6 .cm-indent, + .HyperMD-list-line-7 .cm-indent) > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6:has(+ .HyperMD-list-line-7 .cm-indent, + .HyperMD-list-line-8 .cm-indent) > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7:has(+ .HyperMD-list-line-8 .cm-indent, + .HyperMD-list-line-9 .cm-indent) > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8:has(+ .HyperMD-list-line-9 .cm-indent, + .HyperMD-list-line-10 .cm-indent) > .cm-hmd-list-indent::after {
+   the line, where the child lines' guides continue. The DoomEsque Settings plugin marks such lines
+   with .doom-list-parent (only while "Show indentation guides" is on and the parent is not folded);
+   without the plugin, guides keep Obsidian's default start below the parent's last row. The segment
+   is anchored on the parent's indentation (line start at level 1, the end of .cm-hmd-list-indent
+   deeper down), which is exactly where the child's guide is drawn from, whatever the tab width or
+   marker (bullet, number, task). */
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1.doom-list-parent::before,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2.doom-list-parent > .cm-hmd-list-indent::after,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3.doom-list-parent > .cm-hmd-list-indent::after,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4.doom-list-parent > .cm-hmd-list-indent::after,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5.doom-list-parent > .cm-hmd-list-indent::after,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6.doom-list-parent > .cm-hmd-list-indent::after,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7.doom-list-parent > .cm-hmd-list-indent::after,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8.doom-list-parent > .cm-hmd-list-indent::after {
   content: "\200b";
   position: absolute;
   /* inline, so the box sits where the marker starts (first row, after text-indent / indentation);
@@ -4443,103 +4444,103 @@ body .markdown-rendered.show-indentation-guide li > :is(ul, ol)::before {
   border-inline-end: var(--indentation-guide-width, 1px) solid var(--indentation-guide-color);
 }
 
-.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-1:has(+ .HyperMD-list-line-2 .cm-indent, + .HyperMD-list-line-3 .cm-indent)::before,
-.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-2:has(+ .HyperMD-list-line-3 .cm-indent, + .HyperMD-list-line-4 .cm-indent) > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-3:has(+ .HyperMD-list-line-4 .cm-indent, + .HyperMD-list-line-5 .cm-indent) > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-4:has(+ .HyperMD-list-line-5 .cm-indent, + .HyperMD-list-line-6 .cm-indent) > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-5:has(+ .HyperMD-list-line-6 .cm-indent, + .HyperMD-list-line-7 .cm-indent) > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-6:has(+ .HyperMD-list-line-7 .cm-indent, + .HyperMD-list-line-8 .cm-indent) > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-7:has(+ .HyperMD-list-line-8 .cm-indent, + .HyperMD-list-line-9 .cm-indent) > .cm-hmd-list-indent::after,
-.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-8:has(+ .HyperMD-list-line-9 .cm-indent, + .HyperMD-list-line-10 .cm-indent) > .cm-hmd-list-indent::after {
+.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-1.doom-list-parent::before,
+.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-2.doom-list-parent > .cm-hmd-list-indent::after,
+.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-3.doom-list-parent > .cm-hmd-list-indent::after,
+.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-4.doom-list-parent > .cm-hmd-list-indent::after,
+.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-5.doom-list-parent > .cm-hmd-list-indent::after,
+.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-6.doom-list-parent > .cm-hmd-list-indent::after,
+.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-7.doom-list-parent > .cm-hmd-list-indent::after,
+.markdown-source-view.mod-cm6.is-live-preview .cm-line.HyperMD-list-line-8.doom-list-parent > .cm-hmd-list-indent::after {
   margin-inline-start: var(--indentation-guide-editing-indent, 0.85em);
 }
 
-body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1:has(+ .HyperMD-list-line-2 .cm-indent, + .HyperMD-list-line-3 .cm-indent)::before,
-body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2:has(+ .HyperMD-list-line-3 .cm-indent, + .HyperMD-list-line-4 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3:has(+ .HyperMD-list-line-4 .cm-indent, + .HyperMD-list-line-5 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4:has(+ .HyperMD-list-line-5 .cm-indent, + .HyperMD-list-line-6 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5:has(+ .HyperMD-list-line-6 .cm-indent, + .HyperMD-list-line-7 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6:has(+ .HyperMD-list-line-7 .cm-indent, + .HyperMD-list-line-8 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7:has(+ .HyperMD-list-line-8 .cm-indent, + .HyperMD-list-line-9 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8:has(+ .HyperMD-list-line-9 .cm-indent, + .HyperMD-list-line-10 .cm-indent) > .cm-hmd-list-indent::after {
+body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1.doom-list-parent::before,
+body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-dashed .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8.doom-list-parent > .cm-hmd-list-indent::after {
   border-inline-end-style: dashed;
 }
 
-body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1:has(+ .HyperMD-list-line-2 .cm-indent, + .HyperMD-list-line-3 .cm-indent)::before,
-body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2:has(+ .HyperMD-list-line-3 .cm-indent, + .HyperMD-list-line-4 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3:has(+ .HyperMD-list-line-4 .cm-indent, + .HyperMD-list-line-5 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4:has(+ .HyperMD-list-line-5 .cm-indent, + .HyperMD-list-line-6 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5:has(+ .HyperMD-list-line-6 .cm-indent, + .HyperMD-list-line-7 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6:has(+ .HyperMD-list-line-7 .cm-indent, + .HyperMD-list-line-8 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7:has(+ .HyperMD-list-line-8 .cm-indent, + .HyperMD-list-line-9 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8:has(+ .HyperMD-list-line-9 .cm-indent, + .HyperMD-list-line-10 .cm-indent) > .cm-hmd-list-indent::after {
+body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1.doom-list-parent::before,
+body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-dotted .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8.doom-list-parent > .cm-hmd-list-indent::after {
   border-inline-end-style: dotted;
 }
 
-body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1:has(+ .HyperMD-list-line-2 .cm-indent, + .HyperMD-list-line-3 .cm-indent)::before,
-body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2:has(+ .HyperMD-list-line-3 .cm-indent, + .HyperMD-list-line-4 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3:has(+ .HyperMD-list-line-4 .cm-indent, + .HyperMD-list-line-5 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4:has(+ .HyperMD-list-line-5 .cm-indent, + .HyperMD-list-line-6 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5:has(+ .HyperMD-list-line-6 .cm-indent, + .HyperMD-list-line-7 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6:has(+ .HyperMD-list-line-7 .cm-indent, + .HyperMD-list-line-8 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7:has(+ .HyperMD-list-line-8 .cm-indent, + .HyperMD-list-line-9 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8:has(+ .HyperMD-list-line-9 .cm-indent, + .HyperMD-list-line-10 .cm-indent) > .cm-hmd-list-indent::after {
+body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1.doom-list-parent::before,
+body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-double .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8.doom-list-parent > .cm-hmd-list-indent::after {
   border-inline-end-style: double;
   border-inline-end-width: max(3px, calc(var(--indentation-guide-width, 1px) * 2));
 }
 
-body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1:has(+ .HyperMD-list-line-2 .cm-indent, + .HyperMD-list-line-3 .cm-indent)::before,
-body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2:has(+ .HyperMD-list-line-3 .cm-indent, + .HyperMD-list-line-4 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3:has(+ .HyperMD-list-line-4 .cm-indent, + .HyperMD-list-line-5 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4:has(+ .HyperMD-list-line-5 .cm-indent, + .HyperMD-list-line-6 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5:has(+ .HyperMD-list-line-6 .cm-indent, + .HyperMD-list-line-7 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6:has(+ .HyperMD-list-line-7 .cm-indent, + .HyperMD-list-line-8 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7:has(+ .HyperMD-list-line-8 .cm-indent, + .HyperMD-list-line-9 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8:has(+ .HyperMD-list-line-9 .cm-indent, + .HyperMD-list-line-10 .cm-indent) > .cm-hmd-list-indent::after {
+body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1.doom-list-parent::before,
+body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-solid .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8.doom-list-parent > .cm-hmd-list-indent::after {
   border-inline-end-style: solid;
 }
 
-body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1:has(+ .HyperMD-list-line-2 .cm-indent, + .HyperMD-list-line-3 .cm-indent)::before,
-body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2:has(+ .HyperMD-list-line-3 .cm-indent, + .HyperMD-list-line-4 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3:has(+ .HyperMD-list-line-4 .cm-indent, + .HyperMD-list-line-5 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4:has(+ .HyperMD-list-line-5 .cm-indent, + .HyperMD-list-line-6 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5:has(+ .HyperMD-list-line-6 .cm-indent, + .HyperMD-list-line-7 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6:has(+ .HyperMD-list-line-7 .cm-indent, + .HyperMD-list-line-8 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7:has(+ .HyperMD-list-line-8 .cm-indent, + .HyperMD-list-line-9 .cm-indent) > .cm-hmd-list-indent::after,
-body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8:has(+ .HyperMD-list-line-9 .cm-indent, + .HyperMD-list-line-10 .cm-indent) > .cm-hmd-list-indent::after {
+body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1.doom-list-parent::before,
+body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7.doom-list-parent > .cm-hmd-list-indent::after,
+body.doom-indent-style-none .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8.doom-list-parent > .cm-hmd-list-indent::after {
   display: none;
 }
 
 /* Rainbow: the segment takes its level's colour, matching .cm-indent:nth-of-type(k). */
-body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1:has(+ .HyperMD-list-line-2 .cm-indent, + .HyperMD-list-line-3 .cm-indent)::before {
+body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-1.doom-list-parent::before {
   border-inline-end-color: var(--doom-blue);
 }
 
-body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2:has(+ .HyperMD-list-line-3 .cm-indent, + .HyperMD-list-line-4 .cm-indent) > .cm-hmd-list-indent::after {
+body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-2.doom-list-parent > .cm-hmd-list-indent::after {
   border-inline-end-color: var(--doom-magenta);
 }
 
-body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3:has(+ .HyperMD-list-line-4 .cm-indent, + .HyperMD-list-line-5 .cm-indent) > .cm-hmd-list-indent::after {
+body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-3.doom-list-parent > .cm-hmd-list-indent::after {
   border-inline-end-color: var(--doom-violet);
 }
 
-body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4:has(+ .HyperMD-list-line-5 .cm-indent, + .HyperMD-list-line-6 .cm-indent) > .cm-hmd-list-indent::after {
+body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-4.doom-list-parent > .cm-hmd-list-indent::after {
   border-inline-end-color: var(--doom-orange);
 }
 
-body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5:has(+ .HyperMD-list-line-6 .cm-indent, + .HyperMD-list-line-7 .cm-indent) > .cm-hmd-list-indent::after {
+body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-5.doom-list-parent > .cm-hmd-list-indent::after {
   border-inline-end-color: var(--doom-green);
 }
 
-body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6:has(+ .HyperMD-list-line-7 .cm-indent, + .HyperMD-list-line-8 .cm-indent) > .cm-hmd-list-indent::after {
+body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-6.doom-list-parent > .cm-hmd-list-indent::after {
   border-inline-end-color: var(--doom-cyan);
 }
 
-body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7:has(+ .HyperMD-list-line-8 .cm-indent, + .HyperMD-list-line-9 .cm-indent) > .cm-hmd-list-indent::after {
+body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-7.doom-list-parent > .cm-hmd-list-indent::after {
   border-inline-end-color: var(--doom-blue);
 }
 
-body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8:has(+ .HyperMD-list-line-9 .cm-indent, + .HyperMD-list-line-10 .cm-indent) > .cm-hmd-list-indent::after {
+body:not(.doom-mono-indent-guides) .markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line-8.doom-list-parent > .cm-hmd-list-indent::after {
   border-inline-end-color: var(--doom-magenta);
 }
 
