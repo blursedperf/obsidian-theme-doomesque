@@ -2,6 +2,24 @@
 
 A Doom Emacs inspired theme for Obsidian: Emacs buffer aesthetics, Org-mode typography and Doom colour schemes.
 
+## Why this suite exists
+
+I created this suite of Obsidian plugins and the DoomEsque theme so that I can be 100 percent certain there are no network calls or traffic: everything runs 100 percent offline, so I can use Obsidian for my notes in open-book law exams.
+
+- Nothing in the suite makes a network request. Every test run of the companion plugin checks that `theme.css` loads nothing remote: no `@import`, remote `url()` or web fonts.
+- Obsidian itself has separate online features. For a fully offline setup, also turn off automatic updates, Sync and Publish, and don't browse community plugins during the exam.
+
+The suite:
+
+- **DoomEsque** (theme)
+- [DoomEsque Settings](https://github.com/blursedperf/obsidian-doomesque-settings)
+- [Filetypes](https://github.com/blursedperf/obsidian-filetypes-plugin)
+- [Inline Autocomplete](https://github.com/blursedperf/obsidian-inline-autocomplete)
+- [Inline Schema Expander](https://github.com/blursedperf/obsidian-inline-schema-expander)
+- [Links in New Tabs](https://github.com/blursedperf/obsidian-links-in-new-tabs)
+- [Pomodoro Flashcards](https://github.com/blursedperf/obsidian-pomodoro-flashcards)
+- [Whole-Tree Search](https://github.com/blursedperf/obsidian-whole-tree-search)
+
 ## Features
 
 - **15 palettes.** Dark: `doom-one` (default), `doom-vibrant`, `doom-dracula`, `doom-tokyo-night`, `doom-gruvbox`, `doom-cyberpunk`, `doom-retro-terminal`, `doom-suit-and-tie`. Light: `doom-one-light` (default), `doom-nord-light`, `doom-gruvbox-light`, `doom-solarized-light`, `doom-tomorrow-day`, `doom-suit-and-tie-light`, `doom-crisp-light`.

@@ -1339,6 +1339,14 @@ body.theme-light.doom-palette-crisp-light {
   /* @derived-tokens:end */
 }
 
+/* Phones: Obsidian rounds text inputs and settings groups to touch-size pills while textareas and
+   buttons stay square, so a form mixed both shapes. The theme's radii keep dialogs coherent. */
+body.is-mobile {
+  --input-radius: var(--radius-m);
+  --textarea-radius: var(--radius-m);
+  --setting-items-radius: var(--radius-l);
+}
+
 /* --------------------------------------------------------------------------
    2. Obsidian Core Variable Mapping (Both Dark & Light)
    -------------------------------------------------------------------------- */
@@ -5149,6 +5157,36 @@ kbd,
   background-color: rgba(var(--doom-blue-rgb), 0.04);
 }
 
+/* Setting rows inside ordinary modals (plugin dialogs, not the settings window) follow Obsidian's
+   modal layout: flat rows separated by a hairline, no card. The standalone-card style above left
+   them as bordered cards with no inner padding, text pressed against the border. */
+.modal:not(.mod-settings) .setting-item:not(.setting-item-heading):where(:not(.setting-items > *)) {
+  background-color: transparent;
+  border: none;
+  border-top: 1px solid var(--doom-hairline);
+  border-radius: 0;
+  box-shadow: none;
+  margin-bottom: 0;
+  padding: 12px 0;
+}
+
+.modal:not(.mod-settings) .setting-item:not(.setting-item-heading):where(:not(.setting-items > *)):first-child {
+  border-top: none;
+  padding-top: 4px;
+}
+
+.modal:not(.mod-settings) .setting-item:not(.setting-item-heading):where(:not(.setting-items > *)):hover {
+  background-color: transparent;
+  border-color: var(--doom-hairline);
+  box-shadow: none;
+}
+
+/* Reserve the scrollbar's width so a settings tab that scrolls and one that does not lay out at
+   the same width (controls otherwise jumped 12px between plugin tabs). */
+body:not(.is-mobile) .modal.mod-settings .vertical-tab-content {
+  scrollbar-gutter: stable;
+}
+
 /* Section Headings inside Settings */
 .setting-item.setting-item-heading {
   background-color: transparent;
@@ -5323,7 +5361,8 @@ input[type="datetime-local"],
 input[type="time"],
 textarea,
 select,
-.dropdown {
+.dropdown,
+.combobox-button {
   background-color: var(--doom-base0);
   border: 1px solid var(--doom-border-subtle);
   border-radius: var(--input-radius);
@@ -5344,7 +5383,8 @@ input[type="datetime-local"]:hover,
 input[type="time"]:hover,
 textarea:hover,
 select:hover,
-.dropdown:hover {
+.dropdown:hover,
+.combobox-button:hover {
   border-color: var(--doom-border-strong);
 }
 
@@ -5359,7 +5399,8 @@ input[type="datetime-local"]:focus,
 input[type="time"]:focus,
 textarea:focus,
 select:focus,
-.dropdown:focus {
+.dropdown:focus,
+.combobox-button:focus-visible {
   border-color: var(--doom-blue);
   box-shadow: var(--doom-focus-ring);
 }
