@@ -4,7 +4,7 @@ A Doom Emacs inspired theme for Obsidian: Emacs buffer aesthetics, Org-mode typo
 
 ## Features
 
-- **14 palettes.** Dark: `doom-one` (default), `doom-vibrant`, `doom-dracula`, `doom-tokyo-night`, `doom-gruvbox`, `doom-cyberpunk`, `doom-retro-terminal`, `doom-suit-and-tie`. Light: `doom-one-light` (default), `doom-nord-light`, `doom-gruvbox-light`, `doom-solarized-light`, `doom-tomorrow-day`, `doom-suit-and-tie-light`.
+- **15 palettes.** Dark: `doom-one` (default), `doom-vibrant`, `doom-dracula`, `doom-tokyo-night`, `doom-gruvbox`, `doom-cyberpunk`, `doom-retro-terminal`, `doom-suit-and-tie`. Light: `doom-one-light` (default), `doom-nord-light`, `doom-gruvbox-light`, `doom-solarized-light`, `doom-tomorrow-day`, `doom-suit-and-tie-light`, `doom-crisp-light`.
 - **Org-mode typography.** Rainbow heading levels (or monochrome), optional `TODO`/`DONE` task badges, a `:PROPERTIES:` style frontmatter drawer and legal outline numbering (`I.` → `A.` → `1.` → `a.` → `i.`).
 - **Editor.** Five cursor styles (bar, block, glow, hollow, underline), rainbow or single-colour indent guides and an optional monospace buffer.
 - **Tables and Bases.** A stable grid that does not shift on edit, with density, gridline and zebra striping options.
