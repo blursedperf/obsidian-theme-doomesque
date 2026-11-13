@@ -1579,11 +1579,22 @@ body.is-mobile {
   --tab-text-color: var(--doom-text-faint);
   --tab-text-color-active: var(--doom-fg);
   --tab-text-color-focused: var(--doom-fg);
-  --tab-text-color-focused-active: var(--doom-blue-text);
+  --tab-text-color-focused-active: var(--doom-fg);
   --tab-text-color-focused-active-current: var(--doom-blue-text);
   --tab-container-background: var(--doom-base0);
-  --tab-divider-color: var(--doom-hairline);
-  --tab-outline-color: var(--doom-border-subtle);
+  /* Obsidian 1.15 decorates tabs through these: an outline around the active tab, inner backgrounds and
+     borders, a short divider tick and curved flares. The theme's flat tab bar uses none of them; the
+     outline colour stays only as the strip's bottom hairline. */
+  --tab-divider-color: transparent;
+  --tab-outline-color: var(--doom-hairline);
+  --tab-outline-color-hover: transparent;
+  --tab-background-hover: var(--doom-base2);
+  --tab-inner-background-active: transparent;
+  --tab-inner-background-hover: transparent;
+  --tab-inner-border-color: transparent;
+  --tab-inner-border-color-active: transparent;
+  --tab-inner-border-color-hover: transparent;
+  --tab-curve: 0px;
 
   /* Titlebar / Ribbon / Divider */
   --titlebar-background: var(--doom-base0);
@@ -1978,15 +1989,31 @@ body:not(.is-mobile) .mod-root .workspace-tab-header {
   background-color: var(--doom-base2);
 }
 
-/* Active tab gets the signature Doom top bar indicator */
-.workspace-tab-header.is-active {
-  background-color: var(--doom-bg);
-  color: var(--doom-fg);
-  box-shadow: inset 0 2px 0 0 var(--doom-blue);
+/* Active tab: the editor background with the signature Doom top bar, blue in the focused tab group
+   and muted in the others. The 1px shadow below covers the strip's bottom hairline so the tab joins
+   its content. Same specificity as Obsidian's own active-tab rule (which drew a 1px outline instead),
+   and later, so this wins. Tab headers sit in .workspace-tabs, not in a leaf, so focus is read from
+   .workspace-tabs.mod-active. */
+.workspace-tabs {
+  --doom-tab-accent: var(--doom-border-strong);
 }
 
-.workspace-leaf.mod-active .workspace-tab-header.is-active {
-  box-shadow: inset 0 2px 0 0 var(--doom-magenta);
+/* Editor tabs start flush with the pane edge (Obsidian insets the strip by 8px). */
+body:not(.is-mobile) .mod-root {
+  --tab-container-padding-start: 0px;
+}
+
+.workspace-tabs.mod-active {
+  --doom-tab-accent: var(--doom-blue);
+}
+
+.workspace-tab-header-container .workspace-tab-header.is-active {
+  background-color: var(--doom-bg);
+  color: var(--doom-fg);
+  box-shadow: inset 0 2px 0 0 var(--doom-tab-accent), 0 1px 0 0 var(--doom-bg);
+}
+
+.workspace-tabs.mod-active .workspace-tab-header-container .workspace-tab-header.is-active {
   color: var(--doom-blue-text);
 }
 
@@ -2031,13 +2058,20 @@ body:not(.is-mobile) .mod-left-split .workspace-tab-header:hover,
 body:not(.is-mobile) .mod-right-split .workspace-tab-header:hover {
   background-color: var(--doom-base2);
   color: var(--doom-fg);
+  box-shadow: none;
 }
 
+/* Same focus rule as the editor tabs: blue while this sidebar has focus, muted otherwise. */
 body:not(.is-mobile) .mod-left-split .workspace-tab-header.is-active,
 body:not(.is-mobile) .mod-right-split .workspace-tab-header.is-active {
   background-color: var(--doom-bg);
+  color: var(--doom-fg);
+  box-shadow: inset 0 2px 0 0 var(--doom-tab-accent);
+}
+
+body:not(.is-mobile) .mod-left-split .workspace-tabs.mod-active .workspace-tab-header.is-active,
+body:not(.is-mobile) .mod-right-split .workspace-tabs.mod-active .workspace-tab-header.is-active {
   color: var(--doom-blue-text);
-  box-shadow: inset 0 2px 0 0 var(--doom-blue);
 }
 
 body:not(.is-mobile) .mod-left-split .workspace-tab-header-inner,
@@ -4474,12 +4508,6 @@ body.theme-light.doom-palette-suit-and-tie-light.doom-active-block-highlight .cm
   background-color: rgba(var(--doom-blue-rgb), 0.065);
 }
 
-/* Crisp sidebar active tab pinstripe top border */
-body.theme-dark.doom-palette-suit-and-tie .workspace-tab-header.is-active::before,
-body.theme-light.doom-palette-suit-and-tie-light .workspace-tab-header.is-active::before {
-  background-color: var(--doom-blue);
-  height: 2px;
-}
 
 /* Modeline tailored status bar accent */
 body.theme-dark.doom-palette-suit-and-tie .status-bar,
@@ -4600,11 +4628,6 @@ body.theme-dark.doom-palette-crisp-dark {
   background-color: rgba(var(--doom-blue-rgb), 0.05);
 }
 
-/* Solid accent bar on the active tab, crisp edges between panes */
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .workspace-tab-header.is-active::before {
-  background-color: var(--doom-blue);
-  height: 2px;
-}
 
 :is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .workspace-ribbon,
 :is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .workspace-split.mod-left-split,
