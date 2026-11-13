@@ -2387,17 +2387,83 @@ body:not(.is-grabbing) .tree-item-self.nav-file-title.is-clickable:hover {
   padding-bottom: 1px;
 }
 
-/* Lists, Hierarchical Outlines & Task Item Vertical Rhythm */
-.markdown-rendered ul > li,
-.markdown-rendered ol > li {
-  margin-top: var(--list-spacing, 0.22em);
-  margin-bottom: var(--list-spacing, 0.22em);
-  line-height: 1.6;
+/* Lists, Hierarchical Outlines & Task Item Vertical Rhythm
+   One model in both views: every item carries half of --list-spacing above and below, so the gap
+   between any two items (siblings, into a nested list, or back out of one) is exactly --list-spacing,
+   on the body line height. Reading view previously stacked margins on top of Obsidian's padding (and
+   one more spacing per closed nesting level); Live Preview's buffer rule held list lines at 1px. */
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line {
+  padding-top: calc(var(--list-spacing, 0.22em) / 2);
+  padding-bottom: calc(var(--list-spacing, 0.22em) / 2);
 }
 
-.cm-s-obsidian .HyperMD-list-line {
-  padding-top: calc(var(--list-spacing, 0.22em) * 0.65);
-  padding-bottom: calc(var(--list-spacing, 0.22em) * 0.65);
+.markdown-rendered ul > li,
+.markdown-rendered ol > li {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: calc(var(--list-spacing, 0.22em) / 2);
+  padding-bottom: calc(var(--list-spacing, 0.22em) / 2);
+  line-height: var(--line-height-normal);
+}
+
+/* A nested list opens with the half-spacing its parent line lacks and gives back the parent item's
+   bottom half-spacing when it closes, so nesting never adds extra space. */
+.markdown-rendered li > :is(ul, ol) {
+  margin-top: calc(var(--list-spacing, 0.22em) / 2);
+  margin-bottom: calc(var(--list-spacing, 0.22em) / -2);
+}
+
+/* List geometry measured on the item itself. Registered as lengths so they resolve to px on the
+   <li> and inherit as-is: as plain custom properties, `em` resolved on each child instead (the
+   checkbox and fold toggle have smaller fonts, so their offsets came out short). */
+@property --doom-list-line {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+@property --doom-list-half-gap {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+@property --doom-reading-marker-shift {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+.markdown-rendered li {
+  --doom-list-line: calc(var(--line-height-normal) * 1em);
+  --doom-list-half-gap: calc(var(--list-spacing, 0.22em) / 2);
+}
+
+/* Reading-view bullets sit as close to their text as Live Preview's (the marker gutter was 0.38em
+   wider). A bulleted item's fold toggle and its child list's guide move with the bullet, so they
+   stay under and beside it. */
+.markdown-rendered ul > li {
+  --doom-reading-marker-shift: 0.38em;
+  --indentation-guide-reading-indent: calc(-0.85em + var(--doom-reading-marker-shift));
+}
+
+/* Numbered items and task items (checkbox instead of a bullet) keep Obsidian's marker geometry. */
+.markdown-rendered ol > li,
+.markdown-rendered ul > li.task-list-item {
+  --doom-reading-marker-shift: 0px;
+  --indentation-guide-reading-indent: -0.85em;
+}
+
+.markdown-rendered .list-bullet {
+  margin-inline-start: calc(-0.8em + var(--doom-reading-marker-shift, 0em));
+}
+
+/* Live Preview: the list marker (and the bullet's inline-flex box inside it) sat on the text
+   baseline, 1px below the line's other boxes, which made bulleted and numbered lines 1px taller than
+   task lines (whose checkbox already lines up) and the dot sit low. Pinned to the line box, the marker is exactly one line tall, the dot
+   centres on the line as in reading view, and number glyphs stay on the text baseline. */
+.markdown-source-view.mod-cm6 .HyperMD-list-line:not(.HyperMD-task-line) :is(.cm-formatting-list, .list-bullet) {
+  vertical-align: top;
 }
 
 /* Hierarchical Ordered List Numbering (1. -> a. -> i. -> A. -> i.) */
@@ -2523,15 +2589,14 @@ body.doom-active-block-highlight .cm-s-obsidian .cm-embed-block table .cm-active
 /* --------------------------------------------------------------------------
    Editor Text Cursor Styles (Modern Bar & Retro Terminal Options)
    -------------------------------------------------------------------------- */
-@keyframes doom-retro-cursor-blink {
-  0%, 49.9% {
-    opacity: 1;
-    visibility: visible;
-  }
-  50%, 100% {
-    opacity: 0;
-    visibility: hidden;
-  }
+/* One caret colour (the readable accent), one glow derived from it, one stroke weight. Block-shaped
+   carets take their width from their height (CodeMirror sets the height to the glyph box), so they
+   are 1ch in body text and grow with headings instead of staying 1ch of the base font. */
+body {
+  --doom-caret: var(--text-accent, var(--doom-blue));
+  --doom-caret-glow: color-mix(in srgb, var(--doom-caret) 55%, transparent);
+  --doom-caret-stroke: 2px;
+  --doom-caret-cell-ratio: 0.52; /* 1ch / glyph-box height of the editor font */
 }
 
 /* Hide native OS caret when retro cursor styles are active ONLY on desktop,
@@ -2570,64 +2635,64 @@ body.is-mobile textarea {
 body.doom-cursor-bar .markdown-source-view.mod-cm6 .cm-cursor,
 body.doom-cursor-bar .cm-cursorLayer .cm-cursor,
 body.doom-cursor-bar .cm-s-obsidian .cm-cursor {
-  border-left-color: var(--text-accent, var(--doom-blue));
-  border-left-width: 2px;
+  border-left-color: var(--doom-caret);
+  border-left-width: var(--doom-caret-stroke);
 }
 
-/* Retro Solid Inverted Block Cursor (VT100 / DEC Emacs difference blend) */
-body.doom-cursor-block .markdown-source-view.mod-cm6 .cm-cursor,
-body.doom-cursor-block .cm-cursorLayer .cm-cursor,
-body.doom-cursor-block .cm-s-obsidian .cm-cursor {
-  width: 1ch;
+/* Block-shaped carets: one cell, sized from the caret's height */
+:is(body.doom-cursor-block, body.doom-cursor-glow, body.doom-cursor-hollow, body.doom-cursor-underline) :is(.markdown-source-view.mod-cm6, .cm-s-obsidian) .cm-cursorLayer .cm-cursor {
+  width: auto;
+  aspect-ratio: var(--doom-caret-cell-ratio);
   box-sizing: border-box;
   margin-left: 0;
-  background-color: var(--text-accent, var(--doom-blue));
+  border-left: none;
+  border-radius: 0;
+}
+
+/* Retro Solid Inverted Block Cursor (VT100 / Emacs). The blend is set on the caret layer, not the
+   caret: CodeMirror's layer is its own compositing group, so a blend on the caret had nothing to
+   invert and the block hid the character. Dark palettes invert (difference); light palettes
+   multiply, which keeps dark text dark on the accent block. */
+body.doom-cursor-block :is(.markdown-source-view.mod-cm6, .cm-s-obsidian) .cm-cursorLayer .cm-cursor {
+  background-color: var(--doom-caret);
+  box-shadow: 0 0 5px var(--doom-caret-glow);
+}
+
+body.doom-cursor-block :is(.markdown-source-view.mod-cm6, .cm-s-obsidian) .cm-cursorLayer {
   mix-blend-mode: difference;
-  border-left: none;
-  border-radius: 0;
-  box-shadow: 0 0 5px rgba(var(--doom-blue-rgb, 81, 175, 239), 0.45);
 }
 
-/* Retro Phosphor Glowing Block Cursor (Translucent CRT Bloom) */
-body.doom-cursor-glow .markdown-source-view.mod-cm6 .cm-cursor,
-body.doom-cursor-glow .cm-cursorLayer .cm-cursor,
-body.doom-cursor-glow .cm-s-obsidian .cm-cursor {
-  width: 1ch;
-  box-sizing: border-box;
-  margin-left: 0;
-  background-color: rgba(var(--interactive-accent-rgb, var(--doom-blue-rgb, 81, 175, 239)), 0.6);
-  border-left: none;
-  border-radius: 0;
-  box-shadow: 0 0 8px rgba(var(--interactive-accent-rgb, var(--doom-blue-rgb, 81, 175, 239)), 0.8),
-              0 0 2px var(--text-accent, var(--doom-blue));
+body.theme-light.doom-cursor-block :is(.markdown-source-view.mod-cm6, .cm-s-obsidian) .cm-cursorLayer {
+  mix-blend-mode: multiply;
+}
+
+/* Retro Phosphor Glowing Block Cursor (CRT bloom). Blended so the character stays readable
+   through the bloom: screen lightens on dark palettes, multiply tints on light ones. */
+body.doom-cursor-glow :is(.markdown-source-view.mod-cm6, .cm-s-obsidian) .cm-cursorLayer .cm-cursor {
+  background-color: color-mix(in srgb, var(--doom-caret) 60%, transparent);
+  box-shadow: 0 0 8px var(--doom-caret-glow), 0 0 2px var(--doom-caret);
+}
+
+body.doom-cursor-glow :is(.markdown-source-view.mod-cm6, .cm-s-obsidian) .cm-cursorLayer {
+  mix-blend-mode: screen;
+}
+
+body.theme-light.doom-cursor-glow :is(.markdown-source-view.mod-cm6, .cm-s-obsidian) .cm-cursorLayer {
+  mix-blend-mode: multiply;
 }
 
 /* Retro CRT Hollow Wireframe Block Cursor */
-body.doom-cursor-hollow .markdown-source-view.mod-cm6 .cm-cursor,
-body.doom-cursor-hollow .cm-cursorLayer .cm-cursor,
-body.doom-cursor-hollow .cm-s-obsidian .cm-cursor {
-  width: 1ch;
-  box-sizing: border-box;
-  margin-left: 0;
+body.doom-cursor-hollow :is(.markdown-source-view.mod-cm6, .cm-s-obsidian) .cm-cursorLayer .cm-cursor {
   background-color: transparent;
-  border-left: none;
-  border-radius: 0;
-  box-shadow: inset 0 0 0 1.5px var(--text-accent, var(--doom-blue)),
-              0 0 6px rgba(var(--interactive-accent-rgb, var(--doom-blue-rgb, 81, 175, 239)), 0.5);
+  box-shadow: inset 0 0 0 1.5px var(--doom-caret), 0 0 6px var(--doom-caret-glow);
 }
 
 /* Retro Terminal Underline Cursor */
-body.doom-cursor-underline .markdown-source-view.mod-cm6 .cm-cursor,
-body.doom-cursor-underline .cm-cursorLayer .cm-cursor,
-body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
-  width: 1ch;
-  box-sizing: border-box;
-  margin-left: 0;
+body.doom-cursor-underline :is(.markdown-source-view.mod-cm6, .cm-s-obsidian) .cm-cursorLayer .cm-cursor {
   background-color: transparent;
-  border-left: none;
-  border-bottom: 2.5px solid var(--text-accent, var(--doom-blue));
-  border-radius: 0;
-  box-shadow: 0 1px 6px rgba(var(--interactive-accent-rgb, var(--doom-blue-rgb, 81, 175, 239)), 0.6);
+  border-bottom: var(--doom-caret-stroke) solid var(--doom-caret);
+  /* glow below the stroke only: an all-round shadow outlined the whole cell as a box */
+  box-shadow: 0 4px 5px -4px var(--doom-caret-glow);
 }
 
 /* Vim Mode Normal/Visual Block Cursor */
@@ -2669,7 +2734,7 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
 /* List fold toggles sit next to their own marker (about 5px gap), clear of the parent's indent guide
    (about 10px), the same in both views. Obsidian's defaults put them against the parent guide. */
 .markdown-rendered .list-collapse-indicator {
-  margin-inline-start: -1.9em;
+  margin-inline-start: calc(-1.9em + var(--doom-reading-marker-shift, 0em));
   padding-inline-end: 1.25em;
 }
 
@@ -4672,7 +4737,7 @@ input[type="checkbox"].task-list-item-checkbox:checked {
   position: absolute;
   margin: 0;
   inset-inline-start: calc(var(--checkbox-size) * -1.5 + 0.25em); /* same checkbox-to-text gap as Live Preview */
-  top: calc((1.6em - var(--checkbox-size)) / 2 + 0.25em);
+  top: calc(var(--doom-list-half-gap) + (var(--doom-list-line) - var(--checkbox-size)) / 2);
 }
 
 .markdown-rendered li.task-list-item > .list-collapse-indicator {
@@ -4680,7 +4745,7 @@ input[type="checkbox"].task-list-item-checkbox:checked {
   margin: 0;
   padding: 0;
   inset-inline-start: calc(var(--checkbox-size) * -1 - 1.25em);
-  top: calc((1.6em - 1em) / 2 + 0.15em);
+  top: calc(var(--doom-list-half-gap) + (var(--doom-list-line) - 1em) / 2);
   line-height: 1;
 }
 
@@ -4819,15 +4884,16 @@ body:not(.doom-mono-indent-guides) .markdown-rendered.show-indentation-guide :is
 
 /* Reading view: guides start right under a wrapped parent's marker. The child list's guide is
    positioned against the parent <li> (not the child list), so it starts below the parent's FIRST
-   line (list-spacing + one 1.6 line + list-spacing, the same offset a single-line parent gets)
-   instead of below its last wrapped line. Live Preview keeps Obsidian's default guides. */
+   line (half-spacing + one line + the child list's half-spacing, the same offset a single-line parent
+   gets) instead of below its last wrapped line, and run to the end of the last child, like Live
+   Preview's per-line guides. Live Preview keeps Obsidian's default guides. */
 body .markdown-rendered.show-indentation-guide li > :is(ul, ol) {
   position: static;
 }
 
 body .markdown-rendered.show-indentation-guide li > :is(ul, ol)::before {
-  top: calc(var(--list-spacing, 0.22em) * 2 + 1.6em);
-  bottom: calc(var(--list-spacing, 0.22em) * 2);
+  top: calc(var(--list-spacing, 0.22em) + var(--line-height-normal) * 1em);
+  bottom: 0;
 }
 
 /* File Tree Rainbow Indentation Guides */
@@ -5043,13 +5109,16 @@ kbd,
   transition: background-color 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
 }
 
-.setting-item:not(.setting-item-heading):hover {
+/* Hover lift for standalone items only. Items inside a group (.setting-items) have no border of
+   their own: a border colour set here on hover showed at both ends of Obsidian's inset divider as a
+   short dark line top-left and top-right. :where() keeps the specificity unchanged. */
+.setting-item:not(.setting-item-heading):where(:not(.setting-items > *)):hover {
   background-color: var(--doom-base0);
   border-color: var(--doom-base4);
   box-shadow: var(--doom-shadow-2);
 }
 
-.theme-light .setting-item:not(.setting-item-heading):hover {
+.theme-light .setting-item:not(.setting-item-heading):where(:not(.setting-items > *)):hover {
   background-color: var(--doom-base1);
   border-color: var(--doom-base4);
 }
@@ -5065,18 +5134,15 @@ kbd,
   box-shadow: var(--doom-shadow-1);
 }
 
+/* Dividers between grouped items are Obsidian's own inset ::before line (--setting-items-divider-*);
+   a theme border-top here drew a second, full-width line under it. */
 .setting-items > .setting-item:not(.setting-item-heading) {
   background-color: transparent;
   border: none;
   border-radius: 0;
-  border-top: 1px solid var(--doom-hairline);
   padding: 13px 18px;
   margin-bottom: 0;
   box-shadow: none;
-}
-
-.setting-items > .setting-item:not(.setting-item-heading):first-child {
-  border-top: none;
 }
 
 .setting-items > .setting-item:not(.setting-item-heading):hover {
@@ -5237,6 +5303,8 @@ body.doom-settings-flat .setting-items > .setting-item:not(.setting-item-heading
 body.doom-settings-flat .modal.mod-settings .setting-item:not(.setting-item-heading):hover,
 body.doom-settings-flat .setting-item:not(.setting-item-heading):hover {
   background-color: rgba(var(--doom-blue-rgb), 0.06);
+  border-color: var(--doom-hairline);
+  box-shadow: none;
 }
 
 /* Form Inputs, Selects & Buttons */
