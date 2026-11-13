@@ -4455,7 +4455,6 @@ body.theme-dark.doom-palette-suit-and-tie .cm-s-obsidian span.cm-hashtag,
 body.theme-light.doom-palette-suit-and-tie-light .tag,
 body.theme-light.doom-palette-suit-and-tie-light a.tag,
 body.theme-light.doom-palette-suit-and-tie-light .cm-s-obsidian span.cm-hashtag {
-  border-radius: var(--radius-s);
   font-weight: 500;
   letter-spacing: 0.02em;
 }
@@ -4548,6 +4547,7 @@ body.theme-light.doom-palette-crisp-light {
   --nav-item-background-active: rgba(var(--doom-blue-rgb), 0.1);
   --nav-item-color-active: var(--doom-base8);
   --doom-crisp-float-shadow: 0 8px 24px rgba(15, 23, 42, 0.12), 0 1px 3px rgba(15, 23, 42, 0.08);
+  --tag-radius: var(--radius-m);
 }
 
 body.theme-dark.doom-palette-crisp-dark {
@@ -4561,6 +4561,7 @@ body.theme-dark.doom-palette-crisp-dark {
   --nav-item-background-active: rgba(var(--doom-blue-rgb), 0.14);
   --nav-item-color-active: var(--doom-base8);
   --doom-crisp-float-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.4);
+  --tag-radius: var(--radius-m);
 }
 
 :is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .markdown-rendered h1,
@@ -4592,7 +4593,6 @@ body.theme-dark.doom-palette-crisp-dark {
 :is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .tag,
 :is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) a.tag,
 :is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .cm-s-obsidian span.cm-hashtag {
-  border-radius: var(--radius-m);
   font-weight: 600;
 }
 
@@ -4800,7 +4800,10 @@ body.theme-light .cm-s-obsidian span.cm-highlight {
   margin-left: 4px;
 }
 
-/* Tags (`:tag:` Org style) */
+/* Tags (`:tag:` Org style). Corner rounding goes through --tag-radius only: in Live Preview a tag is
+   two spans (.cm-hashtag-begin "#" and .cm-hashtag-end), and Obsidian rounds just their outer
+   corners from the variable. A border-radius on span.cm-hashtag rounded the seam between them too,
+   which showed as a bump after the "#". */
 a.tag,
 .cm-s-obsidian span.cm-hashtag {
   font-family: var(--font-monospace-doom);
