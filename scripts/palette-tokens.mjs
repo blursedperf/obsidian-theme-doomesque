@@ -27,7 +27,12 @@ const ACCENTS = ["red", "orange", "yellow", "green", "teal", "blue", "magenta", 
 
 /** Contrast targets (WCAG 2.x ratios). */
 export const TARGETS = {
+	textNormal: 7, // body text on the editor and sidebars (WCAG AAA)
 	textFaint: 4.5, // smallest readable body text (counts, captions, done tasks)
+	comment: 4.5, // code comments on code blocks and the editor
+	lineNumber: 3, // editor gutter line numbers (secondary UI text)
+	onAccent: 4.5, // text on solid accent fills (primary buttons, selected search match, badges)
+	highlight: 4.5, // body text on ==highlighted== text
 	textMutedOverFaint: 1.0, // muted must sit visibly above faint
 	accentText: 4.5, // accent-colored text (bold, links, tags, headers, syntax)
 	hairline: 1.2, // decorative dividers (h2 rule, tab dividers)
@@ -60,6 +65,30 @@ const mix = (from, to, t) => {
 	return rgbToHex(a.map((v, i) => v + (b[i] - v) * t));
 };
 const minContrast = (c, surfaces) => Math.min(...surfaces.map((s) => contrast(c, s)));
+/** `color` at `alpha` composited over `bg` (what rgba(color, alpha) looks like on bg). */
+export const over = (color, bg, alpha) => mix(bg, color, alpha);
+
+/** Accents with a solid fill variant (primary/warning buttons, selected search match). */
+const FILLS = ["blue", "cyan", "red", "yellow", "green"];
+/** Callout background tint (theme.css: rgba(callout, 0.065), 0.1 in light mode). */
+const calloutTint = (mode) => (mode === "light" ? 0.1 : 0.065);
+
+/** Surfaces body-level text sits on: editor, sidebars, tab bar. */
+const uiSurfaces = (v) => [v.bg, v["bg-alt"], v.base0];
+/**
+ * Surfaces accent text sits on: the UI surfaces, code, table stripes and its own callout tint, plus
+ * where specific accents appear: blue (links, status bar) on hover backgrounds, and yellow (tag text)
+ * on the yellow tag tints.
+ */
+const accentSurfaces = (p, stripe, accent) => {
+	const v = p.vars;
+	const list = [...uiSurfaces(v), v.base1, stripe, over(v[accent], v.bg, calloutTint(p.mode))];
+	if (accent === "blue") list.push(v.base2);
+	if (accent === "yellow") list.push(over(v.yellow, v.bg, 0.12), over(v.yellow, v.bg, 0.22));
+	return list;
+};
+/** Text colour for solid accent fills: the darkest background in dark palettes, white in light ones. */
+const onAccentFor = (p) => (p.mode === "dark" ? (lum(p.vars.base0) < lum(p.vars.bg) ? p.vars.base0 : p.vars.bg) : "#ffffff");
 
 /** Move `from` toward `to` in 1% steps until `ok(color)`; returns null if never satisfied. */
 function nudge(from, to, ok) {
@@ -68,6 +97,26 @@ function nudge(from, to, ok) {
 		if (ok(c)) return c;
 	}
 	return null;
+}
+
+/** `--accent-h/s/l` values (hue in degrees, saturation and lightness in %) for a hex colour. */
+function accentHsl(hex) {
+	const [r, g, b] = hexToRgb(hex).map((x) => x / 255);
+	const max = Math.max(r, g, b);
+	const min = Math.min(r, g, b);
+	const l = (max + min) / 2;
+	const d = max - min;
+	let h = 0;
+	let sat = 0;
+	if (d !== 0) {
+		sat = d / (1 - Math.abs(2 * l - 1));
+		if (max === r) h = ((g - b) / d) % 6;
+		else if (max === g) h = (b - r) / d + 2;
+		else h = (r - g) / d + 4;
+		h = (h * 60 + 360) % 360;
+	}
+	const round1 = (x) => Math.round(x * 10) / 10;
+	return { "accent-h": `${round1(h)}`, "accent-s": `${round1(sat * 100)}%`, "accent-l": `${round1(l * 100)}%` };
 }
 
 /* ---------- parsing ---------- */
@@ -92,8 +141,7 @@ export function parsePalettes(css) {
 export function derive(p) {
 	const v = p.vars;
 	const bg = v.bg;
-	const surfaces = [v.bg, v["bg-alt"]];
-	const textSurfaces = [v.bg, v["bg-alt"], v.base0, v.base1]; // body, sidebar, table header, code
+	const surfaces = uiSurfaces(v);
 	// "Ink" = whichever of fg / base8 sits furthest from the background.
 	const ink = contrast(v.base8, bg) >= contrast(v.fg, bg) ? v.base8 : v.fg;
 	const pure = lum(bg) < 0.18 ? "#ffffff" : "#000000";
@@ -142,26 +190,55 @@ export function derive(p) {
 		nudge(v.blue, pure, (c) => minContrast(c, headerSurfaces) >= TARGETS.accentText) ??
 		pure;
 
-	// Readable accent text variants.
+	// Readable accent text variants: on every UI surface, code and hover backgrounds, table stripes,
+	// and the accent's own tints (callouts, tags).
 	for (const a of ACCENTS) {
 		const raw = v[a];
 		if (!raw) continue;
-		const surfacesWithTables = [...textSurfaces, t.stripe];
-		const ok = (c) => minContrast(c, surfacesWithTables) >= TARGETS.accentText;
+		const ok = (c) => minContrast(c, accentSurfaces(p, t.stripe, a)) >= TARGETS.accentText;
 		t[`${a}-text`] = nudge(raw, ink, ok) ?? nudge(raw, pure, ok) ?? pure;
+	}
+
+	// Code comments: the palette's comment grey, lifted only as far as code blocks require.
+	const codeSurfaces = [v.base1, v.bg, v["bg-alt"]];
+	t.comment = nudge(v.base5, v.fg, (c) => minContrast(c, codeSurfaces) >= TARGETS.comment) ?? v.fg;
+
+	// Gutter line numbers: dim, but legible.
+	t["line-number"] = nudge(v.base4, v.fg, (c) => minContrast(c, [v.bg, v["bg-alt"]]) >= TARGETS.lineNumber) ?? v.fg;
+
+	// Solid accent fills (primary/warning buttons, selected search match) and the text on them.
+	const onAccent = onAccentFor(p);
+	t["on-accent"] = onAccent;
+	const away = p.mode === "dark" ? "#ffffff" : "#000000";
+	for (const a of FILLS) {
+		t[`${a}-fill`] = nudge(v[a], away, (c) => contrast(onAccent, c) >= TARGETS.onAccent) ?? away;
+	}
+
+	// Obsidian's own accent (--accent-h/s/l drives --color-accent: canvas focus, selection outlines,
+	// and other native rings) follows the palette's blue instead of Obsidian's default purple.
+	Object.assign(t, accentHsl(v.blue));
+
+	// ==Highlight== background: the palette's yellow at up to 26%, less if body text would suffer.
+	t["highlight-bg"] = v.bg;
+	for (let i = 26; i >= 6; i--) {
+		const c = over(v.yellow, v.bg, i / 100);
+		if (contrast(v.fg, c) >= TARGETS.highlight) {
+			t["highlight-bg"] = c;
+			break;
+		}
 	}
 	return { tokens: t, warnings };
 }
 
 export function verify(p, tokens) {
 	const v = p.vars;
-	const surfaces = [v.bg, v["bg-alt"]];
-	const textSurfaces = [v.bg, v["bg-alt"], v.base0, v.base1];
+	const surfaces = uiSurfaces(v);
 	const fails = [];
 	const need = (label, ratio, min) => {
 		if (ratio + 1e-9 < min) fails.push(`${label} ${ratio.toFixed(2)} < ${min}`);
 	};
 	const fgC = minContrast(v.fg, surfaces);
+	need("fg", minContrast(v.fg, [v.bg, v["bg-alt"]]), TARGETS.textNormal);
 	need("text-faint", minContrast(tokens["text-faint"], surfaces), Math.min(TARGETS.textFaint, Math.max(3, fgC - 0.5)));
 	if (minContrast(tokens["text-muted"], surfaces) + 1e-9 < minContrast(tokens["text-faint"], surfaces))
 		fails.push("text-muted is fainter than text-faint");
@@ -176,10 +253,15 @@ export function verify(p, tokens) {
 	need("table-header-bg-hover", contrast(tokens["table-header-bg-hover"], v.bg), TARGETS.tableHeaderHover);
 	need("fg on table-header-bg", contrast(v.fg, tokens["table-header-bg"]), TARGETS.textFaint);
 	need("table-header-text", minContrast(tokens["table-header-text"], [tokens["table-header-bg"], tokens["table-header-bg-hover"]]), TARGETS.accentText);
-	const tableSurfaces = [...textSurfaces, tokens.stripe];
 	for (const a of ACCENTS) {
-		if (tokens[`${a}-text`]) need(`${a}-text`, minContrast(tokens[`${a}-text`], tableSurfaces), TARGETS.accentText);
+		if (tokens[`${a}-text`]) need(`${a}-text`, minContrast(tokens[`${a}-text`], accentSurfaces(p, tokens.stripe, a)), TARGETS.accentText);
 	}
+	need("comment", minContrast(tokens.comment, [v.base1, v.bg, v["bg-alt"]]), TARGETS.comment);
+	need("line-number", minContrast(tokens["line-number"], [v.bg, v["bg-alt"]]), TARGETS.lineNumber);
+	for (const a of FILLS) need(`on-accent on ${a}-fill`, contrast(tokens["on-accent"], tokens[`${a}-fill`]), TARGETS.onAccent);
+	need("fg on highlight-bg", contrast(v.fg, tokens["highlight-bg"]), TARGETS.highlight);
+	if (contrast(tokens["highlight-bg"], v.bg) < 1.05) fails.push("highlight-bg is indistinguishable from bg");
+	if (v["modeline-fg"] && v["modeline-bg"]) need("modeline", contrast(v["modeline-fg"], v["modeline-bg"]), TARGETS.textFaint);
 	return fails;
 }
 
@@ -193,7 +275,7 @@ function parseRegion(body) {
 	if (i < 0) return null;
 	const j = body.indexOf(END, i);
 	const tokens = {};
-	for (const [, k, val] of body.slice(i, j).matchAll(/--doom-([\w-]+):\s*(#[0-9a-f]{6});/g)) tokens[k] = val;
+	for (const [, k, val] of body.slice(i, j).matchAll(/--doom-([\w-]+):\s*([^;]+);/g)) tokens[k] = val.trim();
 	return tokens;
 }
 

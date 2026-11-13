@@ -23,19 +23,41 @@ body {
   --font-heading-theme: var(--font-text);
   --font-heading: var(--font-heading-override, var(--font-heading-theme, var(--font-text)));
 
-  /* Geometry & Chrome (Doom Emacs flat aesthetic) */
-  --radius-s: 2px;
+  /* Geometry & Chrome (Doom Emacs flat aesthetic)
+     Radii: s = controls, pills, inline chips and anything nested in a card; m = cards, panels,
+     menus and embeds; l = settings groups and modals. */
+  --radius-s: 3px;
   --radius-m: 4px;
   --radius-l: 6px;
   --radius-xl: 8px;
-  --input-radius: 4px;
+  --input-radius: var(--radius-s);
+  --button-radius: var(--radius-s);
+  --checkbox-radius: var(--radius-s);
+  --tag-radius: var(--radius-s);
+  --tooltip-radius: var(--radius-s);
   --tab-radius: 0px;
   --tab-radius-active: 0px;
-  --toggle-radius: 2px;
-  --toggle-thumb-radius: 2px;
-  --toggle-s-radius: 2px;
-  --toggle-s-thumb-radius: 2px;
+  --toggle-radius: var(--radius-s);
+  --toggle-thumb-radius: var(--radius-s);
+  --toggle-s-radius: var(--radius-s);
+  --toggle-s-thumb-radius: var(--radius-s);
   --border-width: 1px;
+
+  /* UI type scale (interface chrome; note text keeps em sizes relative to the editor font) */
+  --doom-font-ui-xs: 11.5px; /* status bar, key pills, badges, counts */
+  --doom-font-ui-sm: 12.5px; /* tabs, menus, breadcrumbs, descriptions, notices */
+  --doom-font-ui-md: 13px; /* suggestions, setting names, sidebar items */
+  --doom-font-ui-lg: 14px; /* prompt input, setting group headings */
+
+  /* Elevation: 1 resting cards and embeds, 2 hovered cards, 3 floating controls, 4 menus and popovers */
+  --doom-shadow-1: 0 1px 3px rgb(0 0 0 / calc(0.12 * var(--doom-shadow-scale, 1)));
+  --doom-shadow-2: 0 2px 6px rgb(0 0 0 / calc(0.2 * var(--doom-shadow-scale, 1)));
+  --doom-shadow-3: 0 6px 20px rgb(0 0 0 / calc(0.35 * var(--doom-shadow-scale, 1)));
+  --doom-shadow-4: 0 10px 28px rgb(0 0 0 / calc(0.5 * var(--doom-shadow-scale, 1)));
+
+  /* Motion and focus */
+  --doom-transition: 0.12s ease;
+  --doom-focus-ring: 0 0 0 2px rgba(var(--doom-blue-rgb), 0.35);
 
   /* Settings & UI Card Geometry */
   --setting-items-background: var(--doom-bg-alt);
@@ -43,7 +65,7 @@ body {
   --setting-items-border-width: 1px;
   --setting-items-divider-color: var(--doom-hairline);
   --setting-items-divider-width: 1px;
-  --setting-items-radius: 6px;
+  --setting-items-radius: var(--radius-l);
   --setting-items-padding-x: 18px;
   --setting-items-padding-y: 13px;
 
@@ -157,14 +179,26 @@ body.theme-dark.doom-palette-one {
   --doom-table-border: #6f757a;
   --doom-table-header-text: #73bbeb;
   --doom-red-text: #ff6c6b;
-  --doom-orange-text: #da8548;
+  --doom-orange-text: #da864a;
   --doom-yellow-text: #ecbe7b;
   --doom-green-text: #98be65;
   --doom-teal-text: #4db5bd;
   --doom-blue-text: #51afef;
-  --doom-magenta-text: #c678dd;
+  --doom-magenta-text: #c87edd;
   --doom-violet-text: #a9a1e1;
   --doom-cyan-text: #46d9ff;
+  --doom-comment: #8c939d;
+  --doom-line-number: #6f757e;
+  --doom-on-accent: #1b2229;
+  --doom-blue-fill: #51afef;
+  --doom-cyan-fill: #46d9ff;
+  --doom-red-fill: #ff6c6b;
+  --doom-yellow-fill: #ecbe7b;
+  --doom-green-fill: #98be65;
+  --doom-accent-h: 204.3;
+  --doom-accent-s: 83.2%;
+  --doom-accent-l: 62.7%;
+  --doom-highlight-bg: #554e44;
   /* @derived-tokens:end */
 }
 
@@ -228,6 +262,18 @@ body.theme-dark.doom-palette-vibrant {
   --doom-magenta-text: #c57bdb;
   --doom-violet-text: #a991f1;
   --doom-cyan-text: #5cefff;
+  --doom-comment: #878e97;
+  --doom-line-number: #6e707d;
+  --doom-on-accent: #1c1f24;
+  --doom-blue-fill: #51afef;
+  --doom-cyan-fill: #5cefff;
+  --doom-red-fill: #ff665c;
+  --doom-yellow-fill: #fccb7e;
+  --doom-green-fill: #7bc275;
+  --doom-accent-h: 204.3;
+  --doom-accent-s: 83.2%;
+  --doom-accent-l: 62.7%;
+  --doom-highlight-bg: #584e43;
   /* @derived-tokens:end */
 }
 
@@ -282,15 +328,27 @@ body.theme-dark.doom-palette-dracula {
   --doom-table-header-bg-hover: #47405f;
   --doom-table-border: #6272a4;
   --doom-table-header-text: #c5a0f8;
-  --doom-red-text: #ff5555;
+  --doom-red-text: #fe6463;
   --doom-orange-text: #ffb86c;
   --doom-yellow-text: #f1fa8c;
   --doom-green-text: #50fa7b;
-  --doom-teal-text: #299bd2;
+  --doom-teal-text: #35a0d4;
   --doom-blue-text: #bd93f9;
   --doom-magenta-text: #ff79c6;
   --doom-violet-text: #bd93f9;
   --doom-cyan-text: #8be9fd;
+  --doom-comment: #8591b6;
+  --doom-line-number: #73747b;
+  --doom-on-accent: #1e2029;
+  --doom-blue-fill: #bd93f9;
+  --doom-cyan-fill: #8be9fd;
+  --doom-red-fill: #ff5555;
+  --doom-yellow-fill: #f1fa8c;
+  --doom-green-fill: #50fa7b;
+  --doom-accent-h: 264.7;
+  --doom-accent-s: 89.5%;
+  --doom-accent-l: 77.6%;
+  --doom-highlight-bg: #5c604c;
   /* @derived-tokens:end */
 }
 
@@ -354,6 +412,18 @@ body.theme-dark.doom-palette-tokyo-night {
   --doom-magenta-text: #bb9af7;
   --doom-violet-text: #9d7cd8;
   --doom-cyan-text: #7dcfff;
+  --doom-comment: #7a82aa;
+  --doom-line-number: #5e6587;
+  --doom-on-accent: #13141c;
+  --doom-blue-fill: #7aa2f7;
+  --doom-cyan-fill: #7dcfff;
+  --doom-red-fill: #f7768e;
+  --doom-yellow-fill: #e0af68;
+  --doom-green-fill: #9ece6a;
+  --doom-accent-h: 220.8;
+  --doom-accent-s: 88.7%;
+  --doom-accent-l: 72.4%;
+  --doom-highlight-bg: #4d4137;
   /* @derived-tokens:end */
 }
 
@@ -408,15 +478,27 @@ body.theme-dark.doom-palette-gruvbox {
   --doom-table-header-bg-hover: #3c4441;
   --doom-table-border: #7a6f62;
   --doom-table-header-text: #9fb49f;
-  --doom-red-text: #fa553e;
+  --doom-red-text: #f8634b;
   --doom-orange-text: #fe8019;
   --doom-yellow-text: #fabd2f;
   --doom-green-text: #b8bb26;
   --doom-teal-text: #8ec07c;
   --doom-blue-text: #83a598;
   --doom-magenta-text: #d3869b;
-  --doom-violet-text: #be7d90;
+  --doom-violet-text: #c18392;
   --doom-cyan-text: #8ec07c;
+  --doom-comment: #9a8e79;
+  --doom-line-number: #7a7062;
+  --doom-on-accent: #0d1011;
+  --doom-blue-fill: #83a598;
+  --doom-cyan-fill: #8ec07c;
+  --doom-red-fill: #fb4934;
+  --doom-yellow-fill: #fabd2f;
+  --doom-green-fill: #b8bb26;
+  --doom-accent-h: 157.1;
+  --doom-accent-s: 15.9%;
+  --doom-accent-l: 58%;
+  --doom-highlight-bg: #5f4f2a;
   /* @derived-tokens:end */
 }
 
@@ -483,6 +565,18 @@ body.theme-dark.doom-palette-cyberpunk {
   --doom-magenta-text: #ff2a6d;
   --doom-violet-text: #a26ae7;
   --doom-cyan-text: #00f0ff;
+  --doom-comment: #747c94;
+  --doom-line-number: #5b6172;
+  --doom-on-accent: #07080a;
+  --doom-blue-fill: #00f0ff;
+  --doom-cyan-fill: #00f0ff;
+  --doom-red-fill: #ff003c;
+  --doom-yellow-fill: #fcee0a;
+  --doom-green-fill: #00ff9f;
+  --doom-accent-h: 183.5;
+  --doom-accent-s: 100%;
+  --doom-accent-l: 50%;
+  --doom-highlight-bg: #4d4b13;
   /* @derived-tokens:end */
 }
 
@@ -555,7 +649,7 @@ body.theme-dark.doom-palette-retro-terminal {
   --link-color-hover: var(--doom-base8);
   --link-external-color: var(--doom-fg);
   --link-external-color-hover: var(--doom-base8);
-  --link-unresolved-color: var(--doom-base6);
+  --link-unresolved-color: var(--doom-text-muted);
   --bases-table-header-color: var(--doom-fg);
   --bases-table-cell-shadow-active: 0 0 0 2px var(--doom-fg);
   --bases-table-cell-shadow-focus: 0 0 0 2px var(--doom-fg);
@@ -580,6 +674,18 @@ body.theme-dark.doom-palette-retro-terminal {
   --doom-magenta-text: #55ff88;
   --doom-violet-text: #44ff77;
   --doom-cyan-text: #33ff66;
+  --doom-comment: #2f8f2f;
+  --doom-line-number: #246c24;
+  --doom-on-accent: #020502;
+  --doom-blue-fill: #33ff33;
+  --doom-cyan-fill: #33ff66;
+  --doom-red-fill: #a8ffa8;
+  --doom-yellow-fill: #66ff33;
+  --doom-green-fill: #33ff33;
+  --doom-accent-h: 120;
+  --doom-accent-s: 100%;
+  --doom-accent-l: 60%;
+  --doom-highlight-bg: #204c13;
   /* @derived-tokens:end */
 }
 
@@ -638,15 +744,27 @@ body.theme-dark.doom-palette-suit-and-tie {
   --doom-table-header-bg-hover: #263b53;
   --doom-table-border: #5f687b;
   --doom-table-header-text: #6aa7e9;
-  --doom-red-text: #e2515e;
+  --doom-red-text: #e35966;
   --doom-orange-text: #df7d45;
   --doom-yellow-text: #ebb15b;
   --doom-green-text: #4ec07d;
   --doom-teal-text: #40b8a6;
   --doom-blue-text: #4b96e6;
   --doom-magenta-text: #c36fd6;
-  --doom-violet-text: #9575e6;
+  --doom-violet-text: #9676e6;
   --doom-cyan-text: #3ec5dd;
+  --doom-comment: #7c8494;
+  --doom-line-number: #626875;
+  --doom-on-accent: #111317;
+  --doom-blue-fill: #4b96e6;
+  --doom-cyan-fill: #3ec5dd;
+  --doom-red-fill: #e24a58;
+  --doom-yellow-fill: #ebb15b;
+  --doom-green-fill: #4ec07d;
+  --doom-accent-h: 211;
+  --doom-accent-s: 75.6%;
+  --doom-accent-l: 59.8%;
+  --doom-highlight-bg: #504331;
   /* @derived-tokens:end */
 }
 
@@ -713,13 +831,25 @@ body.theme-light.doom-palette-one-light {
   --doom-table-header-text: #3257a6;
   --doom-red-text: #ac4740;
   --doom-orange-text: #8c5c3b;
-  --doom-yellow-text: #8a6005;
+  --doom-yellow-text: #7e5909;
   --doom-green-text: #3d7341;
   --doom-teal-text: #367077;
-  --doom-blue-text: #3763c2;
+  --doom-blue-text: #355fb8;
   --doom-magenta-text: #a626a4;
   --doom-violet-text: #99489b;
   --doom-cyan-text: #066f9d;
+  --doom-comment: #646871;
+  --doom-line-number: #878a90;
+  --doom-on-accent: #ffffff;
+  --doom-blue-fill: #3c71e3;
+  --doom-cyan-fill: #017db3;
+  --doom-red-fill: #c94c40;
+  --doom-yellow-fill: #986801;
+  --doom-green-fill: #428441;
+  --doom-accent-h: 221.1;
+  --doom-accent-s: 87.3%;
+  --doom-accent-l: 60%;
+  --doom-highlight-bg: #e1d4b9;
   /* @derived-tokens:end */
 }
 
@@ -782,13 +912,25 @@ body.theme-light.doom-palette-nord-light {
   --doom-table-header-text: #355276;
   --doom-red-text: #99324b;
   --doom-orange-text: #a14328;
-  --doom-yellow-text: #735e17;
+  --doom-yellow-text: #68571d;
   --doom-green-text: #426947;
   --doom-teal-text: #2b6873;
   --doom-blue-text: #386293;
   --doom-magenta-text: #97365b;
   --doom-violet-text: #842879;
   --doom-cyan-text: #34667c;
+  --doom-comment: #566378;
+  --doom-line-number: #747e8f;
+  --doom-on-accent: #ffffff;
+  --doom-blue-fill: #3b6ea8;
+  --doom-cyan-fill: #337e99;
+  --doom-red-fill: #99324b;
+  --doom-yellow-fill: #957100;
+  --doom-green-fill: #4b8248;
+  --doom-accent-h: 211.9;
+  --doom-accent-s: 48%;
+  --doom-accent-l: 44.5%;
+  --doom-highlight-bg: #d2cbb2;
   /* @derived-tokens:end */
 }
 
@@ -851,13 +993,25 @@ body.theme-light.doom-palette-gruvbox-light {
   --doom-table-header-text: #0a5d6d;
   --doom-red-text: #bb241d;
   --doom-orange-text: #9b4914;
-  --doom-yellow-text: #815918;
+  --doom-yellow-text: #7e5719;
   --doom-green-text: #676312;
   --doom-teal-text: #3b6b4e;
-  --doom-blue-text: #076678;
+  --doom-blue-text: #0b5b6a;
   --doom-magenta-text: #8f3f71;
   --doom-violet-text: #864f69;
   --doom-cyan-text: #3b6b4e;
+  --doom-comment: #695f56;
+  --doom-line-number: #877b6c;
+  --doom-on-accent: #ffffff;
+  --doom-blue-fill: #076678;
+  --doom-cyan-fill: #427b58;
+  --doom-red-fill: #cc241d;
+  --doom-yellow-fill: #a36a12;
+  --doom-green-fill: #79740e;
+  --doom-accent-h: 189.6;
+  --doom-accent-s: 89%;
+  --doom-accent-l: 24.9%;
+  --doom-highlight-bg: #e9d198;
   /* @derived-tokens:end */
 }
 
@@ -876,7 +1030,7 @@ body.theme-light.doom-palette-solarized-light {
   --doom-base6: #657b83;
   --doom-base7: #586e75;
   --doom-base8: #073642;
-  --doom-fg: #446068; /* darkened from solarized base01 #586e75 for 5.5:1 on bg-alt */
+  --doom-fg: #2e515a; /* solarized base01 #586e75 darkened toward base02 for 7:1 (AAA) on bg-alt */
   --doom-fg-alt: #839496;
 
   --doom-red: #dc322f;
@@ -902,14 +1056,14 @@ body.theme-light.doom-palette-solarized-light {
   --doom-teal-rgb: 53, 166, 156;
 
   --doom-modeline-bg: #eee8d5;
-  --doom-modeline-fg: #446068;
+  --doom-modeline-fg: #2e515a;
   --doom-modeline-bar: #268bd2;
   --doom-modeline-badge-bg: #268bd2;
   --doom-modeline-badge-fg: #fdf6e3;
 
   /* @derived-tokens:start — generated by scripts/palette-tokens.mjs, do not edit by hand */
-  --doom-text-faint: #536c73;
-  --doom-text-muted: #446068;
+  --doom-text-faint: #516d73;
+  --doom-text-muted: #416068;
   --doom-hairline: #dcd4c0;
   --doom-border-subtle: #c8c2b0;
   --doom-border-strong: #92a0a0;
@@ -918,15 +1072,27 @@ body.theme-light.doom-palette-solarized-light {
   --doom-table-header-bg-hover: #b6d3dd;
   --doom-table-border: #74898c;
   --doom-table-header-text: #155d84;
-  --doom-red-text: #c23231;
+  --doom-red-text: #be3332;
   --doom-orange-text: #b0481c;
-  --doom-yellow-text: #736919;
+  --doom-yellow-text: #68641d;
   --doom-green-text: #54721a;
   --doom-teal-text: #207273;
-  --doom-blue-text: #1b6ea1;
-  --doom-magenta-text: #b63679;
+  --doom-blue-text: #17638e;
+  --doom-magenta-text: #b43678;
   --doom-violet-text: #5664a7;
   --doom-cyan-text: #1b7474;
+  --doom-comment: #516d73;
+  --doom-line-number: #7c8780;
+  --doom-on-accent: #ffffff;
+  --doom-blue-fill: #217ab9;
+  --doom-cyan-fill: #22847d;
+  --doom-red-fill: #dc322f;
+  --doom-yellow-fill: #947000;
+  --doom-green-fill: #6d7d00;
+  --doom-accent-h: 204.8;
+  --doom-accent-s: 69.4%;
+  --doom-accent-l: 48.6%;
+  --doom-highlight-bg: #eadaa8;
   /* @derived-tokens:end */
 }
 
@@ -992,10 +1158,22 @@ body.theme-light.doom-palette-tomorrow-day {
   --doom-yellow-text: #816911;
   --doom-green-text: #5f7507;
   --doom-teal-text: #34767a;
-  --doom-blue-text: #416ea8;
+  --doom-blue-text: #3c6599;
   --doom-magenta-text: #8b599b;
   --doom-violet-text: #8959a8;
   --doom-cyan-text: #34767a;
+  --doom-comment: #6e6f6d;
+  --doom-line-number: #8c8c8c;
+  --doom-on-accent: #ffffff;
+  --doom-blue-fill: #4271ae;
+  --doom-cyan-fill: #348186;
+  --doom-red-fill: #c82829;
+  --doom-yellow-fill: #917100;
+  --doom-green-fill: #677f00;
+  --doom-accent-h: 213.9;
+  --doom-accent-s: 45%;
+  --doom-accent-l: 47.1%;
+  --doom-highlight-bg: #faecbd;
   /* @derived-tokens:end */
 }
 
@@ -1044,10 +1222,10 @@ body.theme-light.doom-palette-suit-and-tie-light {
   --doom-modeline-badge-fg: #ffffff;
 
   /* @derived-tokens:start — generated by scripts/palette-tokens.mjs, do not edit by hand */
-  --doom-text-faint: #636e80;
-  --doom-text-muted: #546074;
-  --doom-hairline: #d8dde6;
-  --doom-border-subtle: #c2c9d6;
+  --doom-text-faint: #5f697b;
+  --doom-text-muted: #505c6f;
+  --doom-hairline: #ced3dc;
+  --doom-border-subtle: #bbc2ce;
   --doom-border-strong: #7d899d;
   --doom-stripe: #e6e9ec;
   --doom-table-header-bg: #cbdbef;
@@ -1056,13 +1234,25 @@ body.theme-light.doom-palette-suit-and-tie-light {
   --doom-table-header-text: #255a9b;
   --doom-red-text: #bf3243;
   --doom-orange-text: #a35226;
-  --doom-yellow-text: #85621d;
+  --doom-yellow-text: #7d5d1e;
   --doom-green-text: #29764e;
   --doom-teal-text: #1e746c;
-  --doom-blue-text: #2868b6;
+  --doom-blue-text: #2865af;
   --doom-magenta-text: #9240ad;
   --doom-violet-text: #6a4fb5;
   --doom-cyan-text: #187186;
+  --doom-comment: #636e80;
+  --doom-line-number: #818b9c;
+  --doom-on-accent: #ffffff;
+  --doom-blue-fill: #2a6fc2;
+  --doom-cyan-fill: #178098;
+  --doom-red-fill: #bf3243;
+  --doom-yellow-fill: #9b6e17;
+  --doom-green-fill: #2c8554;
+  --doom-accent-h: 212.8;
+  --doom-accent-s: 64.4%;
+  --doom-accent-l: 46.3%;
+  --doom-highlight-bg: #e4d8c1;
   /* @derived-tokens:end */
 }
 
@@ -1127,13 +1317,25 @@ body.theme-light.doom-palette-crisp-light {
   --doom-table-header-text: #1b53d0;
   --doom-red-text: #c81e1e;
   --doom-orange-text: #b4470a;
-  --doom-yellow-text: #8a5d00;
+  --doom-yellow-text: #825801;
   --doom-green-text: #127a36;
   --doom-teal-text: #0d7469;
   --doom-blue-text: #1b55d6;
   --doom-magenta-text: #a3199f;
   --doom-violet-text: #6a2ad4;
   --doom-cyan-text: #0b6f8c;
+  --doom-comment: #5d6875;
+  --doom-line-number: #87909e;
+  --doom-on-accent: #ffffff;
+  --doom-blue-fill: #1b55d6;
+  --doom-cyan-fill: #0b6f8c;
+  --doom-red-fill: #c81e1e;
+  --doom-yellow-fill: #8a5d00;
+  --doom-green-fill: #127a36;
+  --doom-accent-h: 221.4;
+  --doom-accent-s: 77.6%;
+  --doom-accent-l: 47.3%;
+  --doom-highlight-bg: #e1d5bd;
   /* @derived-tokens:end */
 }
 
@@ -1183,27 +1385,37 @@ body.theme-light.doom-palette-crisp-light {
   --background-modifier-message: var(--doom-base2);
   --tooltip-background: var(--background-modifier-message);
   --tooltip-color: #fafafa;
+  --tooltip-font-size: var(--doom-font-ui-sm);
+  --tooltip-shadow: 0 0 0 1px var(--doom-border-subtle), 0 4px 12px rgb(0 0 0 / calc(0.35 * var(--doom-shadow-scale, 1)));
   --background-modifier-form-field: var(--doom-base0);
+
+  /* Obsidian's accent (canvas focus, selection outlines and other native rings) follows the
+     palette's blue. A custom accent colour chosen in Settings → Appearance still takes precedence. */
+  --accent-h: var(--doom-accent-h);
+  --accent-s: var(--doom-accent-s);
+  --accent-l: var(--doom-accent-l);
 
   /* Text */
   --text-normal: var(--doom-fg);
   --text-muted: var(--doom-text-muted);
   --text-faint: var(--doom-text-faint);
-  --text-on-accent: var(--doom-base0);
+  --text-on-accent: var(--doom-on-accent);
   --text-error: var(--doom-red-text);
   --text-warning: var(--doom-orange-text);
   --text-success: var(--doom-green-text);
   --text-selection: rgba(var(--doom-blue-rgb), 0.25);
-  --text-highlight-bg: rgba(var(--doom-yellow-rgb), 0.26);
+  --text-highlight-bg: var(--doom-highlight-bg);
   --text-accent: var(--doom-blue-text);
   --text-accent-hover: var(--doom-cyan-text);
 
-  /* Interactive & Accents */
+  /* Interactive & Accents (flat controls: no bevel on buttons, inputs and dropdowns) */
+  --input-shadow: none;
+  --input-shadow-hover: none;
   --interactive-normal: var(--doom-base2);
   --interactive-hover: var(--doom-base3);
-  --interactive-accent: var(--doom-blue);
+  --interactive-accent: var(--doom-blue-fill);
   --interactive-accent-rgb: var(--doom-blue-rgb);
-  --interactive-accent-hover: var(--doom-cyan);
+  --interactive-accent-hover: var(--doom-cyan-fill);
 
   /* Named Colors for Callouts, Canvas, Graph */
   --color-red: var(--doom-red);
@@ -1243,25 +1455,24 @@ body.theme-light.doom-palette-crisp-light {
   --link-color: var(--doom-blue-text);
   --link-color-hover: var(--doom-cyan-text);
   --link-unresolved-color: var(--doom-orange-text);
-  --link-unresolved-opacity: 0.88;
+  --link-unresolved-opacity: 1;
   --link-external-color: var(--doom-teal-text);
   --link-external-color-hover: var(--doom-cyan-text);
 
   /* Tags (Org-tag style: `:tag:` look) */
   --tag-color: var(--doom-yellow-text);
-  --tag-color-hover: var(--doom-orange-text);
+  --tag-color-hover: var(--doom-yellow-text);
   --tag-background: rgba(var(--doom-yellow-rgb), 0.12);
   --tag-background-hover: rgba(var(--doom-yellow-rgb), 0.22);
   --tag-border-color: rgba(var(--doom-yellow-rgb), 0.3);
   --tag-border-width: 1px;
-  --tag-radius: 3px;
   --tag-padding-x: 0.5em;
   --tag-padding-y: 0.15em;
 
   /* Code & Syntax Highlighting (Doom Emacs font-lock faces) */
   --code-background: var(--doom-base1);
   --code-normal: var(--doom-fg);
-  --code-comment: var(--doom-base5);
+  --code-comment: var(--doom-comment);
   --code-function: var(--doom-magenta-text);
   --code-important: var(--doom-red-text);
   --code-keyword: var(--doom-blue-text);
@@ -1286,7 +1497,7 @@ body.theme-light.doom-palette-crisp-light {
   /* Titlebar / Ribbon / Divider */
   --titlebar-background: var(--doom-base0);
   --titlebar-background-focused: var(--doom-base0);
-  --titlebar-text-color: var(--doom-base6);
+  --titlebar-text-color: var(--doom-text-muted);
   --titlebar-text-color-focused: var(--doom-fg);
   --ribbon-background: var(--doom-base0);
   --ribbon-background-collapsed: var(--doom-base0);
@@ -1295,11 +1506,10 @@ body.theme-light.doom-palette-crisp-light {
   --divider-width: 1px;
 
   /* Checkboxes (Org-mode TODO / DONE style) */
-  --checkbox-radius: 2px;
-  --checkbox-color: var(--doom-green);
-  --checkbox-color-hover: var(--doom-teal);
-  --checkbox-border-color: var(--doom-orange);
-  --checkbox-border-color-hover: var(--doom-yellow);
+  --checkbox-color: var(--doom-green-text);
+  --checkbox-color-hover: var(--doom-teal-text);
+  --checkbox-border-color: var(--doom-orange-text);
+  --checkbox-border-color-hover: var(--doom-yellow-text);
   --checklist-done-color: var(--doom-text-faint);
   --checklist-done-decoration: line-through;
 
@@ -1310,7 +1520,7 @@ body.theme-light.doom-palette-crisp-light {
   --indentation-guide-color: rgba(var(--doom-blue-rgb), 0.18);
   --indentation-guide-color-active: var(--doom-blue);
   --collapse-icon-color: var(--doom-text-faint);
-  --collapse-icon-color-collapsed: var(--doom-magenta);
+  --collapse-icon-color-collapsed: var(--doom-magenta-text);
 
   /* Tables (Org-table style) */
   --table-background: var(--doom-bg);
@@ -1337,7 +1547,7 @@ body.theme-light.doom-palette-crisp-light {
   --table-selection-blend-mode: normal;
   --table-selection-border-color: var(--doom-blue);
   --table-selection-border-width: 1.5px;
-  --table-selection-border-radius: 2px;
+  --table-selection-border-radius: var(--radius-s);
   --table-drag-handle-background: transparent;
   --table-drag-handle-background-active: rgba(var(--doom-blue-rgb), 0.16);
   --table-drag-handle-color: var(--doom-base5);
@@ -1359,9 +1569,9 @@ body.theme-light.doom-palette-crisp-light {
   --bases-table-cell-background-active: var(--doom-base0);
   --bases-table-cell-background-disabled: var(--doom-base1);
   --bases-table-cell-background-selected: rgba(var(--doom-blue-rgb), 0.15);
-  --bases-table-cell-radius-active: 2px;
+  --bases-table-cell-radius-active: var(--radius-s);
   --bases-table-cell-shadow-active: 0 0 0 2px var(--doom-blue);
-  --bases-table-cell-radius-focus: 2px;
+  --bases-table-cell-radius-focus: var(--radius-s);
   --bases-table-cell-shadow-focus: 0 0 0 2px var(--doom-blue);
   --bases-table-summary-background: var(--table-header-background);
   --bases-table-summary-background-hover: var(--table-header-background-hover);
@@ -1377,7 +1587,7 @@ body.theme-light.doom-palette-crisp-light {
   /* Properties / Metadata Drawer (Org :PROPERTIES: drawer) */
   --metadata-background: var(--doom-bg-alt);
   --metadata-border-color: var(--doom-border-subtle);
-  --metadata-border-radius: 3px;
+  --metadata-border-radius: var(--radius-s);
   --metadata-border-width: 1px;
   --metadata-divider-color: transparent;
   --metadata-divider-color-hover: transparent;
@@ -1386,8 +1596,8 @@ body.theme-light.doom-palette-crisp-light {
   --metadata-gap: 6px;
   --metadata-padding: 10px 12px;
   --metadata-property-padding: 0px;
-  --metadata-property-radius: 3px;
-  --metadata-property-radius-hover: 3px;
+  --metadata-property-radius: var(--radius-s);
+  --metadata-property-radius-hover: var(--radius-s);
   --metadata-property-radius-focus: 3px;
   --metadata-property-background: transparent;
   --metadata-property-background-hover: transparent;
@@ -1424,8 +1634,8 @@ body.theme-light.doom-palette-crisp-light {
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--scrollbar-thumb-bg);
-  border-radius: 3px;
-  transition: background-color 0.15s ease;
+  border-radius: var(--radius-s);
+  transition: background-color 0.12s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -1435,8 +1645,7 @@ body.theme-light.doom-palette-crisp-light {
 /* Light theme fine-tuning for contrast & subtle parchment borders */
 .theme-light {
   --doom-shadow-scale: 0.45;
-  --blockquote-color: var(--doom-base6);
-  --text-on-accent: #fafafa;
+  --blockquote-color: var(--doom-text-muted);
   --background-modifier-message: var(--doom-base8);
   --tooltip-background: var(--doom-base8);
   --indentation-guide-color: rgba(var(--doom-blue-rgb), 0.22);
@@ -1595,7 +1804,7 @@ body:not(.is-mobile) .status-bar {
   height: 26px;
   min-height: 26px;
   font-family: var(--font-interface);
-  font-size: 11.5px;
+  font-size: var(--doom-font-ui-xs);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -1618,7 +1827,7 @@ body:not(.is-mobile) .status-bar::before {
   align-items: center;
   border-left: 1px solid var(--doom-hairline);
   color: var(--doom-fg);
-  transition: background-color 0.1s ease, color 0.1s ease;
+  transition: background-color 0.12s ease, color 0.12s ease;
 }
 
 .status-bar-item:hover {
@@ -1658,8 +1867,8 @@ body:not(.is-mobile) .workspace-tab-header-container-inner {
   background-color: var(--doom-base0);
   border-right: 1px solid var(--doom-hairline);
   font-family: var(--font-interface);
-  font-size: 12.5px;
-  transition: background-color 0.1s ease, color 0.1s ease;
+  font-size: var(--doom-font-ui-sm);
+  transition: background-color 0.12s ease, color 0.12s ease;
 }
 
 body:not(.is-mobile) .mod-root .workspace-tab-header {
@@ -1724,7 +1933,7 @@ body:not(.is-mobile) .mod-right-split .workspace-tab-header {
   padding: 0;
   background-color: var(--doom-base0);
   border-right: none;
-  border-radius: 3px;
+  border-radius: var(--radius-s);
 }
 
 body:not(.is-mobile) .mod-left-split .workspace-tab-header:hover,
@@ -1748,7 +1957,7 @@ body:not(.is-mobile) .mod-right-split .workspace-tab-header-inner {
   height: 100%;
   margin: 0;
   padding: 0 8px;
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   background-color: transparent;
 }
 
@@ -1802,12 +2011,12 @@ body:not(.is-mobile) .nav-buttons-container:not(.has-separator) {
   min-width: 28px;
   margin: 0;
   padding: 0 8px;
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   background-color: var(--doom-base0);
   border: none;
-  color: var(--doom-base6);
+  color: var(--doom-text-muted);
   box-sizing: border-box;
-  transition: background-color 0.1s ease, color 0.1s ease;
+  transition: background-color 0.12s ease, color 0.12s ease;
 }
 
 .clickable-icon.nav-action-button:hover {
@@ -1847,7 +2056,7 @@ body:not(.is-mobile) .view-header {
 .view-header-title,
 .view-header-breadcrumb {
   font-family: var(--font-interface);
-  font-size: 12.5px;
+  font-size: var(--doom-font-ui-sm);
 }
 
 .workspace-leaf.mod-active .view-header-title {
@@ -1867,7 +2076,7 @@ body:not(.is-mobile) .view-header {
 
 .workspace-leaf-resize-handle {
   border-color: var(--doom-border-subtle);
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+  transition: border-color 0.12s ease, background-color 0.12s ease;
 }
 
 .workspace-leaf-resize-handle:hover,
@@ -1891,20 +2100,20 @@ body:not(.is-mobile) .view-header {
 .view-content > .tag-container,
 .view-content > .bookmarks-container {
   font-family: var(--font-interface);
-  font-size: 13px;
+  font-size: var(--doom-font-ui-md);
   line-height: 1.45;
   padding: 8px 8px 16px 8px;
 }
 
 .tree-item-self {
   font-family: var(--font-interface);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   padding: var(--nav-item-padding);
   margin-bottom: 2px;
   line-height: 1.4;
   align-items: center;
   border-left: none;
-  transition: background-color 0.1s ease, box-shadow 0.1s ease;
+  transition: background-color 0.12s ease, box-shadow 0.12s ease;
 }
 
 .tree-item-self:hover,
@@ -1939,7 +2148,7 @@ body {
   margin-inline-start: var(--size-4-3, 12px);
   margin-left: var(--size-4-3, 12px);
   border-inline-start: var(--indentation-guide-width, 1px) solid rgba(var(--doom-blue-rgb), 0.45);
-  transition: border-color 0.15s ease;
+  transition: border-color 0.12s ease;
 }
 
 .graph-control-section .tree-item-children,
@@ -1964,7 +2173,7 @@ body.doom-sidebar-compact {
 body.doom-sidebar-compact .tree-item-self {
   padding-top: 1px;
   padding-bottom: 1px;
-  font-size: 12px;
+  font-size: var(--doom-font-ui-sm);
 }
 
 body.doom-sidebar-comfortable {
@@ -1975,7 +2184,7 @@ body.doom-sidebar-comfortable {
 body.doom-sidebar-comfortable .tree-item-self {
   padding-top: 6px;
   padding-bottom: 6px;
-  font-size: 14px;
+  font-size: var(--doom-font-ui-lg);
 }
 
 .tree-item-self.is-active,
@@ -2013,8 +2222,8 @@ body:not(.is-grabbing) .view-content > .outline > .tree-item > .tree-item-childr
 
 .view-content > .outline .tree-item-children .tree-item-children .tree-item-self,
 body:not(.is-grabbing) .view-content > .outline .tree-item-children .tree-item-children .tree-item-self.is-clickable:hover {
-  color: var(--doom-base6);
-  font-size: 12.2px;
+  color: var(--doom-text-muted);
+  font-size: var(--doom-font-ui-sm);
   font-weight: 400;
 }
 
@@ -2026,7 +2235,7 @@ body:not(.is-grabbing) .nav-folder.mod-root > .tree-item-self.nav-folder-title.i
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-size: 11.5px;
+  font-size: var(--doom-font-ui-xs);
   border-bottom: none;
   padding-bottom: 2px;
   margin-bottom: 2px;
@@ -2056,7 +2265,7 @@ body:not(.is-grabbing) .tree-item-self.nav-file-title.is-clickable:hover {
   background-color: var(--doom-base2);
   color: var(--doom-yellow-text);
   border: 1px solid var(--doom-border-subtle);
-  border-radius: 2px;
+  border-radius: var(--radius-s);
   font-family: var(--font-interface);
   font-size: 10px;
   font-variant-numeric: tabular-nums;
@@ -2082,7 +2291,7 @@ body:not(.is-grabbing) .tree-item-self.nav-file-title.is-clickable:hover {
 
 .search-input-container input:focus {
   border-color: var(--doom-blue);
-  box-shadow: 0 0 0 2px rgba(var(--doom-blue-rgb), 0.2);
+  box-shadow: var(--doom-focus-ring);
 }
 
 /* Search results, Backlinks & Outgoing Links panels (Deadgrep / Ripgrep buffer style) */
@@ -2090,8 +2299,8 @@ body:not(.is-grabbing) .tree-item-self.nav-file-title.is-clickable:hover {
   padding: 6px 10px;
   border-bottom: 1px solid var(--doom-hairline);
   font-family: var(--font-interface);
-  font-size: 11.5px;
-  color: var(--doom-base6);
+  font-size: var(--doom-font-ui-xs);
+  color: var(--doom-text-muted);
   align-items: center;
 }
 
@@ -2105,7 +2314,7 @@ body:not(.is-grabbing) .tree-item-self.nav-file-title.is-clickable:hover {
 .outgoing-link-pane > .tree-item-self {
   color: var(--doom-violet-text);
   font-weight: 700;
-  font-size: 11.5px;
+  font-size: var(--doom-font-ui-xs);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: 6px 8px 6px var(--size-4-6, 24px);
@@ -2126,11 +2335,11 @@ body:not(.is-grabbing) .tree-item-self.nav-file-title.is-clickable:hover {
 
 .search-result-file-matches {
   font-family: var(--font-interface);
-  font-size: 12px;
+  font-size: var(--doom-font-ui-sm);
   background-color: var(--doom-base0);
   border: 1px solid var(--doom-border-subtle);
   border-left: 2px solid var(--doom-blue);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   margin: 4px 0 8px 8px;
   padding: 2px 0;
 }
@@ -2149,7 +2358,7 @@ body:not(.is-grabbing) .tree-item-self.nav-file-title.is-clickable:hover {
   background-color: rgba(var(--doom-yellow-rgb), 0.28);
   color: var(--doom-yellow-text);
   font-weight: 700;
-  border-radius: 2px;
+  border-radius: var(--radius-s);
   padding: 0 2px;
 }
 
@@ -2424,15 +2633,15 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
 /* Vim Mode Normal/Visual Block Cursor */
 .cm-fat-cursor .cm-cursor,
 .cm-animate-fat-cursor {
-  background-color: rgba(var(--doom-blue-rgb), 0.75);
-  color: var(--doom-base0);
+  background-color: var(--doom-blue-fill);
+  color: var(--doom-on-accent);
 }
 
 /* Line Numbers (`display-line-numbers-mode`) */
 .cm-s-obsidian .cm-gutters {
   background-color: transparent;
   border-right: 1px solid var(--doom-hairline);
-  color: var(--doom-base4);
+  color: var(--doom-line-number);
   font-family: var(--font-monospace-doom);
   font-variant-numeric: tabular-nums;
   padding-right: 6px;
@@ -2454,7 +2663,7 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
 .heading-collapse-indicator,
 .list-collapse-indicator {
   color: var(--collapse-icon-color);
-  transition: color 0.15s ease, opacity 0.15s ease;
+  transition: color 0.12s ease, opacity 0.12s ease;
 }
 
 /* List fold toggles sit next to their own marker (about 5px gap), clear of the parent's indent guide
@@ -2484,7 +2693,7 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
   background-color: var(--doom-base2);
   border: 1px solid var(--doom-border-subtle);
   color: var(--doom-magenta-text);
-  border-radius: 2px;
+  border-radius: var(--radius-s);
   padding: 0 4px;
   font-family: var(--font-monospace-doom);
   font-size: 0.85em;
@@ -2515,7 +2724,7 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
   background-color: var(--doom-bg-alt);
   border: 1px solid var(--doom-border-subtle);
   border-left: 3px solid var(--doom-violet);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   padding: 10px 12px;
   margin-bottom: 1.2em;
   font-family: var(--font-interface);
@@ -2550,7 +2759,7 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
   height: 14px;
   color: var(--doom-violet-text);
   opacity: 0.6;
-  transition: opacity 0.15s ease, color 0.15s ease;
+  transition: opacity 0.12s ease, color 0.12s ease;
 }
 
 .metadata-properties-heading:hover .collapse-indicator,
@@ -2587,7 +2796,7 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
 .metadata-container .metadata-property-key {
   background-color: var(--doom-base0);
   border: 1px solid var(--doom-border-subtle);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   padding: 2px 6px;
   min-height: 30px;
   display: flex;
@@ -2603,7 +2812,7 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
 
 .metadata-container .metadata-property-key:focus-within {
   border-color: var(--doom-blue);
-  box-shadow: 0 0 0 2px rgba(var(--doom-blue-rgb), 0.2);
+  box-shadow: var(--doom-focus-ring);
 }
 
 .metadata-container .metadata-property-key .metadata-property-key-input {
@@ -2618,7 +2827,7 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
 .metadata-container .metadata-property-value {
   background-color: var(--doom-base0);
   border: 1px solid var(--doom-border-subtle);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   padding: 2px 8px;
   min-height: 30px;
   flex: 1 1 auto;
@@ -2633,7 +2842,7 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
 
 .metadata-container .metadata-property-value:focus-within {
   border-color: var(--doom-blue);
-  box-shadow: 0 0 0 2px rgba(var(--doom-blue-rgb), 0.2);
+  box-shadow: var(--doom-focus-ring);
 }
 
 .metadata-container .metadata-property-value .metadata-input-longtext,
@@ -2651,7 +2860,7 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
 .metadata-container .multi-select-pill {
   background-color: rgba(var(--doom-blue-rgb), 0.14);
   border: 1px solid rgba(var(--doom-blue-rgb), 0.35);
-  border-radius: 2px;
+  border-radius: var(--radius-s);
   color: var(--doom-blue-text);
   font-family: var(--font-interface);
   font-size: 0.85em;
@@ -2671,7 +2880,7 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
   min-height: 28px;
   background-color: var(--doom-base0);
   border: 1px dashed var(--doom-base4);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   color: var(--doom-base7);
   font-family: var(--font-interface);
   font-size: 0.85em;
@@ -2698,7 +2907,7 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
 .markdown-rendered pre {
   border: 1px solid var(--doom-border-subtle);
   border-left: 3px solid var(--doom-blue);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   padding: 14px 16px;
   margin: 1.1em 0;
   line-height: 1.5;
@@ -2813,7 +3022,7 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
   background-color: var(--doom-base1);
   color: var(--doom-orange-text);
   border: 1px solid var(--doom-border-subtle);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   padding: 0.1em 0.35em;
   font-family: var(--font-monospace-doom);
   font-size: 0.9em;
@@ -2825,14 +3034,14 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
   color: var(--doom-base7);
   border: 1px solid var(--doom-border-subtle);
   font-family: var(--font-interface);
-  font-size: 11px;
-  border-radius: 2px;
+  font-size: var(--doom-font-ui-xs);
+  border-radius: var(--radius-s);
 }
 
 .markdown-rendered button.copy-code-button:hover {
-  background-color: var(--doom-blue);
-  color: var(--doom-base0);
-  border-color: var(--doom-blue);
+  background-color: var(--doom-blue-fill);
+  color: var(--doom-on-accent);
+  border-color: var(--doom-blue-fill);
 }
 
 /* Blockquotes (`#+BEGIN_QUOTE` — Statutory Excerpts & Judicial Quotations) */
@@ -2845,7 +3054,7 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
   padding: 10px 16px;
   margin: 1em 0;
   line-height: 1.62;
-  border-radius: 0 3px 3px 0;
+  border-radius: 0 var(--radius-s) var(--radius-s) 0;
 }
 
 .markdown-rendered blockquote > :first-child {
@@ -2899,10 +3108,10 @@ body.doom-cursor-underline .cm-s-obsidian .cm-cursor {
   background-color: var(--doom-bg-alt);
   border: 1px solid var(--doom-border-subtle);
   border-left: 3px solid var(--doom-cyan);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   padding: 10px 16px;
   margin: 0.85em 0;
-  box-shadow: 0 1px 4px rgb(0 0 0 / calc(0.14 * var(--doom-shadow-scale, 1)));
+  box-shadow: var(--doom-shadow-1);
 }
 
 body.theme-light .internal-embed.markdown-embed,
@@ -2924,8 +3133,8 @@ body.theme-light .file-embed {
 .hover-popover {
   background-color: var(--doom-bg-alt);
   border: 1px solid var(--doom-blue);
-  border-radius: 3px;
-  box-shadow: 0 10px 28px rgb(0 0 0 / calc(0.5 * var(--doom-shadow-scale, 1)));
+  border-radius: var(--radius-s);
+  box-shadow: var(--doom-shadow-4);
 }
 
 body.theme-light .hover-popover {
@@ -2948,7 +3157,7 @@ body.theme-light .hover-popover {
 }
 
 .doom-popover-btn {
-  color: var(--doom-base6);
+  color: var(--doom-text-muted);
 }
 
 .doom-popover-btn svg,
@@ -3011,9 +3220,9 @@ body.theme-light .hover-popover {
 /* Open link button in hover popovers */
 .popover.hover-popover .markdown-embed-link,
 .popover.hover-popover .file-embed-link {
-  color: var(--doom-base6);
+  color: var(--doom-text-muted);
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   transition: color 0.12s ease, background-color 0.12s ease, border-color 0.12s ease;
 }
 
@@ -3037,7 +3246,7 @@ body.doom-popover-properties .popover.hover-popover .metadata-container:not([dat
   background-color: var(--doom-bg);
   border: 1px solid var(--doom-border-subtle);
   border-left: 3px solid var(--doom-violet);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   box-shadow: none;
 }
 
@@ -3083,7 +3292,7 @@ body.doom-popover-properties .popover.hover-popover .metadata-container:not([dat
 body.doom-popover-properties .popover.hover-popover .metadata-container .metadata-property-key {
   background-color: var(--doom-base0);
   border: 1px solid var(--doom-border-subtle);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   padding: 2px 6px;
   min-height: 24px;
   font-size: 0.84em;
@@ -3093,7 +3302,7 @@ body.doom-popover-properties .popover.hover-popover .metadata-container .metadat
 body.doom-popover-properties .popover.hover-popover .metadata-container .metadata-property-value {
   background-color: var(--doom-base0);
   border: 1px solid var(--doom-border-subtle);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   padding: 2px 6px;
   min-height: 24px;
   font-size: 0.84em;
@@ -3287,7 +3496,7 @@ body.doom-table-no-zebra .markdown-rendered tbody tr:nth-child(odd) {
   background-color: var(--doom-bg);
   margin: 1.1em 0;
   overflow: hidden;
-  box-shadow: 0 1px 4px rgb(0 0 0 / calc(0.18 * var(--doom-shadow-scale, 1)));
+  box-shadow: var(--doom-shadow-1);
 }
 
 /* Reserve comfortable space on the right for CM6 .embed-actions (expose syntax button) */
@@ -3377,7 +3586,7 @@ body.doom-bases-toolbar-labels {
 .bases-embed .embed-action {
   background-color: var(--doom-base0);
   border: 1px solid var(--doom-border-subtle);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   color: var(--text-faint);
   padding: 3px 6px;
   height: 26px;
@@ -3423,7 +3632,7 @@ body.doom-bases-toolbar-labels {
 .bases-toolbar .bases-toolbar-item button {
   background-color: var(--doom-base0);
   border: 1px solid var(--doom-border-subtle);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   color: var(--doom-fg);
   font-family: var(--font-interface);
   font-size: 0.8em;
@@ -3697,7 +3906,7 @@ body.doom-table-header-caps .bases-thead .bases-table-header-label {
 .bases-td:focus-within {
   background-color: var(--doom-base0);
   box-shadow: inset 0 0 0 2px var(--doom-blue);
-  border-radius: 2px;
+  border-radius: var(--radius-s);
   min-height: var(--bases-table-row-height, 30px);
   align-items: center;
 }
@@ -3713,7 +3922,7 @@ body.doom-table-header-caps .bases-thead .bases-table-header-label {
 
 .bases-table-active-cell {
   box-shadow: inset 0 0 0 2px var(--doom-blue);
-  border-radius: 2px;
+  border-radius: var(--radius-s);
 }
 
 .bases-table-selection {
@@ -3775,23 +3984,30 @@ body.doom-table-header-caps .bases-thead .bases-table-header-label {
   font-size: 0.82em;
 }
 
-/* Cards & Kanban Views in Bases */
-.bases-cards-item {
-  background-color: var(--doom-bg-alt);
-  border: 1px solid var(--doom-border-subtle);
-  border-radius: var(--radius-m);
-  transition: border-color 0.12s ease, box-shadow 0.12s ease;
-}
+/* Cards & Kanban Views in Bases. Obsidian draws card and kanban-card outlines as a box-shadow ring
+   from these variables (and the column border itself), so the theme sets the variables instead of
+   adding borders, which doubled the outline. Surfaces follow one rule: panels and cards are bg-alt
+   on the page; an item inside a panel (kanban card) is bg, so it lifts off its column. Nested items
+   use the smaller radius. */
+body.theme-dark,
+body.theme-light {
+  --bases-cards-background: var(--doom-bg-alt);
+  --bases-cards-cover-background: var(--doom-base1);
+  --bases-cards-radius: var(--radius-m);
+  --bases-cards-shadow: 0 0 0 1px var(--doom-border-subtle);
+  --bases-cards-shadow-hover: 0 0 0 1px var(--doom-border-strong), var(--doom-shadow-2);
 
-.bases-cards-item:hover {
-  border-color: var(--doom-base4);
-  box-shadow: 0 3px 8px rgb(0 0 0 / calc(0.25 * var(--doom-shadow-scale, 1)));
-}
-
-.bases-kanban-column {
-  background-color: var(--doom-bg-alt);
-  border: 1px solid var(--doom-border-subtle);
-  border-radius: var(--radius-m);
+  --doom-kanban-accent: var(--doom-blue);
+  --bases-kanban-container-background: transparent;
+  --bases-kanban-column-background: var(--doom-bg-alt);
+  --bases-kanban-column-radius: var(--radius-m);
+  --bases-kanban-column-header-background: transparent;
+  --bases-kanban-cover-background: var(--doom-base1);
+  --bases-kanban-card-background: var(--doom-bg);
+  --bases-kanban-card-radius: var(--radius-s);
+  --bases-kanban-card-shadow: inset 3px 0 0 var(--doom-kanban-accent), 0 0 0 1px var(--doom-border-subtle);
+  --bases-kanban-card-shadow-hover: inset 3px 0 0 var(--doom-kanban-accent), 0 0 0 1px var(--doom-border-strong), var(--doom-shadow-2);
+  --bases-kanban-card-shadow-focus: inset 3px 0 0 var(--doom-kanban-accent), 0 0 0 2px var(--doom-blue);
 }
 
 .bases-kanban-column-header {
@@ -3801,12 +4017,6 @@ body.doom-table-header-caps .bases-thead .bases-table-header-label {
   border-bottom: 1px solid var(--doom-hairline);
 }
 
-.bases-kanban-card {
-  background-color: var(--doom-base0);
-  border: 1px solid var(--doom-border-subtle);
-  border-left: 3px solid var(--doom-blue);
-  border-radius: var(--radius-s);
-}
 
 /* Dropdown Menus & Popovers in Bases */
 .bases-toolbar-menu-container,
@@ -3910,8 +4120,8 @@ body.theme-dark.doom-palette-retro-terminal .bases-toolbar .bases-toolbar-item b
   color: var(--doom-base8);
 }
 
-body.theme-dark.doom-palette-retro-terminal .bases-kanban-card {
-  border-left: 3px solid var(--doom-fg);
+body.theme-dark.doom-palette-retro-terminal {
+  --doom-kanban-accent: var(--doom-fg);
 }
 
 body.theme-dark.doom-palette-retro-terminal .bases-table .bases-group-heading {
@@ -4078,7 +4288,7 @@ body.theme-dark.doom-palette-suit-and-tie blockquote,
 body.theme-dark.doom-palette-suit-and-tie .cm-quote,
 body.theme-light.doom-palette-suit-and-tie-light blockquote,
 body.theme-light.doom-palette-suit-and-tie-light .cm-quote {
-  border-left: 2.5px solid var(--doom-blue);
+  border-left: 3px solid var(--doom-blue);
   background-color: rgba(var(--doom-blue-rgb), 0.04);
 }
 
@@ -4089,7 +4299,7 @@ body.theme-dark.doom-palette-suit-and-tie .cm-s-obsidian span.cm-hashtag,
 body.theme-light.doom-palette-suit-and-tie-light .tag,
 body.theme-light.doom-palette-suit-and-tie-light a.tag,
 body.theme-light.doom-palette-suit-and-tie-light .cm-s-obsidian span.cm-hashtag {
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   font-weight: 500;
   letter-spacing: 0.02em;
 }
@@ -4099,7 +4309,7 @@ body.theme-dark.doom-palette-suit-and-tie code:not(pre code),
 body.theme-light.doom-palette-suit-and-tie-light code:not(pre code) {
   border: 1px solid var(--doom-border-subtle);
   background-color: var(--doom-base1);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   padding: 0.15em 0.35em;
 }
 
@@ -4132,7 +4342,7 @@ body.theme-light.doom-palette-suit-and-tie-light .popover.hover-popover {
 /* Suit and Tie tailored popover buttons & themeable pin */
 body.theme-dark.doom-palette-suit-and-tie .doom-popover-btn,
 body.theme-light.doom-palette-suit-and-tie-light .doom-popover-btn {
-  color: var(--doom-base6);
+  color: var(--doom-text-muted);
 }
 
 body.theme-dark.doom-palette-suit-and-tie .doom-popover-btn:hover,
@@ -4170,15 +4380,12 @@ body.theme-light.doom-palette-suit-and-tie-light .doom-popover-btn.mod-pin.is-ac
    -------------------------------------------------------------------------- */
 body.theme-light.doom-palette-crisp-light {
   --doom-shadow-scale: 0.3;
-  --text-on-accent: #ffffff;
   --text-selection: rgba(var(--doom-blue-rgb), 0.2);
   --text-highlight-bg: rgba(255, 214, 0, 0.45);
-  --blockquote-color: var(--doom-base6);
+  --blockquote-color: var(--doom-text-muted);
   --bold-color: var(--doom-base8);
   --indentation-guide-color: var(--doom-base3);
   --indentation-guide-color-active: var(--doom-base5);
-  --interactive-accent: var(--doom-blue);
-  --interactive-accent-hover: var(--doom-dark-blue);
   --background-modifier-hover: rgba(17, 24, 39, 0.06);
   --background-modifier-active-hover: rgba(var(--doom-blue-rgb), 0.12);
   --nav-item-background-active: rgba(var(--doom-blue-rgb), 0.1);
@@ -4207,14 +4414,14 @@ body.theme-light.doom-palette-crisp-light code:not(pre code) {
   color: var(--doom-base8);
   background-color: var(--doom-base1);
   border: 1px solid var(--doom-base2);
-  border-radius: 4px;
+  border-radius: var(--radius-m);
   padding: 0.12em 0.35em;
 }
 
 body.theme-light.doom-palette-crisp-light .tag,
 body.theme-light.doom-palette-crisp-light a.tag,
 body.theme-light.doom-palette-crisp-light .cm-s-obsidian span.cm-hashtag {
-  border-radius: 4px;
+  border-radius: var(--radius-m);
   font-weight: 600;
 }
 
@@ -4266,7 +4473,7 @@ body.theme-light.doom-palette-crisp-light :is(.suggestion-item, .menu-item).is-s
 }
 
 body.theme-light.doom-palette-crisp-light .doom-popover-btn {
-  color: var(--doom-base6);
+  color: var(--doom-text-muted);
 }
 
 body.theme-light.doom-palette-crisp-light .doom-popover-btn:hover {
@@ -4307,21 +4514,21 @@ body.theme-light.doom-palette-crisp-light .doom-popover-btn.mod-pin.is-active sv
 .document-search-input:focus,
 .document-replace-input:focus {
   border-color: var(--doom-blue);
-  box-shadow: 0 0 0 2px rgba(var(--doom-blue-rgb), 0.2);
+  box-shadow: var(--doom-focus-ring);
 }
 
 /* In-Document Search Matches (Isearch highlights) */
 .cm-searchMatch {
   background-color: rgba(var(--doom-yellow-rgb), 0.28);
   color: var(--doom-yellow-text);
-  border-radius: 2px;
+  border-radius: var(--radius-s);
 }
 
 .cm-searchMatch-selected {
-  background-color: var(--doom-yellow);
-  color: var(--doom-base0);
+  background-color: var(--doom-yellow-fill);
+  color: var(--doom-on-accent);
   font-weight: 700;
-  border-radius: 2px;
+  border-radius: var(--radius-s);
 }
 
 /* Text Highlighting (`==highlight==` / <mark> — High-legibility passage highlighting) */
@@ -4330,7 +4537,7 @@ mark,
   background-color: rgba(var(--doom-yellow-rgb), 0.22);
   color: var(--doom-base8);
   padding: 1px 4px;
-  border-radius: 2px;
+  border-radius: var(--radius-s);
   border-bottom: 1.5px solid rgba(var(--doom-yellow-rgb), 0.55);
 
 }
@@ -4380,7 +4587,7 @@ body.theme-light .cm-s-obsidian span.cm-highlight {
   color: var(--doom-blue-text);
   background-color: rgba(var(--doom-blue-rgb), 0.12);
   border: 1px solid rgba(var(--doom-blue-rgb), 0.28);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   padding: 0 4px;
   margin: 0 1px;
   text-decoration: none;
@@ -4389,9 +4596,9 @@ body.theme-light .cm-s-obsidian span.cm-highlight {
 }
 
 .footnote-ref a:hover {
-  color: var(--doom-base0);
-  background-color: var(--doom-blue);
-  border-color: var(--doom-blue);
+  color: var(--doom-on-accent);
+  background-color: var(--doom-blue-fill);
+  border-color: var(--doom-blue-fill);
   text-decoration: none;
 }
 
@@ -4401,12 +4608,12 @@ body.theme-light .cm-s-obsidian span.cm-highlight {
   padding-top: 1.1em;
   font-size: 0.9em;
   line-height: 1.55;
-  color: var(--doom-base6);
+  color: var(--doom-text-muted);
 }
 
 .footnotes ol > li {
   padding: 3px 6px;
-  border-radius: 3px;
+  border-radius: var(--radius-s);
 }
 
 .footnotes ol > li:target {
@@ -4443,10 +4650,10 @@ a.tag,
    9. Checkboxes & Task Lists (Org-mode TODO / DONE style)
    -------------------------------------------------------------------------- */
 input[type="checkbox"].task-list-item-checkbox {
-  border-radius: 2px;
+  border-radius: var(--radius-s);
   border: 1.5px solid var(--doom-orange);
   background-color: var(--doom-base0);
-  transition: background-color 0.1s ease, border-color 0.1s ease;
+  transition: background-color 0.12s ease, border-color 0.12s ease;
 }
 
 input[type="checkbox"].task-list-item-checkbox:checked {
@@ -4662,8 +4869,8 @@ body:not(.doom-mono-indent-guides) .tree-item-children > .tree-item > .tree-item
 .menu {
   background-color: var(--doom-bg-alt);
   border: 1px solid var(--doom-blue);
-  border-radius: 3px;
-  box-shadow: 0 12px 32px rgb(0 0 0 / calc(0.55 * var(--doom-shadow-scale, 1)));
+  border-radius: var(--radius-s);
+  box-shadow: var(--doom-shadow-4);
   font-family: var(--font-interface);
   overflow: hidden;
 }
@@ -4681,8 +4888,8 @@ body.theme-light .menu {
 
 .menu-item {
   font-family: var(--font-interface);
-  font-size: 12.5px;
-  border-radius: 2px;
+  font-size: var(--doom-font-ui-sm);
+  border-radius: var(--radius-s);
   padding: 5px 10px;
   border-left: 2px solid transparent;
 }
@@ -4713,11 +4920,11 @@ body.theme-light .menu {
   color: var(--doom-blue-text);
   font-family: var(--font-monospace-doom);
   font-weight: 700;
-  font-size: 13px;
+  font-size: var(--doom-font-ui-md);
   margin-right: 8px;
   padding: 2px 6px;
   background-color: rgba(var(--doom-blue-rgb), 0.14);
-  border-radius: 2px;
+  border-radius: var(--radius-s);
   flex-shrink: 0;
 }
 
@@ -4725,15 +4932,15 @@ input.prompt-input {
   background-color: transparent;
   border: none;
   font-family: var(--font-interface);
-  font-size: 14px;
+  font-size: var(--doom-font-ui-lg);
   color: var(--doom-fg);
   box-shadow: none;
 }
 
 .suggestion-item {
   font-family: var(--font-interface);
-  font-size: 13px;
-  border-radius: 2px;
+  font-size: var(--doom-font-ui-md);
+  border-radius: var(--radius-s);
   padding: 6px 12px;
   border-left: 2px solid transparent;
 }
@@ -4751,17 +4958,22 @@ input.prompt-input {
 
 .suggestion-note {
   color: var(--text-faint);
-  font-size: 11px;
+  font-size: var(--doom-font-ui-xs);
 }
 
+/* Key pills: kbd in notes, command palette hotkeys and setting hotkeys share one style. */
 .suggestion-hotkey,
-kbd {
-  background-color: var(--doom-base2);
+kbd,
+.setting-hotkey {
+  background-color: var(--doom-base1);
   color: var(--doom-magenta-text);
-  border: 1px solid var(--doom-base4);
-  border-radius: 2px;
-  font-family: var(--font-interface);
-  font-size: 11px;
+  border: 1px solid var(--doom-border-subtle);
+  border-bottom-width: 2px;
+  border-radius: var(--radius-s);
+  font-family: var(--font-monospace-doom);
+  font-size: var(--doom-font-ui-xs);
+  line-height: 1.3;
+  padding: 1px 6px;
   box-shadow: none;
 }
 
@@ -4773,7 +4985,7 @@ kbd {
 .modal.mod-settings,
 .modal.mod-settings .vertical-tabs-container {
   background-color: var(--doom-bg);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   overflow: hidden;
 }
 
@@ -4789,7 +5001,7 @@ kbd {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-size: 11px;
+  font-size: var(--doom-font-ui-xs);
   padding: 6px 8px 4px 8px;
 }
 
@@ -4800,8 +5012,8 @@ kbd {
 
 .vertical-tab-nav-item {
   font-family: var(--font-interface);
-  font-size: 12.5px;
-  border-radius: 2px;
+  font-size: var(--doom-font-ui-sm);
+  border-radius: var(--radius-s);
   border-left: 2px solid transparent;
   padding: 6px 10px;
   margin-bottom: 2px;
@@ -4822,19 +5034,19 @@ kbd {
 .setting-item:not(.setting-item-heading) {
   background-color: var(--doom-bg-alt);
   border: 1px solid var(--doom-border-subtle);
-  border-radius: 6px;
+  border-radius: var(--radius-l);
   padding: 13px 18px;
   margin-bottom: 8px;
   align-items: center;
   gap: 16px;
-  box-shadow: 0 1px 3px rgb(0 0 0 / calc(0.12 * var(--doom-shadow-scale, 1)));
-  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: var(--doom-shadow-1);
+  transition: background-color 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
 }
 
 .setting-item:not(.setting-item-heading):hover {
   background-color: var(--doom-base0);
   border-color: var(--doom-base4);
-  box-shadow: 0 2px 6px rgb(0 0 0 / calc(0.2 * var(--doom-shadow-scale, 1)));
+  box-shadow: var(--doom-shadow-2);
 }
 
 .theme-light .setting-item:not(.setting-item-heading):hover {
@@ -4846,11 +5058,11 @@ kbd {
 .setting-items {
   background-color: var(--doom-bg-alt);
   border: 1px solid var(--doom-border-subtle);
-  border-radius: 6px;
+  border-radius: var(--radius-l);
   overflow: hidden;
   margin-bottom: 14px;
   padding: 0;
-  box-shadow: 0 1px 3px rgb(0 0 0 / calc(0.12 * var(--doom-shadow-scale, 1)));
+  box-shadow: var(--doom-shadow-1);
 }
 
 .setting-items > .setting-item:not(.setting-item-heading) {
@@ -4892,7 +5104,7 @@ kbd {
 .setting-item.setting-item-heading .setting-item-name {
   color: var(--doom-blue-text);
   font-family: var(--font-interface);
-  font-size: 13.5px;
+  font-size: var(--doom-font-ui-lg);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -4900,7 +5112,7 @@ kbd {
 
 .setting-item.setting-item-heading .setting-item-description {
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: var(--doom-font-ui-sm);
   margin-top: 4px;
 }
 
@@ -4908,7 +5120,7 @@ kbd {
 .setting-item-name {
   font-family: var(--font-interface);
   font-weight: 600;
-  font-size: 13px;
+  font-size: var(--doom-font-ui-md);
   color: var(--doom-fg);
   margin-bottom: 3px;
   line-height: 1.4;
@@ -4916,25 +5128,14 @@ kbd {
 
 .setting-item-description {
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: var(--doom-font-ui-sm);
   line-height: 1.5;
 }
 
 /* Hotkey Pills in Settings */
-.setting-hotkey {
-  background-color: var(--doom-base1);
-  color: var(--doom-magenta-text);
-  border: 1px solid var(--doom-base4);
-  border-radius: 3px;
-  font-family: var(--font-monospace-doom);
-  font-size: 11px;
-  padding: 2px 7px;
-  box-shadow: 0 1px 2px rgb(0 0 0 / calc(0.15 * var(--doom-shadow-scale, 1)));
-}
-
 /* Square Retro Toggle Switches */
 .checkbox-container {
-  border-radius: 2px;
+  border-radius: var(--radius-s);
   border: none;
   background-color: var(--doom-base2);
   box-shadow: inset 0 0 0 1px var(--doom-base4);
@@ -4956,13 +5157,13 @@ kbd {
 }
 
 .checkbox-container::after {
-  border-radius: 2px;
+  border-radius: var(--radius-s);
   background-color: #ffffff;
   box-shadow: 0 1px 3px rgb(0 0 0 / calc(0.35 * var(--doom-shadow-scale, 1)));
   transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1),
               background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
               box-shadow 0.18s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.15s ease;
+              opacity 0.12s ease;
 }
 
 .checkbox-container.is-enabled {
@@ -5027,7 +5228,7 @@ body.doom-settings-flat .setting-items > .setting-item:not(.setting-item-heading
   border: none;
   border-top: none;
   border-bottom: 1px solid var(--doom-hairline);
-  border-radius: 4px;
+  border-radius: var(--radius-m);
   box-shadow: none;
   margin-bottom: 0;
   padding: 12px 10px;
@@ -5061,7 +5262,7 @@ select,
   color: var(--doom-fg);
   font-family: var(--font-interface);
   box-shadow: none;
-  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+  transition: border-color var(--doom-transition), box-shadow var(--doom-transition);
 }
 
 input[type="text"]:hover,
@@ -5076,7 +5277,7 @@ input[type="time"]:hover,
 textarea:hover,
 select:hover,
 .dropdown:hover {
-  border-color: var(--doom-base4);
+  border-color: var(--doom-border-strong);
 }
 
 input[type="text"]:focus,
@@ -5092,99 +5293,118 @@ textarea:focus,
 select:focus,
 .dropdown:focus {
   border-color: var(--doom-blue);
-  box-shadow: 0 0 0 2px rgba(var(--doom-blue-rgb), 0.2);
+  box-shadow: var(--doom-focus-ring);
 }
 
-button:not(.clickable-icon):not(.copy-code-button):not(.metadata-add-button) {
-  background-color: var(--doom-base2);
+/* Buttons. The base rule is wrapped in :where() so its specificity stays at a plain `button`:
+   with the :not() list counted, it outranked button.mod-cta / .mod-warning (here and in Obsidian)
+   and drew primary and destructive buttons grey. Buttons share the inputs' border, radius, hover
+   and focus treatment, so a button next to a text field or dropdown lines up with it. */
+button:where(:not(.clickable-icon, .copy-code-button, .metadata-add-button)) {
+  background-color: var(--interactive-normal);
   color: var(--doom-fg);
-  border: 1px solid var(--doom-base4);
-  border-radius: var(--radius-s);
+  border: 1px solid var(--doom-border-subtle);
+  border-radius: var(--button-radius);
   font-family: var(--font-interface);
   padding: 4px 12px;
   box-shadow: none;
-  transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+  transition: background-color var(--doom-transition), border-color var(--doom-transition), color var(--doom-transition), box-shadow var(--doom-transition);
 }
 
-button:not(.clickable-icon):not(.copy-code-button):not(.metadata-add-button):hover {
-  background-color: var(--doom-base3);
-  border-color: var(--doom-blue);
+button:where(:not(.clickable-icon, .copy-code-button, .metadata-add-button)):hover {
+  background-color: var(--interactive-hover);
+  border-color: var(--doom-border-strong);
   color: var(--doom-fg);
 }
 
-button:not(.clickable-icon):not(.copy-code-button):not(.metadata-add-button):focus-visible {
+button:where(:not(.clickable-icon, .copy-code-button, .metadata-add-button)):focus-visible {
   outline: none;
   border-color: var(--doom-blue);
-  box-shadow: 0 0 0 2px rgba(var(--doom-blue-rgb), 0.3);
+  box-shadow: var(--doom-focus-ring);
 }
 
-button:not(.clickable-icon):not(.copy-code-button):not(.metadata-add-button):active {
+button:where(:not(.clickable-icon, .copy-code-button, .metadata-add-button)):active {
   background-color: var(--doom-base1);
 }
 
 button.mod-cta {
-  background-color: var(--doom-blue);
-  border-color: var(--doom-blue);
-  color: var(--doom-base0);
+  background-color: var(--doom-blue-fill);
+  border-color: var(--doom-blue-fill);
+  color: var(--doom-on-accent);
   font-family: var(--font-interface);
   font-weight: 700;
-  border-radius: var(--radius-s);
 }
 
 button.mod-cta:hover {
-  background-color: var(--doom-cyan);
-  border-color: var(--doom-cyan);
+  background-color: var(--doom-cyan-fill);
+  border-color: var(--doom-cyan-fill);
+  color: var(--doom-on-accent);
 }
 
 button.mod-warning {
-  background-color: var(--doom-red);
-  border-color: var(--doom-red);
-  color: var(--doom-base0);
+  background-color: var(--doom-red-fill);
+  border-color: var(--doom-red-fill);
+  color: var(--doom-on-accent);
   font-family: var(--font-interface);
   font-weight: 700;
-  border-radius: var(--radius-s);
+}
+
+/* One fill per destructive button (contrast is verified on it), so hover shows as a ring. */
+button.mod-warning:hover {
+  background-color: var(--doom-red-fill);
+  border-color: var(--doom-red-fill);
+  color: var(--doom-on-accent);
+  box-shadow: 0 0 0 2px rgba(var(--doom-red-rgb), 0.35);
+}
+
+:is(button.mod-cta, button.mod-warning):focus-visible {
+  box-shadow: var(--doom-focus-ring);
 }
 
 /* Graph Controls, Canvas Toolbar & Empty Buffer State */
 .graph-controls {
   background-color: var(--doom-bg-alt);
   border: 1px solid var(--doom-border-subtle);
-  border-radius: 3px;
-  box-shadow: 0 6px 20px rgb(0 0 0 / calc(0.35 * var(--doom-shadow-scale, 1)));
+  border-radius: var(--radius-s);
+  box-shadow: var(--doom-shadow-3);
 }
 
 .canvas-control-group {
   background-color: var(--doom-bg-alt);
   border: 1px solid var(--doom-border-subtle);
-  border-radius: 3px;
+  border-radius: var(--canvas-controls-radius);
+  box-shadow: var(--doom-shadow-3);
 }
 
-/* Obsidian Canvas Cards & Mind Map Polish */
+/* Obsidian Canvas. The board is bg-alt and cards are bg (the same lift as kanban cards on their
+   columns). Uncoloured cards take their edge from --canvas-color; coloured cards, selection and
+   focus rings and drag shadows are Obsidian's own. */
+body.theme-dark,
+body.theme-light {
+  --canvas-background: var(--doom-bg-alt);
+  --canvas-dot-pattern: var(--doom-border-subtle);
+  --canvas-color: var(--doom-border-strong);
+  --canvas-card-label-color: var(--doom-text-faint);
+  --canvas-controls-radius: var(--radius-s);
+}
+
 .canvas-node {
   border-radius: var(--radius-m);
 }
 
-.canvas-node-container {
-  background-color: var(--doom-base0);
-  border: 1px solid var(--doom-border-subtle);
-  border-radius: var(--radius-m);
-  box-shadow: 0 4px 14px rgb(0 0 0 / calc(0.25 * var(--doom-shadow-scale, 1)));
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-.canvas-node.is-focused .canvas-node-container {
-  border-color: var(--doom-blue);
-  box-shadow: 0 0 0 2px rgba(var(--doom-blue-rgb), 0.25), 0 8px 24px rgb(0 0 0 / calc(0.35 * var(--doom-shadow-scale, 1)));
-}
 
 .canvas-group-label {
   font-family: var(--font-interface);
   font-weight: 700;
-  color: var(--doom-blue-text);
-  background-color: var(--doom-base1);
-  border: 1px solid var(--doom-border-subtle);
   border-radius: var(--radius-s);
   padding: 2px 8px;
+}
+
+/* Uncoloured groups get a Doom label chip; coloured groups keep Obsidian's filled label. */
+.canvas-node-group:not(.is-themed) .canvas-group-label:not([contenteditable="true"]) {
+  color: var(--doom-blue-text);
+  background-color: var(--doom-base1);
+  box-shadow: inset 0 0 0 1px var(--doom-border-subtle);
 }
 
 .empty-state-title {
@@ -5197,7 +5417,7 @@ button.mod-warning {
   font-family: var(--font-interface);
   background-color: var(--doom-base0);
   border: 1px solid var(--doom-border-subtle);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   padding: 6px 14px;
   margin: 4px 0;
   color: var(--doom-fg);
@@ -5212,13 +5432,13 @@ button.mod-warning {
 
 /* Callouts (Org Special Blocks & Legal Brief / IRAC Study Blocks) */
 .callout {
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   border: 1px solid rgba(var(--callout-color), 0.32);
-  border-left: 3.5px solid rgb(var(--callout-color));
+  border-left: 3px solid rgb(var(--callout-color));
   background-color: rgba(var(--callout-color), 0.065);
   padding: 12px 16px;
   margin: 1.15em 0;
-  box-shadow: 0 1px 3px rgb(0 0 0 / calc(0.12 * var(--doom-shadow-scale, 1)));
+  box-shadow: var(--doom-shadow-1);
 }
 
 body.theme-light .callout {
@@ -5235,6 +5455,7 @@ body.theme-light .callout {
 .callout[data-callout="analysis"],
 .callout[data-callout="application"] {
   --callout-color: var(--doom-blue-rgb);
+  --callout-title-color: var(--doom-blue-text);
 }
 
 .callout[data-callout="tip"],
@@ -5244,6 +5465,7 @@ body.theme-light .callout {
 .callout[data-callout="term"],
 .callout[data-callout="elements"] {
   --callout-color: var(--doom-cyan-rgb);
+  --callout-title-color: var(--doom-cyan-text);
 }
 
 .callout[data-callout="abstract"],
@@ -5252,6 +5474,7 @@ body.theme-light .callout {
 .callout[data-callout="brief"],
 .callout[data-callout="overview"] {
   --callout-color: var(--doom-teal-rgb, var(--doom-cyan-rgb));
+  --callout-title-color: var(--doom-teal-text);
 }
 
 .callout[data-callout="success"],
@@ -5262,6 +5485,7 @@ body.theme-light .callout {
 .callout[data-callout="conclusion"],
 .callout[data-callout="outcome"] {
   --callout-color: var(--doom-green-rgb);
+  --callout-title-color: var(--doom-green-text);
 }
 
 .callout[data-callout="question"],
@@ -5271,6 +5495,7 @@ body.theme-light .callout {
 .callout[data-callout="irac"],
 .callout[data-callout="query"] {
   --callout-color: var(--doom-yellow-rgb);
+  --callout-title-color: var(--doom-yellow-text);
 }
 
 .callout[data-callout="warning"],
@@ -5281,6 +5506,7 @@ body.theme-light .callout {
 .callout[data-callout="concurrence"],
 .callout[data-callout="dicta"] {
   --callout-color: var(--doom-orange-rgb);
+  --callout-title-color: var(--doom-orange-text);
 }
 
 .callout[data-callout="failure"],
@@ -5293,6 +5519,7 @@ body.theme-light .callout {
 .callout[data-callout="contra"],
 .callout[data-callout="overruled"] {
   --callout-color: var(--doom-red-rgb);
+  --callout-title-color: var(--doom-red-text);
 }
 
 .callout[data-callout="example"],
@@ -5300,6 +5527,7 @@ body.theme-light .callout {
 .callout[data-callout="precedent"],
 .callout[data-callout="hypo"] {
   --callout-color: var(--doom-violet-rgb);
+  --callout-title-color: var(--doom-violet-text);
 }
 
 .callout[data-callout="quote"],
@@ -5310,9 +5538,11 @@ body.theme-light .callout {
 .callout[data-callout="principle"],
 .callout[data-callout="authority"] {
   --callout-color: var(--doom-magenta-rgb);
+  --callout-title-color: var(--doom-magenta-text);
 }
 
 .callout-title {
+  color: var(--callout-title-color, rgb(var(--callout-color)));
   font-family: var(--font-interface);
   font-weight: 700;
   gap: 8px;
@@ -5343,10 +5573,10 @@ body.theme-light .callout {
   background-color: var(--doom-base0);
   color: var(--doom-fg);
   border: 1px solid var(--doom-blue);
-  border-left: 4px solid var(--doom-blue);
-  border-radius: 2px;
+  border-left: 3px solid var(--doom-blue);
+  border-radius: var(--radius-s);
   font-family: var(--font-interface);
-  font-size: 12.5px;
+  font-size: var(--doom-font-ui-sm);
 }
 
 /* --------------------------------------------------------------------------
@@ -5492,7 +5722,7 @@ body.is-mobile .mobile-toolbar-floating-button {
   justify-content: center;
   font-family: var(--font-interface);
   color: var(--doom-fg);
-  border-radius: 3px;
+  border-radius: var(--radius-s);
 }
 
 body.is-mobile .mobile-toolbar-option:active,
@@ -5520,7 +5750,7 @@ body.is-mobile .mobile-navbar-action {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--doom-base6);
+  color: var(--doom-text-muted);
 }
 
 body.is-mobile .mobile-navbar-action.has-active-menu,
@@ -5588,7 +5818,7 @@ body.is-mobile .clickable-icon.nav-action-button {
   min-width: 44px;
   min-height: 44px;
   padding: 8px 10px;
-  border-radius: 3px;
+  border-radius: var(--radius-s);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -5603,7 +5833,7 @@ body.is-mobile .tree-item-self {
 body.is-mobile .suggestion-item {
   padding: 10px 14px;
   min-height: 40px;
-  font-size: 14px;
+  font-size: var(--doom-font-ui-lg);
 }
 
 body.is-mobile input[type="checkbox"].task-list-item-checkbox {

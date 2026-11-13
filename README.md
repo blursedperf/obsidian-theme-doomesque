@@ -26,7 +26,7 @@ Manually: copy `manifest.json` and `theme.css` into `<vault>/.obsidian/themes/Do
 
 ## Editing palettes
 
-Each palette defines raw Doom colours (`--doom-bg`, `--doom-base0`–`8`, accents). Text, borders and table colours use derived tokens (such as `--doom-text-muted`, `--doom-border-subtle` and the `--doom-<accent>-text` variants) generated to meet contrast targets on every palette. After changing a palette:
+Each palette defines raw Doom colours (`--doom-bg`, `--doom-base0`–`8`, accents). Text, borders, tables, code comments, line numbers, highlights and solid accent fills use derived tokens (such as `--doom-text-muted`, `--doom-<accent>-text`, `--doom-<accent>-fill`, `--doom-on-accent` and `--doom-comment`), generated to meet contrast targets on every palette: body text 7:1 (AAA); muted and faint text, accent text (on the editor, sidebars, tab bar, code blocks, table stripes, callouts and tags), code comments, highlighted text and text on primary buttons 4.5:1; line numbers 3:1. After changing a palette:
 
 ```bash
 node scripts/palette-tokens.mjs           # contrast report per palette
