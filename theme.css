@@ -1710,7 +1710,8 @@ body.is-mobile {
   --metadata-property-background: transparent;
   --metadata-property-background-hover: transparent;
   --metadata-property-background-active: transparent;
-  --metadata-property-box-shadow-focus: none; /* key and value boxes carry their own focus ring */
+  --metadata-property-box-shadow-hover: none; /* key and value boxes carry their own hover and */
+  --metadata-property-box-shadow-focus: none; /* focus states; no ring round the whole row */
   --metadata-input-background: var(--doom-base0);
   --metadata-input-background-hover: var(--doom-base0);
   --metadata-input-background-active: var(--doom-base0);
