@@ -2591,7 +2591,23 @@ body:not(.is-grabbing) .tree-item-self.nav-file-title.is-clickable:hover {
   vertical-align: top;
 }
 
-/* Hierarchical Ordered List Numbering (1. -> a. -> i. -> A. -> i.) */
+/* Outline numbering for nested ordered lists, four styles. The global style comes from a body class
+   set by DoomEsque Settings or Style Settings; a note can pick its own with a cssclass
+   (outline-standard, outline-hornbook, outline-decimal, outline-statutory), which wins because the
+   per-note rules have the same specificity and come later. Every style defines six levels so no
+   style's deeper rule can outrank another's. DoomEsque Settings draws the same markers in Live
+   Preview (outlineNumbering.ts mirrors these levels).
+     Standard   1. a. i. A. i.
+     Hornbook   I. A. 1. a. i. 1.
+     Decimal    1. 1.1 1.1.1   (::marker content; WebKit on iOS shows 1. 2. 3. instead)
+     Statutory  (1) (a) (i) (A) (I) */
+@counter-style doom-paren-decimal { system: extends decimal; prefix: "("; suffix: ") "; }
+@counter-style doom-paren-lower-alpha { system: extends lower-alpha; prefix: "("; suffix: ") "; }
+@counter-style doom-paren-lower-roman { system: extends lower-roman; prefix: "("; suffix: ") "; }
+@counter-style doom-paren-upper-alpha { system: extends upper-alpha; prefix: "("; suffix: ") "; }
+@counter-style doom-paren-upper-roman { system: extends upper-roman; prefix: "("; suffix: ") "; }
+
+/* Standard (default) */
 .markdown-rendered ol {
   list-style-type: decimal;
 }
@@ -2612,7 +2628,11 @@ body:not(.is-grabbing) .tree-item-self.nav-file-title.is-clickable:hover {
   list-style-type: lower-roman;
 }
 
-/* Formal Legal / Hornbook Outline Numbering Option (I. -> A. -> 1. -> a. -> i.) */
+.markdown-rendered ol ol ol ol ol ol {
+  list-style-type: lower-roman;
+}
+
+/* Global: hornbook */
 body.doom-legal-outline .markdown-rendered ol {
   list-style-type: upper-roman;
 }
@@ -2635,6 +2655,207 @@ body.doom-legal-outline .markdown-rendered ol ol ol ol ol {
 
 body.doom-legal-outline .markdown-rendered ol ol ol ol ol ol {
   list-style-type: decimal;
+}
+
+/* Global: decimal */
+body.doom-outline-decimal .markdown-rendered ol {
+  list-style-type: decimal;
+}
+
+body.doom-outline-decimal .markdown-rendered ol ol {
+  list-style-type: decimal;
+}
+
+body.doom-outline-decimal .markdown-rendered ol ol ol {
+  list-style-type: decimal;
+}
+
+body.doom-outline-decimal .markdown-rendered ol ol ol ol {
+  list-style-type: decimal;
+}
+
+body.doom-outline-decimal .markdown-rendered ol ol ol ol ol {
+  list-style-type: decimal;
+}
+
+body.doom-outline-decimal .markdown-rendered ol ol ol ol ol ol {
+  list-style-type: decimal;
+}
+
+body.doom-outline-decimal .markdown-rendered ol > li::marker {
+  content: counters(list-item, ".") ". ";
+}
+
+body.doom-outline-decimal .markdown-rendered :where(li) ol > li::marker {
+  content: counters(list-item, ".") " ";
+}
+
+/* Global: statutory */
+body.doom-outline-statutory .markdown-rendered ol {
+  list-style-type: doom-paren-decimal;
+}
+
+body.doom-outline-statutory .markdown-rendered ol ol {
+  list-style-type: doom-paren-lower-alpha;
+}
+
+body.doom-outline-statutory .markdown-rendered ol ol ol {
+  list-style-type: doom-paren-lower-roman;
+}
+
+body.doom-outline-statutory .markdown-rendered ol ol ol ol {
+  list-style-type: doom-paren-upper-alpha;
+}
+
+body.doom-outline-statutory .markdown-rendered ol ol ol ol ol {
+  list-style-type: doom-paren-upper-roman;
+}
+
+body.doom-outline-statutory .markdown-rendered ol ol ol ol ol ol {
+  list-style-type: doom-paren-upper-roman;
+}
+
+/* Per note: cssclasses: outline-standard */
+body .markdown-rendered.outline-standard ol {
+  list-style-type: decimal;
+}
+
+body .markdown-rendered.outline-standard ol ol {
+  list-style-type: lower-alpha;
+}
+
+body .markdown-rendered.outline-standard ol ol ol {
+  list-style-type: lower-roman;
+}
+
+body .markdown-rendered.outline-standard ol ol ol ol {
+  list-style-type: upper-alpha;
+}
+
+body .markdown-rendered.outline-standard ol ol ol ol ol {
+  list-style-type: lower-roman;
+}
+
+body .markdown-rendered.outline-standard ol ol ol ol ol ol {
+  list-style-type: lower-roman;
+}
+
+body .markdown-rendered.outline-standard ol > li::marker {
+  content: normal;
+}
+
+/* Per note: cssclasses: outline-hornbook */
+body .markdown-rendered.outline-hornbook ol {
+  list-style-type: upper-roman;
+}
+
+body .markdown-rendered.outline-hornbook ol ol {
+  list-style-type: upper-alpha;
+}
+
+body .markdown-rendered.outline-hornbook ol ol ol {
+  list-style-type: decimal;
+}
+
+body .markdown-rendered.outline-hornbook ol ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+body .markdown-rendered.outline-hornbook ol ol ol ol ol {
+  list-style-type: lower-roman;
+}
+
+body .markdown-rendered.outline-hornbook ol ol ol ol ol ol {
+  list-style-type: decimal;
+}
+
+body .markdown-rendered.outline-hornbook ol > li::marker {
+  content: normal;
+}
+
+/* Per note: cssclasses: outline-decimal */
+body .markdown-rendered.outline-decimal ol {
+  list-style-type: decimal;
+}
+
+body .markdown-rendered.outline-decimal ol ol {
+  list-style-type: decimal;
+}
+
+body .markdown-rendered.outline-decimal ol ol ol {
+  list-style-type: decimal;
+}
+
+body .markdown-rendered.outline-decimal ol ol ol ol {
+  list-style-type: decimal;
+}
+
+body .markdown-rendered.outline-decimal ol ol ol ol ol {
+  list-style-type: decimal;
+}
+
+body .markdown-rendered.outline-decimal ol ol ol ol ol ol {
+  list-style-type: decimal;
+}
+
+body .markdown-rendered.outline-decimal ol > li::marker {
+  content: counters(list-item, ".") ". ";
+}
+
+body .markdown-rendered.outline-decimal :where(li) ol > li::marker {
+  content: counters(list-item, ".") " ";
+}
+
+/* Per note: cssclasses: outline-statutory */
+body .markdown-rendered.outline-statutory ol {
+  list-style-type: doom-paren-decimal;
+}
+
+body .markdown-rendered.outline-statutory ol ol {
+  list-style-type: doom-paren-lower-alpha;
+}
+
+body .markdown-rendered.outline-statutory ol ol ol {
+  list-style-type: doom-paren-lower-roman;
+}
+
+body .markdown-rendered.outline-statutory ol ol ol ol {
+  list-style-type: doom-paren-upper-alpha;
+}
+
+body .markdown-rendered.outline-statutory ol ol ol ol ol {
+  list-style-type: doom-paren-upper-roman;
+}
+
+body .markdown-rendered.outline-statutory ol ol ol ol ol ol {
+  list-style-type: doom-paren-upper-roman;
+}
+
+body .markdown-rendered.outline-statutory ol > li::marker {
+  content: normal;
+}
+
+/* Live Preview: DoomEsque Settings replaces the typed marker and its space ("1. ") with the computed
+   one. An invisible copy of the typed marker keeps its exact width, so text and wrapped lines stay
+   where Obsidian put them; the visible marker (with its space) is right-aligned to that edge and
+   extends left when it is longer. The widget carries the list-marker classes, so the theme's marker
+   weight and per-level colours apply. */
+.markdown-source-view.mod-cm6 .doom-outline-marker {
+  position: relative;
+  display: inline-block;
+  text-indent: 0;
+}
+
+.markdown-source-view.mod-cm6 .doom-outline-marker-sizer {
+  visibility: hidden;
+  white-space: pre;
+}
+
+.markdown-source-view.mod-cm6 .doom-outline-marker-text {
+  position: absolute;
+  inset-inline-end: 0;
+  top: 0;
+  white-space: pre;
 }
 
 /* Tabular Semibold Markers & Depth-Aware Outline Marker Hierarchy */
@@ -6293,11 +6514,21 @@ settings:
     description: Rainbow indentation guides (alternating Doom palette colors per nesting level) are the default. Turn this on for single-colour guides.
     type: class-toggle
     default: false
-  - id: doom-legal-outline
-    title: Legal / Hornbook Outline Numbering (I, A, 1, a, i)
-    description: Use classic legal outline hierarchy (I. → A. → 1. → a. → i.) for nested ordered lists in Reading View.
-    type: class-toggle
-    default: false
+  - id: doom-outline-numbering
+    title: Outline Numbering
+    description: How nested numbered lists are numbered. A note can choose its own with a cssclass (outline-standard, outline-hornbook, outline-decimal, outline-statutory).
+    type: class-select
+    allowEmpty: false
+    default: doom-outline-standard
+    options:
+      - label: Standard (1, a, i, A)
+        value: doom-outline-standard
+      - label: Legal / hornbook (I, A, 1, a, i)
+        value: doom-legal-outline
+      - label: Decimal (1, 1.1, 1.1.1)
+        value: doom-outline-decimal
+      - label: Statutory ((1), (a), (i), (A))
+        value: doom-outline-statutory
   - id: doom-tree-indent
     title: File Explorer Tree Indent
     description: Indentation offset per folder depth level in px (Default 14px).

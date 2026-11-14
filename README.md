@@ -24,7 +24,7 @@ The suite:
 ## Features
 
 - **16 palettes.** Dark: `doom-one` (default), `doom-vibrant`, `doom-dracula`, `doom-tokyo-night`, `doom-gruvbox`, `doom-cyberpunk`, `doom-retro-terminal`, `doom-suit-and-tie`, `doom-crisp-dark`. Light: `doom-one-light` (default), `doom-nord-light`, `doom-gruvbox-light`, `doom-solarized-light`, `doom-tomorrow-day`, `doom-suit-and-tie-light`, `doom-crisp-light`.
-- **Org-mode typography.** Rainbow heading levels (or monochrome), optional `TODO`/`DONE` task badges, a `:PROPERTIES:` style frontmatter drawer and legal outline numbering (`I.` → `A.` → `1.` → `a.` → `i.`).
+- **Org-mode typography.** Rainbow heading levels (or monochrome), optional `TODO`/`DONE` task badges, a `:PROPERTIES:` style frontmatter drawer and outline numbering for nested numbered lists in four styles: standard (`1.` → `a.` → `i.`), legal / hornbook (`I.` → `A.` → `1.` → `a.`), decimal (`1.` → `1.1` → `1.1.1`) and statutory (`(1)` → `(a)` → `(i)`). Pick one in Style Settings or DoomEsque Settings, or per note with `cssclasses: outline-hornbook` (or `outline-standard`, `outline-decimal`, `outline-statutory`). DoomEsque Settings also shows the same numbers in Live Preview.
 - **Editor.** Five cursor styles (bar, block, glow, hollow, underline), rainbow or single-colour indent guides and an optional monospace buffer.
 - **Tables and Bases.** A stable grid that does not shift on edit, with density, gridline and zebra striping options.
 - **Hover previews.** Doom-styled preview windows with configurable size and an optional properties drawer.
