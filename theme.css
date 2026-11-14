@@ -2594,18 +2594,16 @@ body:not(.is-grabbing) .tree-item-self.nav-file-title.is-clickable:hover {
 /* Outline numbering for nested ordered lists, four styles. The global style comes from a body class
    set by DoomEsque Settings or Style Settings; a note can pick its own with a cssclass
    (outline-standard, outline-hornbook, outline-decimal, outline-statutory), which wins because the
-   per-note rules have the same specificity and come later. Every style defines six levels so no
-   style's deeper rule can outrank another's. DoomEsque Settings draws the same markers in Live
-   Preview (outlineNumbering.ts mirrors these levels).
+   per-note rules have the same specificity and come later. Every style defines six levels, and every
+   ::marker rule weighs the same (root + ol + li, extra ancestors in :where), so no style's deeper
+   rule can outrank another's. DoomEsque Settings draws the same markers in Live Preview
+   (outlineNumbering.ts mirrors these levels).
      Standard   1. a. i. A. i.
      Hornbook   I. A. 1. a. i. 1.
-     Decimal    1. 1.1 1.1.1   (::marker content; WebKit on iOS shows 1. 2. 3. instead)
-     Statutory  (1) (a) (i) (A) (I) */
-@counter-style doom-paren-decimal { system: extends decimal; prefix: "("; suffix: ") "; }
-@counter-style doom-paren-lower-alpha { system: extends lower-alpha; prefix: "("; suffix: ") "; }
-@counter-style doom-paren-lower-roman { system: extends lower-roman; prefix: "("; suffix: ") "; }
-@counter-style doom-paren-upper-alpha { system: extends upper-alpha; prefix: "("; suffix: ") "; }
-@counter-style doom-paren-upper-roman { system: extends upper-roman; prefix: "("; suffix: ") "; }
+     Decimal    1. 1.1 1.1.1      (::marker content)
+     Statutory  (1) (a) (i) (A) (I) (::marker content)
+   WebKit on iOS does not apply ::marker content, so there decimal and statutory fall back to their
+   list-style-type: 1. a. i. without the chaining or brackets. */
 
 /* Standard (default) */
 .markdown-rendered ol {
@@ -2692,27 +2690,47 @@ body.doom-outline-decimal .markdown-rendered :where(li) ol > li::marker {
 
 /* Global: statutory */
 body.doom-outline-statutory .markdown-rendered ol {
-  list-style-type: doom-paren-decimal;
+  list-style-type: decimal;
 }
 
 body.doom-outline-statutory .markdown-rendered ol ol {
-  list-style-type: doom-paren-lower-alpha;
+  list-style-type: lower-alpha;
 }
 
 body.doom-outline-statutory .markdown-rendered ol ol ol {
-  list-style-type: doom-paren-lower-roman;
+  list-style-type: lower-roman;
 }
 
 body.doom-outline-statutory .markdown-rendered ol ol ol ol {
-  list-style-type: doom-paren-upper-alpha;
+  list-style-type: upper-alpha;
 }
 
 body.doom-outline-statutory .markdown-rendered ol ol ol ol ol {
-  list-style-type: doom-paren-upper-roman;
+  list-style-type: upper-roman;
 }
 
 body.doom-outline-statutory .markdown-rendered ol ol ol ol ol ol {
-  list-style-type: doom-paren-upper-roman;
+  list-style-type: upper-roman;
+}
+
+body.doom-outline-statutory .markdown-rendered ol > li::marker {
+  content: "(" counter(list-item, decimal) ") ";
+}
+
+body.doom-outline-statutory .markdown-rendered :where(ol) ol > li::marker {
+  content: "(" counter(list-item, lower-alpha) ") ";
+}
+
+body.doom-outline-statutory .markdown-rendered :where(ol ol) ol > li::marker {
+  content: "(" counter(list-item, lower-roman) ") ";
+}
+
+body.doom-outline-statutory .markdown-rendered :where(ol ol ol) ol > li::marker {
+  content: "(" counter(list-item, upper-alpha) ") ";
+}
+
+body.doom-outline-statutory .markdown-rendered :where(ol ol ol ol) ol > li::marker {
+  content: "(" counter(list-item, upper-roman) ") ";
 }
 
 /* Per note: cssclasses: outline-standard */
@@ -2808,54 +2826,47 @@ body .markdown-rendered.outline-decimal :where(li) ol > li::marker {
 
 /* Per note: cssclasses: outline-statutory */
 body .markdown-rendered.outline-statutory ol {
-  list-style-type: doom-paren-decimal;
+  list-style-type: decimal;
 }
 
 body .markdown-rendered.outline-statutory ol ol {
-  list-style-type: doom-paren-lower-alpha;
+  list-style-type: lower-alpha;
 }
 
 body .markdown-rendered.outline-statutory ol ol ol {
-  list-style-type: doom-paren-lower-roman;
+  list-style-type: lower-roman;
 }
 
 body .markdown-rendered.outline-statutory ol ol ol ol {
-  list-style-type: doom-paren-upper-alpha;
+  list-style-type: upper-alpha;
 }
 
 body .markdown-rendered.outline-statutory ol ol ol ol ol {
-  list-style-type: doom-paren-upper-roman;
+  list-style-type: upper-roman;
 }
 
 body .markdown-rendered.outline-statutory ol ol ol ol ol ol {
-  list-style-type: doom-paren-upper-roman;
+  list-style-type: upper-roman;
 }
 
 body .markdown-rendered.outline-statutory ol > li::marker {
-  content: normal;
+  content: "(" counter(list-item, decimal) ") ";
 }
 
-/* Live Preview: DoomEsque Settings replaces the typed marker and its space ("1. ") with the computed
-   one. An invisible copy of the typed marker keeps its exact width, so text and wrapped lines stay
-   where Obsidian put them; the visible marker (with its space) is right-aligned to that edge and
-   extends left when it is longer. The widget carries the list-marker classes, so the theme's marker
-   weight and per-level colours apply. */
-.markdown-source-view.mod-cm6 .doom-outline-marker {
-  position: relative;
-  display: inline-block;
-  text-indent: 0;
+body .markdown-rendered.outline-statutory :where(ol) ol > li::marker {
+  content: "(" counter(list-item, lower-alpha) ") ";
 }
 
-.markdown-source-view.mod-cm6 .doom-outline-marker-sizer {
-  visibility: hidden;
-  white-space: pre;
+body .markdown-rendered.outline-statutory :where(ol ol) ol > li::marker {
+  content: "(" counter(list-item, lower-roman) ") ";
 }
 
-.markdown-source-view.mod-cm6 .doom-outline-marker-text {
-  position: absolute;
-  inset-inline-end: 0;
-  top: 0;
-  white-space: pre;
+body .markdown-rendered.outline-statutory :where(ol ol ol) ol > li::marker {
+  content: "(" counter(list-item, upper-alpha) ") ";
+}
+
+body .markdown-rendered.outline-statutory :where(ol ol ol ol) ol > li::marker {
+  content: "(" counter(list-item, upper-roman) ") ";
 }
 
 /* Tabular Semibold Markers & Depth-Aware Outline Marker Hierarchy */
