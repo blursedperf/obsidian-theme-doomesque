@@ -1710,6 +1710,7 @@ body.is-mobile {
   --metadata-property-background: transparent;
   --metadata-property-background-hover: transparent;
   --metadata-property-background-active: transparent;
+  --metadata-property-box-shadow-focus: none; /* key and value boxes carry their own focus ring */
   --metadata-input-background: var(--doom-base0);
   --metadata-input-background-hover: var(--doom-base0);
   --metadata-input-background-active: var(--doom-base0);
@@ -2413,11 +2414,11 @@ body:not(.is-grabbing) .tree-item-self.nav-file-title.is-clickable:hover {
   color: var(--doom-fg);
   font-family: var(--font-interface);
   box-shadow: none;
-  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+  transition: border-color var(--doom-transition), box-shadow var(--doom-transition);
 }
 
 .search-input-container input:hover {
-  border-color: var(--doom-base4);
+  border-color: var(--doom-border-strong);
 }
 
 .search-input-container input:focus {
@@ -3231,7 +3232,7 @@ body.doom-cursor-underline :is(.markdown-source-view.mod-cm6, .cm-s-obsidian) .c
   align-items: center;
   color: var(--doom-cyan-text);
   font-family: var(--font-interface);
-  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+  transition: border-color var(--doom-transition), box-shadow var(--doom-transition);
 }
 
 .metadata-container .metadata-property-key:hover {
@@ -3261,7 +3262,7 @@ body.doom-cursor-underline :is(.markdown-source-view.mod-cm6, .cm-s-obsidian) .c
   flex: 1 1 auto;
   display: flex;
   align-items: center;
-  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+  transition: border-color var(--doom-transition), box-shadow var(--doom-transition);
 }
 
 .metadata-container .metadata-property-value:hover {
@@ -4813,6 +4814,7 @@ body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])) {
   --nav-item-background-active: rgba(var(--doom-blue-rgb), 0.1);
   --nav-item-color-active: var(--doom-base8);
   --doom-crisp-float-shadow: 0 8px 24px rgba(15, 23, 42, 0.12), 0 1px 3px rgba(15, 23, 42, 0.08);
+  --doom-focus-ring: 0 0 0 1px var(--doom-blue); /* with the 1px blue border: a solid 2px edge, no gap */
   --tag-radius: var(--radius-m);
 }
 
@@ -4827,6 +4829,7 @@ body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"])) {
   --nav-item-background-active: rgba(var(--doom-blue-rgb), 0.14);
   --nav-item-color-active: var(--doom-base8);
   --doom-crisp-float-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.4);
+  --doom-focus-ring: 0 0 0 1px var(--doom-blue);
   --tag-radius: var(--radius-m);
 }
 
@@ -4885,8 +4888,11 @@ body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"])) {
   box-shadow: inset 2px 0 0 var(--doom-blue);
 }
 
-/* Clear keyboard focus everywhere */
-:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) :is(button, input, select, textarea, .clickable-icon, .tree-item-self):focus-visible {
+/* Clear keyboard focus on buttons, icons and tree rows. Text fields, textareas and dropdowns are
+   left to the shared border + --doom-focus-ring rule: Chromium matches :focus-visible on every
+   click into a text field, and an offset outline there stacked on the blue border as a double ring
+   (and boxed borderless fields such as the command palette and property values). */
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) :is(button, .clickable-icon, .tree-item-self):focus-visible {
   outline: 2px solid var(--doom-blue);
   outline-offset: 1px;
   box-shadow: none;
@@ -5364,12 +5370,20 @@ body.theme-light .menu {
   flex-shrink: 0;
 }
 
-input.prompt-input {
-  background-color: transparent;
-  border: none;
+/* Scoped to the container so it outranks the later generic input[type="text"] rules */
+.prompt-input-container input.prompt-input {
   font-family: var(--font-interface);
   font-size: var(--doom-font-ui-lg);
   color: var(--doom-fg);
+}
+
+/* Borderless in every state; the M-x bar is the field. Font size stays on the rule above so the
+   mobile 16px no-zoom rule still wins. */
+.prompt-input-container input.prompt-input,
+.prompt-input-container input.prompt-input:is(:hover, :focus, :focus-visible) {
+  background-color: transparent;
+  border: none;
+  outline: none;
   box-shadow: none;
 }
 
