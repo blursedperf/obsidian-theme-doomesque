@@ -118,7 +118,9 @@ body:not(.is-mobile) {
 }
 
 /* ==========================================================================
-   DARK THEME: doom-one (Default)
+   DARK THEME: doom-one (base tokens)
+   Every dark palette starts from these values. The default palette is doom-crisp-dark, which also
+   applies when no palette class is set (the theme without DoomEsque Settings or Style Settings).
    ========================================================================== */
 .theme-dark,
 body.theme-dark.doom-palette-one {
@@ -773,7 +775,8 @@ body.theme-dark.doom-palette-suit-and-tie {
    The dark counterpart of doom-crisp-light: near-black neutral surfaces (sidebars a step darker than
    the editor), off-white ink and bright, saturated accents that read at AA or better everywhere.
    ========================================================================== */
-body.theme-dark.doom-palette-crisp-dark {
+body.theme-dark.doom-palette-crisp-dark,
+body.theme-dark:not([class*="doom-palette-"]) {
   --doom-bg: #121418;
   --doom-bg-alt: #0c0e11;
   --doom-base0: #090b0e;
@@ -852,7 +855,9 @@ body.theme-dark.doom-palette-crisp-dark {
 }
 
 /* ==========================================================================
-   LIGHT THEME: doom-one-light (Default)
+   LIGHT THEME: doom-one-light (base tokens)
+   Every light palette starts from these values. The default palette is doom-crisp-light, which also
+   applies when no palette class is set.
    ========================================================================== */
 .theme-light,
 body.theme-light.doom-palette-one-light {
@@ -1344,7 +1349,8 @@ body.theme-light.doom-palette-suit-and-tie-light {
    Pure white paper, near-black ink, cool neutral greys and saturated accents
    that read at AA or better on every surface.
    ========================================================================== */
-body.theme-light.doom-palette-crisp-light {
+body.theme-light.doom-palette-crisp-light,
+body.theme-light:not([class*="doom-palette-"]) {
   --doom-bg: #ffffff;
   --doom-bg-alt: #f5f7fa;
   --doom-base0: #f9fafb;
@@ -4794,7 +4800,7 @@ body.theme-light.doom-palette-suit-and-tie-light .doom-popover-btn.mod-pin.is-ac
    active states. The rules are shared; each palette sets the values that differ between light and
    dark (hover overlay, floating-surface shadow, highlight).
    -------------------------------------------------------------------------- */
-body.theme-light.doom-palette-crisp-light {
+body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])) {
   --doom-shadow-scale: 0.3;
   --text-selection: rgba(var(--doom-blue-rgb), 0.2);
   --text-highlight-bg: rgba(255, 214, 0, 0.45);
@@ -4810,7 +4816,7 @@ body.theme-light.doom-palette-crisp-light {
   --tag-radius: var(--radius-m);
 }
 
-body.theme-dark.doom-palette-crisp-dark {
+body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"])) {
   --text-selection: rgba(var(--doom-blue-rgb), 0.28);
   --blockquote-color: var(--doom-text-muted);
   --bold-color: var(--doom-base8);
@@ -4824,25 +4830,25 @@ body.theme-dark.doom-palette-crisp-dark {
   --tag-radius: var(--radius-m);
 }
 
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .markdown-rendered h1,
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .HyperMD-header-1 {
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) .markdown-rendered h1,
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) .HyperMD-header-1 {
   border-bottom: 1px solid var(--doom-border-subtle);
   padding-bottom: 0.2em;
 }
 
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) :is(.markdown-rendered, .markdown-source-view) hr {
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) :is(.markdown-rendered, .markdown-source-view) hr {
   border: none;
   border-top: 1px solid var(--doom-border-subtle);
   height: 1px;
 }
 
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) blockquote,
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .cm-quote {
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) blockquote,
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) .cm-quote {
   border-left: 3px solid var(--doom-blue);
   background-color: var(--doom-base0);
 }
 
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) code:not(pre code) {
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) code:not(pre code) {
   color: var(--doom-base8);
   background-color: var(--doom-base1);
   border: 1px solid var(--doom-base2);
@@ -4850,72 +4856,72 @@ body.theme-dark.doom-palette-crisp-dark {
   padding: 0.12em 0.35em;
 }
 
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .tag,
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) a.tag,
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .cm-s-obsidian span.cm-hashtag {
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) .tag,
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) a.tag,
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) .cm-s-obsidian span.cm-hashtag {
   font-weight: 600;
 }
 
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark).doom-active-block-highlight .cm-active {
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))).doom-active-block-highlight .cm-active {
   background-color: rgba(var(--doom-blue-rgb), 0.05);
 }
 
 
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .workspace-ribbon,
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .workspace-split.mod-left-split,
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .workspace-split.mod-right-split {
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) .workspace-ribbon,
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) .workspace-split.mod-left-split,
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) .workspace-split.mod-right-split {
   border-color: var(--doom-border-subtle);
 }
 
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .status-bar {
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) .status-bar {
   border-top: 1px solid var(--doom-border-subtle);
 }
 
 /* Active file in the explorer: ink text with a solid accent edge */
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .nav-file-title.is-active,
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .tree-item-self.is-active {
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) .nav-file-title.is-active,
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) .tree-item-self.is-active {
   color: var(--doom-base8);
   font-weight: 600;
   box-shadow: inset 2px 0 0 var(--doom-blue);
 }
 
 /* Clear keyboard focus everywhere */
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) :is(button, input, select, textarea, .clickable-icon, .tree-item-self):focus-visible {
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) :is(button, input, select, textarea, .clickable-icon, .tree-item-self):focus-visible {
   outline: 2px solid var(--doom-blue);
   outline-offset: 1px;
   box-shadow: none;
 }
 
 /* Floating surfaces: the editor surface, hairline border, short shadow */
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) :is(.popover.hover-popover, .menu, .modal, .prompt, .suggestion-container) {
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) :is(.popover.hover-popover, .menu, .modal, .prompt, .suggestion-container) {
   background-color: var(--doom-bg);
   border: 1px solid var(--doom-border-subtle);
   box-shadow: var(--doom-crisp-float-shadow);
 }
 
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) :is(.suggestion-item, .menu-item).is-selected {
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) :is(.suggestion-item, .menu-item).is-selected {
   background-color: rgba(var(--doom-blue-rgb), 0.12);
   color: var(--doom-base8);
 }
 
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .doom-popover-btn {
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) .doom-popover-btn {
   color: var(--doom-text-muted);
 }
 
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .doom-popover-btn:hover {
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) .doom-popover-btn:hover {
   background-color: rgba(var(--doom-blue-rgb), 0.1);
   border-color: rgba(var(--doom-blue-rgb), 0.3);
   color: var(--doom-blue-text);
 }
 
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .doom-popover-btn.is-active,
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .doom-popover-btn.mod-pin.is-active {
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) .doom-popover-btn.is-active,
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) .doom-popover-btn.mod-pin.is-active {
   color: var(--doom-green-text);
   background-color: rgba(var(--doom-green-rgb), 0.12);
   border-color: rgba(var(--doom-green-rgb), 0.35);
 }
 
-:is(body.theme-light.doom-palette-crisp-light, body.theme-dark.doom-palette-crisp-dark) .doom-popover-btn.mod-pin.is-active svg path {
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) .doom-popover-btn.mod-pin.is-active svg path {
   fill: var(--doom-green);
 }
 
@@ -6355,9 +6361,9 @@ settings:
     description: Choose which Doom Emacs color scheme to use in Dark Mode.
     type: class-select
     allowEmpty: false
-    default: doom-palette-one
+    default: doom-palette-crisp-dark
     options:
-      - label: doom-one (Default)
+      - label: doom-one
         value: doom-palette-one
       - label: doom-vibrant
         value: doom-palette-vibrant
@@ -6373,16 +6379,16 @@ settings:
         value: doom-palette-retro-terminal
       - label: doom-suit-and-tie (Modern Sartorial Slate)
         value: doom-palette-suit-and-tie
-      - label: doom-crisp-dark (Clean Modern High Contrast)
+      - label: doom-crisp-dark (Default, clean modern high contrast)
         value: doom-palette-crisp-dark
   - id: doom-light-palette
     title: Light Mode Doom Palette
     description: Choose which Doom Emacs color scheme to use in Light Mode.
     type: class-select
     allowEmpty: false
-    default: doom-palette-one-light
+    default: doom-palette-crisp-light
     options:
-      - label: doom-one-light (Default)
+      - label: doom-one-light
         value: doom-palette-one-light
       - label: doom-nord-light
         value: doom-palette-nord-light
@@ -6394,7 +6400,7 @@ settings:
         value: doom-palette-tomorrow-day
       - label: doom-suit-and-tie-light (Linen Suit & Silk Tie)
         value: doom-palette-suit-and-tie-light
-      - label: doom-crisp-light (Clean Modern High Contrast)
+      - label: doom-crisp-light (Default, clean modern high contrast)
         value: doom-palette-crisp-light
   - id: doom-no-org-todo
     title: Disable Org-Mode TODO / DONE Task Badges

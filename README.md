@@ -23,7 +23,7 @@ The suite:
 
 ## Features
 
-- **16 palettes.** Dark: `doom-one` (default), `doom-vibrant`, `doom-dracula`, `doom-tokyo-night`, `doom-gruvbox`, `doom-cyberpunk`, `doom-retro-terminal`, `doom-suit-and-tie`, `doom-crisp-dark`. Light: `doom-one-light` (default), `doom-nord-light`, `doom-gruvbox-light`, `doom-solarized-light`, `doom-tomorrow-day`, `doom-suit-and-tie-light`, `doom-crisp-light`.
+- **16 palettes.** Dark: `doom-crisp-dark` (default), `doom-one`, `doom-vibrant`, `doom-dracula`, `doom-tokyo-night`, `doom-gruvbox`, `doom-cyberpunk`, `doom-retro-terminal`, `doom-suit-and-tie`. Light: `doom-crisp-light` (default), `doom-one-light`, `doom-nord-light`, `doom-gruvbox-light`, `doom-solarized-light`, `doom-tomorrow-day`, `doom-suit-and-tie-light`. The crisp palettes are clean, modern and high contrast; they also apply when neither DoomEsque Settings nor Style Settings is installed.
 - **Org-mode typography.** Rainbow heading levels (or monochrome), optional `TODO`/`DONE` task badges, a `:PROPERTIES:` style frontmatter drawer and outline numbering for nested numbered lists in four styles: standard (`1.` → `a.` → `i.`), legal / hornbook (`I.` → `A.` → `1.` → `a.`), decimal (`1.` → `1.1` → `1.1.1`) and statutory (`(1)` → `(a)` → `(i)`). Pick one in Style Settings or DoomEsque Settings, or per note with `cssclasses: outline-hornbook` (or `outline-standard`, `outline-decimal`, `outline-statutory`). DoomEsque Settings also shows the same numbers in Live Preview.
 - **Editor.** Five cursor styles (bar, block, glow, hollow, underline), rainbow or single-colour indent guides and an optional monospace buffer.
 - **Tables and Bases.** A stable grid that does not shift on edit, with density, gridline and zebra striping options.
