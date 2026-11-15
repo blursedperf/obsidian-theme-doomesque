@@ -4475,6 +4475,207 @@ body.theme-light {
   max-width: none;
 }
 
+/* Bases Filter Menu (desktop popover; the mobile sheet keeps Obsidian's card layout).
+   Obsidian draws each filter as one segmented bar: property | operator | value. The theme's generic
+   input / combobox borders split that bar into separately boxed controls of different heights, and
+   with the wider monospace UI font the 520px menu squeezed the property and operator down to "f…"
+   and "i". Here the bar is drawn once on .filter-expression, the segments are divided by a single
+   hairline, the property and operator keep their text, and long names wrap instead of truncating. */
+body {
+  --bases-filter-menu-width: min(680px, calc(100vw - 32px));
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression {
+  align-items: stretch;
+  min-height: var(--input-height);
+  background-color: var(--doom-base0);
+  border: 1px solid var(--doom-border-subtle);
+  border-radius: var(--input-radius);
+  overflow: hidden;
+  transition: border-color var(--doom-transition);
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression:hover {
+  border-color: var(--doom-border-strong);
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression:focus-within {
+  border-color: var(--doom-blue);
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-statement.mod-error .filter-expression {
+  border-color: var(--doom-red);
+  box-shadow: none;
+}
+
+/* Segments: no box of their own, one divider after each, same height as the bar. */
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression :where(.filter-property-select, .filter-operator, .filter-rhs-container .combobox-button, .filter-rhs-container .metadata-input, .filter-rhs-container .multi-select-container) {
+  height: auto;
+  min-height: calc(var(--input-height) - 2px);
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression :is(.filter-property-select, .filter-operator) {
+  border-inline-end: 1px solid var(--doom-border-subtle);
+  color: var(--doom-fg);
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression :is(.filter-property-select, .filter-operator, .filter-rhs-container .combobox-button):hover {
+  background-color: rgba(var(--doom-blue-rgb), 0.1);
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression :is(.filter-property-select, .filter-operator, .filter-rhs-container .combobox-button):is(:focus-visible, .has-focus) {
+  background-color: rgba(var(--doom-blue-rgb), 0.16);
+  box-shadow: none;
+}
+
+/* Property and operator size to their text; the value takes what is left but never collapses. */
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression .filter-property-select {
+  flex: 0 1 auto;
+  min-width: min(9ch, 30%);
+  max-width: 38%;
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression .filter-operator {
+  flex: 0 0 auto;
+  min-width: 0;
+  max-width: 30%;
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression .filter-rhs-container {
+  flex: 1 1 10ch;
+  min-width: 10ch;
+  align-self: stretch;
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression .filter-rhs-container > * {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Long property names, operators and values wrap onto a second line rather than ending in "…". */
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression :is(.filter-property-select, .filter-operator, .filter-rhs-container .combobox-button) .combobox-button-label {
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+  line-height: var(--line-height-tight);
+  padding-block: 4px;
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression :is(.filter-property-select, .filter-operator) .combobox-button-icon,
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression :is(.filter-property-select, .filter-operator) .combobox-button-chevron {
+  flex-shrink: 0;
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression .filter-rhs-container .metadata-input {
+  padding: 4px 8px;
+  color: var(--doom-fg);
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression .filter-rhs-container .metadata-input::placeholder,
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression .combobox-button-label:empty::before {
+  color: var(--text-faint);
+}
+
+/* Formula filters: the editor fills the bar. */
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression .formula-editor-container {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 4px 8px;
+  font-family: var(--font-monospace-doom, var(--font-monospace));
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression .formula-editor {
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression .filter-row-actions {
+  align-self: center;
+  flex-shrink: 0;
+  height: auto;
+  margin-inline-start: auto;
+}
+
+/* Narrow rows (small or popout windows, deeply nested groups): the value moves onto its own line
+   under property and operator, so nothing is squeezed to a letter per line or pushed out of view. */
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-statement {
+  container: doom-filter / inline-size;
+  min-width: 0;
+}
+
+@container doom-filter (max-width: 440px) {
+  .menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression {
+    flex-wrap: wrap;
+  }
+
+  /* First line: property takes the free width (wrapping if it must), operator and icons keep theirs. */
+  .menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression .filter-property-select {
+    flex: 1 1 0;
+    max-width: none;
+  }
+
+  .menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression .filter-operator {
+    max-width: 45%;
+  }
+
+  .menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression .formula-editor-container {
+    flex: 1 1 0;
+  }
+
+  .menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression .filter-rhs-container {
+    order: 1;
+    flex: 1 0 100%;
+    border-top: 1px solid var(--doom-border-subtle);
+  }
+
+  .menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-expression .filter-rhs-container:empty {
+    display: none;
+  }
+}
+
+/* "where / and / or" column and the group's "All / Any / None of the following" switch. */
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-row > .conjunction {
+  flex: 0 0 6ch;
+  min-width: 6ch;
+  text-align: end;
+  color: var(--text-muted);
+  font-size: var(--doom-font-ui-sm);
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-group-header .conjunction.dropdown {
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--doom-blue-text);
+  font-weight: 600;
+  min-width: max-content;
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-group-header .conjunction.dropdown:hover {
+  border-color: var(--doom-border-subtle);
+  background-color: rgba(var(--doom-blue-rgb), 0.1);
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-row > .filter-group {
+  background-color: var(--doom-bg);
+  border: 1px solid var(--doom-border-subtle);
+  border-left: 2px solid var(--doom-blue);
+  border-radius: var(--radius-s);
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-group-actions .text-icon-button {
+  color: var(--text-muted);
+}
+
+.menu.bases-toolbar-filter-menu:not(.mod-sheet) .filter-group-actions .text-icon-button:hover {
+  color: var(--doom-blue-text);
+}
+
 /* --------------------------------------------------------------------------
    Retro Green Terminal (doom-palette-retro-terminal) Polish
    Phosphor green consistency across Bases, Properties & UI Elements
