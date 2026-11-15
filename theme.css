@@ -5315,6 +5315,13 @@ body:not(.doom-mono-indent-guides) .tree-item-children > .tree-item > .tree-item
   border-radius: var(--radius-s);
   box-shadow: var(--doom-shadow-4);
   font-family: var(--font-interface);
+}
+
+/* The prompt and menus scroll inside their own lists, so they clip. Dialogs are left to Obsidian,
+   which caps their height and scrolls them (overflow: auto); clipping them hid whatever ran past the
+   bottom of a tall dialog on a short window. */
+.prompt,
+.menu {
   overflow: hidden;
 }
 
