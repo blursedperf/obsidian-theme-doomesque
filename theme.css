@@ -1543,9 +1543,13 @@ body.is-mobile {
   /* Markdown Elements */
   --bold-color: var(--doom-orange-text);
   --italic-color: var(--doom-green-text);
-  --blockquote-border-color: var(--doom-magenta);
+  /* One quote accent for both views; palettes swap it by setting --doom-quote / --doom-quote-rgb. */
+  --doom-quote: var(--doom-magenta);
+  --doom-quote-rgb: var(--doom-magenta-rgb);
+  --blockquote-border-color: var(--doom-quote);
   --blockquote-border-thickness: 3px;
-  --blockquote-background-color: rgba(var(--doom-magenta-rgb), 0.05);
+  --blockquote-background-color: rgba(var(--doom-quote-rgb), 0.05);
+  --blockquote-style: italic;
   --blockquote-color: var(--doom-base7);
 
   /* Links (Org-link style: bright blue, subtle underline) */
@@ -1613,11 +1617,13 @@ body.is-mobile {
   --divider-color-hover: var(--doom-blue);
   --divider-width: 1px;
 
-  /* Checkboxes (Org-mode TODO / DONE style) */
-  --checkbox-color: var(--doom-green-text);
-  --checkbox-color-hover: var(--doom-teal-text);
-  --checkbox-border-color: var(--doom-orange-text);
-  --checkbox-border-color-hover: var(--doom-yellow-text);
+  /* Checkboxes. UI checkboxes (dialogs, menus, property values, Bases cells) use the neutral border
+     and the accent fill, like toggles; task checkboxes keep the Org TODO / DONE colours (below). */
+  --checkbox-color: var(--doom-blue-fill);
+  --checkbox-color-hover: var(--doom-blue-fill);
+  --checkbox-border-color: var(--doom-border-strong);
+  --checkbox-border-color-hover: var(--doom-blue);
+  --checkbox-marker-color: var(--doom-on-accent);
   --checklist-done-color: var(--doom-text-faint);
   --checklist-done-decoration: line-through;
 
@@ -1833,7 +1839,8 @@ body.doom-editorial-emphasis {
   margin-bottom: calc(var(--heading-spacing, 1.85rem) * 0.24);
 }
 
-.cm-s-obsidian .HyperMD-header {
+/* Scoped like the generic `.markdown-source-view.mod-cm6 .cm-line` 1px rule, which otherwise wins. */
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header {
   padding-top: calc(var(--heading-spacing, 1.85rem) * 0.35);
   padding-bottom: 0.2em;
 }
@@ -3476,11 +3483,11 @@ body.doom-cursor-underline :is(.markdown-source-view.mod-cm6, .cm-s-obsidian) .c
 
 /* Blockquotes (`#+BEGIN_QUOTE` — Statutory Excerpts & Judicial Quotations) */
 .markdown-rendered blockquote {
-  border: 1px solid rgba(var(--doom-magenta-rgb), 0.18);
-  border-left: 3px solid var(--doom-magenta);
-  background-color: rgba(var(--doom-magenta-rgb), 0.05);
-  color: var(--doom-base7);
-  font-style: italic;
+  border: 1px solid rgba(var(--doom-quote-rgb), 0.18);
+  border-left: var(--blockquote-border-thickness) solid var(--blockquote-border-color);
+  background-color: var(--blockquote-background-color);
+  color: var(--blockquote-color);
+  font-style: var(--blockquote-style);
   padding: 10px 16px;
   margin: 1em 0;
   line-height: 1.62;
@@ -3509,11 +3516,10 @@ body.doom-cursor-underline :is(.markdown-source-view.mod-cm6, .cm-s-obsidian) .c
   background-color: rgba(var(--doom-blue-rgb), 0.05);
 }
 
+/* Live Preview: Obsidian draws the quote bar itself (a ::before fed by --blockquote-border-*), and
+   sets background and italic from the same variables; a border-left here drew a second bar beside it. */
 .cm-s-obsidian .HyperMD-quote {
-  border-left: 3px solid var(--doom-magenta);
-  background-color: rgba(var(--doom-magenta-rgb), 0.05);
-  color: var(--doom-base7);
-  font-style: italic;
+  color: var(--blockquote-color);
   padding-left: 14px;
   padding-top: 2px;
   padding-bottom: 2px;
@@ -3522,17 +3528,21 @@ body.doom-cursor-underline :is(.markdown-source-view.mod-cm6, .cm-s-obsidian) .c
   line-height: 1.62;
 }
 
-.cm-s-obsidian .HyperMD-quote.HyperMD-quote-2 {
-  border-left-color: var(--doom-violet);
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote.HyperMD-quote-2 {
   background-color: rgba(var(--doom-violet-rgb), 0.05);
 }
 
-.cm-s-obsidian .HyperMD-quote.HyperMD-quote-3 {
-  border-left-color: var(--doom-blue);
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote.HyperMD-quote-3 {
   background-color: rgba(var(--doom-blue-rgb), 0.05);
 }
 
 /* Note Embeds & Transclusions (Org-transclusion block style) */
+/* The card pads itself (below); Obsidian's --embed-padding added another 24px on the left only, so
+   embedded text sat off-centre in its card. */
+body {
+  --embed-padding: 0;
+}
+
 .internal-embed.markdown-embed,
 .file-embed {
   background-color: var(--doom-bg-alt);
@@ -4124,11 +4134,14 @@ body.doom-bases-toolbar-labels {
   overflow: visible;
   font-family: var(--font-interface);
   color: var(--text-muted);
-  font-size: 0.8em;
 }
 
+/* The button already sets 0.8em; a second 0.8em on the item shrank the count to ~9.6px and left the
+   button shorter than its icon-only neighbours. */
 .bases-toolbar :is(.bases-toolbar-result-count, .bases-toolbar-results-menu) .text-icon-button,
 .bases-toolbar :is(.bases-toolbar-result-count, .bases-toolbar-results-menu) button {
+  min-height: calc(var(--icon-size, 16px) + 6px);
+  color: var(--text-muted);
   flex-shrink: 0;
   min-width: max-content;
   max-width: none;
@@ -4915,12 +4928,11 @@ body.theme-light.doom-palette-suit-and-tie-light :is(.markdown-rendered, .markdo
 }
 
 /* Bespoke tailored blockquotes with silk-tie accent */
-body.theme-dark.doom-palette-suit-and-tie blockquote,
-body.theme-dark.doom-palette-suit-and-tie .cm-quote,
-body.theme-light.doom-palette-suit-and-tie-light blockquote,
-body.theme-light.doom-palette-suit-and-tie-light .cm-quote {
-  border-left: 3px solid var(--doom-blue);
-  background-color: rgba(var(--doom-blue-rgb), 0.04);
+body.theme-dark.doom-palette-suit-and-tie,
+body.theme-light.doom-palette-suit-and-tie-light {
+  --doom-quote: var(--doom-blue);
+  --doom-quote-rgb: var(--doom-blue-rgb);
+  --blockquote-background-color: rgba(var(--doom-blue-rgb), 0.04);
 }
 
 /* Tailored lapel pin tags */
@@ -5047,10 +5059,10 @@ body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"])) {
   height: 1px;
 }
 
-:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) blockquote,
-:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) .cm-quote {
-  border-left: 3px solid var(--doom-blue);
-  background-color: var(--doom-base0);
+:is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) {
+  --doom-quote: var(--doom-blue);
+  --doom-quote-rgb: var(--doom-blue-rgb);
+  --blockquote-background-color: var(--doom-base0);
 }
 
 :is(body.theme-light:is(.doom-palette-crisp-light, :not([class*="doom-palette-"])), body.theme-dark:is(.doom-palette-crisp-dark, :not([class*="doom-palette-"]))) code:not(pre code) {
@@ -5235,6 +5247,33 @@ body.theme-light .cm-s-obsidian span.cm-highlight {
   transition: background-color 0.12s ease, color 0.12s ease, border-color 0.12s ease;
 }
 
+.cm-s-obsidian span.cm-footref {
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  border-inline-width: 0;
+}
+
+.cm-s-obsidian span.cm-footref.cm-formatting-link-start {
+  margin-inline-start: 1px;
+  padding-inline-start: 4px;
+  border-inline-start-width: 1px;
+  border-start-start-radius: var(--radius-s);
+  border-end-start-radius: var(--radius-s);
+}
+
+.cm-s-obsidian span.cm-footref.cm-formatting-link-end {
+  margin-inline-end: 1px;
+  padding-inline-end: 4px;
+  border-inline-end-width: 1px;
+  border-start-end-radius: var(--radius-s);
+  border-end-end-radius: var(--radius-s);
+}
+
+.cm-s-obsidian span.cm-footref.cm-formatting {
+  color: var(--doom-text-faint);
+}
+
 .footnote-ref a:hover {
   color: var(--doom-on-accent);
   background-color: var(--doom-blue-fill);
@@ -5292,6 +5331,16 @@ a.tag,
 /* --------------------------------------------------------------------------
    9. Checkboxes & Task Lists (Org-mode TODO / DONE style)
    -------------------------------------------------------------------------- */
+/* Org TODO / DONE colours for task checkboxes only. */
+.markdown-rendered .task-list-item,
+.cm-s-obsidian .HyperMD-task-line {
+  --checkbox-color: var(--doom-green-text);
+  --checkbox-color-hover: var(--doom-teal-text);
+  --checkbox-border-color: var(--doom-orange-text);
+  --checkbox-border-color-hover: var(--doom-yellow-text);
+  --checkbox-marker-color: var(--background-primary);
+}
+
 input[type="checkbox"].task-list-item-checkbox {
   border-radius: var(--radius-s);
   border: 1.5px solid var(--doom-orange);
@@ -5327,36 +5376,98 @@ input[type="checkbox"].task-list-item-checkbox:checked {
   line-height: 1;
 }
 
-/* Optional Org-mode `TODO` / `DONE` badge prefixes on task items
-   (checkbox → badge → text in both views). */
+/* Optional Org-mode keyword badges on task items (checkbox → badge → text in both views).
+   Obsidian treats any character in the brackets as "checked", so badges and checkbox marks key off
+   data-task, never .is-checked: [/] and [-] tasks used to read DONE with a green tick.
+     [ ] TODO   [x] DONE   [/] STRT (in progress)   [-] KILL (cancelled)   [>] HOLD (deferred)
+     [?] WAIT (question)   any other character: no badge. */
 .markdown-rendered .task-list-item > p {
   display: inline;
 }
 
-body:not(.doom-no-org-todo) .markdown-rendered .task-list-item:not(.is-checked)::before,
-body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task=" "] .task-list-label::after {
-  content: "TODO";
+body:not(.doom-no-org-todo) .markdown-rendered .task-list-item[data-task]::before,
+body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task] .task-list-label::after {
   display: inline-block;
-  margin-inline-end: 0.4em;
-  color: var(--doom-orange-text);
-  font-family: var(--font-monospace-doom);
-  font-weight: 700;
-  font-size: 0.85em;
-  letter-spacing: 0.03em;
-}
-
-body:not(.doom-no-org-todo) .markdown-rendered .task-list-item.is-checked::before,
-body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task="x"] .task-list-label::after,
-body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task="X"] .task-list-label::after {
-  content: "DONE";
-  color: var(--doom-green-text);
   font-family: var(--font-monospace-doom);
   font-weight: 700;
   font-size: 0.85em;
   letter-spacing: 0.03em;
   text-decoration: none;
-  display: inline-block;
+  color: var(--doom-task-keyword-color, var(--doom-orange-text));
+}
+
+/* Reading view: the badge leads the text. Live Preview: the badge follows the checkbox and the
+   source's own space after "]" separates it from the text, so it takes no end margin there. */
+body:not(.doom-no-org-todo) .markdown-rendered .task-list-item[data-task]::before {
   margin-inline-end: 0.4em;
+}
+
+body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task] .task-list-label::after {
+  margin-inline-start: 0.2em;
+}
+
+:is(.markdown-rendered .task-list-item, .cm-s-obsidian .HyperMD-task-line):is([data-task=" "], [data-task=""]) {
+  --doom-task-keyword: "TODO";
+  --doom-task-keyword-color: var(--doom-orange-text);
+}
+
+:is(.markdown-rendered .task-list-item, .cm-s-obsidian .HyperMD-task-line):is([data-task="x"], [data-task="X"]) {
+  --doom-task-keyword: "DONE";
+  --doom-task-keyword-color: var(--doom-green-text);
+}
+
+:is(.markdown-rendered .task-list-item, .cm-s-obsidian .HyperMD-task-line)[data-task="/"] {
+  --doom-task-keyword: "STRT";
+  --doom-task-keyword-color: var(--doom-yellow-text);
+  --doom-task-mark: var(--doom-yellow);
+}
+
+:is(.markdown-rendered .task-list-item, .cm-s-obsidian .HyperMD-task-line)[data-task="-"] {
+  --doom-task-keyword: "KILL";
+  --doom-task-keyword-color: var(--doom-text-faint);
+  --doom-task-mark: var(--doom-text-faint);
+}
+
+:is(.markdown-rendered .task-list-item, .cm-s-obsidian .HyperMD-task-line)[data-task=">"] {
+  --doom-task-keyword: "HOLD";
+  --doom-task-keyword-color: var(--doom-violet-text);
+  --doom-task-mark: var(--doom-violet);
+}
+
+:is(.markdown-rendered .task-list-item, .cm-s-obsidian .HyperMD-task-line)[data-task="?"] {
+  --doom-task-keyword: "WAIT";
+  --doom-task-keyword-color: var(--doom-cyan-text);
+  --doom-task-mark: var(--doom-cyan);
+}
+
+body:not(.doom-no-org-todo) .markdown-rendered .task-list-item[data-task]::before,
+body:not(.doom-no-org-todo) .cm-s-obsidian .HyperMD-task-line[data-task] .task-list-label::after {
+  content: var(--doom-task-keyword, none);
+}
+
+/* Checkbox marks for the extra states: an outline in the state colour, no tick.
+   [/] is half filled, [-] carries a dash and its text is struck through and faint. */
+:is(.markdown-rendered .task-list-item, .cm-s-obsidian .HyperMD-task-line):is([data-task="/"], [data-task="-"], [data-task=">"], [data-task="?"]) input[type="checkbox"].task-list-item-checkbox {
+  border-color: var(--doom-task-mark);
+  background-color: var(--doom-base0);
+}
+
+:is(.markdown-rendered .task-list-item, .cm-s-obsidian .HyperMD-task-line):is([data-task="/"], [data-task="-"], [data-task=">"], [data-task="?"]) input[type="checkbox"].task-list-item-checkbox::after {
+  display: none;
+}
+
+:is(.markdown-rendered .task-list-item, .cm-s-obsidian .HyperMD-task-line)[data-task="/"] input[type="checkbox"].task-list-item-checkbox {
+  background: linear-gradient(90deg, var(--doom-task-mark) 50%, var(--doom-base0) 50%);
+}
+
+:is(.markdown-rendered .task-list-item, .cm-s-obsidian .HyperMD-task-line)[data-task="-"] input[type="checkbox"].task-list-item-checkbox {
+  background: linear-gradient(var(--doom-task-mark), var(--doom-task-mark)) center / 56% 2px no-repeat, var(--doom-base0);
+}
+
+.markdown-rendered .task-list-item[data-task="-"],
+.cm-s-obsidian .HyperMD-task-line[data-task="-"] {
+  color: var(--doom-text-faint);
+  text-decoration: line-through;
 }
 
 /* --------------------------------------------------------------------------
@@ -5552,6 +5663,10 @@ body.theme-light .menu {
   border-left-color: var(--doom-blue);
 }
 
+.menu-item:where(:hover, .selected):not(.is-disabled, .is-warning) .menu-item-icon {
+  color: var(--doom-blue-text);
+}
+
 .menu-separator {
   border-bottom: 1px solid var(--doom-border-subtle);
   margin: 4px 0;
@@ -5620,6 +5735,12 @@ body.theme-light .menu {
   font-size: var(--doom-font-ui-xs);
 }
 
+/* Hotkey pills sit inside the row's own height, so rows with and without a hotkey line up. */
+.suggestion-item .suggestion-aux {
+  align-self: center;
+  margin-block: -3px;
+}
+
 /* Key pills: kbd in notes, command palette hotkeys and setting hotkeys share one style. */
 .suggestion-hotkey,
 kbd,
@@ -5634,6 +5755,14 @@ kbd,
   line-height: 1.3;
   padding: 1px 6px;
   box-shadow: none;
+}
+
+/* "Blank" marks a command with no hotkey: plain faint text, not a key pill. */
+.setting-hotkey.mod-empty {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--text-faint);
+  font-style: italic;
 }
 
 /* Settings Modal & Form Controls (Consistent Doom Emacs UI) */
@@ -5933,6 +6062,10 @@ body.doom-settings-flat .setting-item:not(.setting-item-heading):hover {
 /* Form Inputs, Selects & Buttons */
 input[type="range"] {
   accent-color: var(--doom-blue);
+}
+
+body {
+  --slider-thumb-radius: var(--radius-s);
 }
 
 input[type="text"],
